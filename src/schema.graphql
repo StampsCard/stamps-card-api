@@ -1,3 +1,7 @@
+scalar DateTime
+scalar Date
+scalar Time
+
 # import Post from "./generated/prisma.graphql"
 
 type Query {

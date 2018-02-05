@@ -7,6 +7,7 @@
     "prisma": "prisma"
   },
   "dependencies": {
+    "graphql-iso-date": "^3.4.0",
     "graphql-yoga": "1.2.0",
     "prisma-binding": "1.4.0"
   },
