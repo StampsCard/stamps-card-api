@@ -1,11 +1,12 @@
+__global = __dirname + '/';
+
+require('dotenv').config();
+
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 
 const resolvers = require('./resolvers/index');
 const graphQLConfig = require('./config/graphql');
-
-
-
 
 const server = new GraphQLServer({
   typeDefs: graphQLConfig.graphSchemaPath,

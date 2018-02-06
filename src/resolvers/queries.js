@@ -1,7 +1,5 @@
-const findAllUsers = require('../queries/users/find_all');
-
-module.exports = function() {
-    return {
-        users: findAllUsers
-    };
+module.exports = {
+        //Users
+        users: require('../queries/users/find_all')(),
+        user: require('../queries/users/find_one')()
 };

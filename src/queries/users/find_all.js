@@ -1,3 +1,5 @@
-module.exports = function(parent, args, ctx) {
-    return ctx.db.query.users()
+module.exports = function() {
+    return function(parent, args, ctx) {
+        return ctx.db.query.users()
+    }
 };

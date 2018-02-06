@@ -6,8 +6,11 @@ scalar Time
 
 type Query {
   users: [User]!
+  user(id: ID!): User!
 }
 
 type Mutation {
   createUser(username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
+  updateUser(id: ID!, username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
+  deleteUser(id: ID!): User!
 }
