@@ -2,16 +2,12 @@ scalar DateTime
 scalar Date
 scalar Time
 
-# import Post from "./generated/prisma.graphql"
+# import User from "./generated/prisma.graphql"
 
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
+  users: [User]!
 }
 
 type Mutation {
-  createDraft(title: String!, text: String): Post
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
+  createUser(username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
 }

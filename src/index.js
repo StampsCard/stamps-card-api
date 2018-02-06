@@ -3,6 +3,14 @@ const { Prisma } = require('prisma-binding');
 
 const resolvers = require('./resolvers/index');
 
+global.__pwd = __dirname + '/';
+console.log("Global directory " + global.__pwd);
+
+global.rootRequire = function(name) {
+    return require(__dirname + '/' + name);
+};
+
+
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers: resolvers.data,

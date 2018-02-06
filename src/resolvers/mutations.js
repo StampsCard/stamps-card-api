@@ -1,3 +1,5 @@
+const createUser = require('../mutations/users/create');
+
 exports.data = {
     // createDraft(parent, {title, text}, ctx, info) {
     //     return ctx.db.mutation.createPost(
@@ -23,4 +25,5 @@ exports.data = {
     //         info,
     //     )
     // }
+    createUser: createUser
 };

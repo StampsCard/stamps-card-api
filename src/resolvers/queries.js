@@ -1,3 +1,5 @@
+const findAllUsers = require('../queries/users/find_all');
+
 exports.data = {
     // feed(parent, args, ctx, info) {
     //     return ctx.db.query.posts({ where: { isPublished: true } }, info)
@@ -8,4 +10,5 @@ exports.data = {
     // post(parent, { id }, ctx, info) {
     //     return ctx.db.query.post({ where: { id } }, info)
     // },
+    users: findAllUsers
 };
