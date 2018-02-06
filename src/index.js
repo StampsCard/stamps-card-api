@@ -2,24 +2,21 @@ const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 
 const resolvers = require('./resolvers/index');
+const graphQLConfig = require('./config/graphql');
 
-global.__pwd = __dirname + '/';
 
-global.rootRequire = function(name) {
-    return require(__dirname + '/' + name);
-};
 
 
 const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
+  typeDefs: graphQLConfig.graphSchemaPath,
   resolvers: resolvers,
   context: req => ({
     ...req,
     db: new Prisma({
-      typeDefs: 'src/generated/prisma.graphql',
-      endpoint: 'http://localhost:4466/stamps-card-api/dev', // the endpoint of the Prisma DB service
-      secret: 'mysecret123', // specified in database/prisma.yml
-      debug: true, // log all GraphQL queryies & mutations
+      typeDefs: graphQLConfig.prismaSchemaPath,
+      endpoint: process.env.PRISMA_HOST, // the endpoint of the Prisma DB service
+      secret: process.env.PRISMA_SECRET, // specified in database/prisma.yml
+      debug: process.env.DEBUG, // log all GraphQL queryies & mutations
     }),
   }),
 });
