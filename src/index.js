@@ -4,7 +4,6 @@ const { Prisma } = require('prisma-binding');
 const resolvers = require('./resolvers/index');
 
 global.__pwd = __dirname + '/';
-console.log("Global directory " + global.__pwd);
 
 global.rootRequire = function(name) {
     return require(__dirname + '/' + name);
@@ -13,7 +12,7 @@ global.rootRequire = function(name) {
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
-  resolvers: resolvers.data,
+  resolvers: resolvers,
   context: req => ({
     ...req,
     db: new Prisma({
@@ -25,4 +24,4 @@ const server = new GraphQLServer({
   }),
 });
 
-server.start(() => console.log('Server is running on http://localhost:4000'))
+server.start(() => console.log('Server is running on http://localhost:4000'));
