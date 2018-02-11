@@ -3,9 +3,12 @@ scalar Date
 scalar Time
 
 # import User from "./generated/prisma.graphql"
+# import Business from "./generated/prisma.graphql"
+# import BusinessType from "./generated/prisma.graphql"
 
 type Query {
   users: [User]!
+  businesses: [Business]!
   user(id: ID!): User!
 }
 

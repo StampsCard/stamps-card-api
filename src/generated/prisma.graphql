@@ -5,6 +5,17 @@
 # Model Types
 #
 
+type Business implements Node {
+  id: ID!
+  name: String!
+  category(where: BusinessTypeWhereInput): BusinessType!
+}
+
+type BusinessType implements Node {
+  id: ID!
+  name: String!
+}
+
 type User implements Node {
   id: ID!
   username: String!
@@ -19,6 +30,14 @@ type User implements Node {
 # Other Types
 #
 
+type AggregateBusiness {
+  count: Int!
+}
+
+type AggregateBusinessType {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -27,15 +46,221 @@ type BatchPayload {
   count: Long!
 }
 
+type BusinessConnection {
+  pageInfo: PageInfo!
+  edges: [BusinessEdge]!
+  aggregate: AggregateBusiness!
+}
+
+input BusinessCreateInput {
+  name: String!
+  category: BusinessTypeCreateOneInput!
+}
+
+type BusinessEdge {
+  node: Business!
+  cursor: String!
+}
+
+enum BusinessOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type BusinessPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type BusinessSubscriptionPayload {
+  mutation: MutationType!
+  node: Business
+  updatedFields: [String!]
+  previousValues: BusinessPreviousValues
+}
+
+input BusinessSubscriptionWhereInput {
+  AND: [BusinessSubscriptionWhereInput!]
+  OR: [BusinessSubscriptionWhereInput!]
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: BusinessWhereInput
+}
+
+type BusinessTypeConnection {
+  pageInfo: PageInfo!
+  edges: [BusinessTypeEdge]!
+  aggregate: AggregateBusinessType!
+}
+
+input BusinessTypeCreateInput {
+  name: String!
+}
+
+input BusinessTypeCreateOneInput {
+  create: BusinessTypeCreateInput
+  connect: BusinessTypeWhereUniqueInput
+}
+
+type BusinessTypeEdge {
+  node: BusinessType!
+  cursor: String!
+}
+
+enum BusinessTypeOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type BusinessTypePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type BusinessTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: BusinessType
+  updatedFields: [String!]
+  previousValues: BusinessTypePreviousValues
+}
+
+input BusinessTypeSubscriptionWhereInput {
+  AND: [BusinessTypeSubscriptionWhereInput!]
+  OR: [BusinessTypeSubscriptionWhereInput!]
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: BusinessTypeWhereInput
+}
+
+input BusinessTypeUpdateInput {
+  name: String
+}
+
+input BusinessTypeUpdateOneInput {
+  create: BusinessTypeCreateInput
+  connect: BusinessTypeWhereUniqueInput
+  disconnect: BusinessTypeWhereUniqueInput
+  delete: BusinessTypeWhereUniqueInput
+}
+
+input BusinessTypeWhereInput {
+  AND: [BusinessTypeWhereInput!]
+  OR: [BusinessTypeWhereInput!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+}
+
+input BusinessTypeWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+input BusinessUpdateInput {
+  name: String
+  category: BusinessTypeUpdateOneInput
+}
+
+input BusinessWhereInput {
+  AND: [BusinessWhereInput!]
+  OR: [BusinessWhereInput!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  category: BusinessTypeWhereInput
+}
+
+input BusinessWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  createBusinessType(data: BusinessTypeCreateInput!): BusinessType!
+  createBusiness(data: BusinessCreateInput!): Business!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateBusinessType(data: BusinessTypeUpdateInput!, where: BusinessTypeWhereUniqueInput!): BusinessType
+  updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteBusinessType(where: BusinessTypeWhereUniqueInput!): BusinessType
+  deleteBusiness(where: BusinessWhereUniqueInput!): Business
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertBusinessType(where: BusinessTypeWhereUniqueInput!, create: BusinessTypeCreateInput!, update: BusinessTypeUpdateInput!): BusinessType!
+  upsertBusiness(where: BusinessWhereUniqueInput!, create: BusinessCreateInput!, update: BusinessUpdateInput!): Business!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  updateManyBusinessTypes(data: BusinessTypeUpdateInput!, where: BusinessTypeWhereInput!): BatchPayload!
+  updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput!): BatchPayload!
   deleteManyUsers(where: UserWhereInput!): BatchPayload!
+  deleteManyBusinessTypes(where: BusinessTypeWhereInput!): BatchPayload!
+  deleteManyBusinesses(where: BusinessWhereInput!): BatchPayload!
 }
 
 enum MutationType {
@@ -57,13 +282,21 @@ type PageInfo {
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  businessTypes(where: BusinessTypeWhereInput, orderBy: BusinessTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BusinessType]!
+  businesses(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Business]!
   user(where: UserWhereUniqueInput!): User
+  businessType(where: BusinessTypeWhereUniqueInput!): BusinessType
+  business(where: BusinessWhereUniqueInput!): Business
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  businessTypesConnection(where: BusinessTypeWhereInput, orderBy: BusinessTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessTypeConnection!
+  businessesConnection(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  businessType(where: BusinessTypeSubscriptionWhereInput): BusinessTypeSubscriptionPayload
+  business(where: BusinessSubscriptionWhereInput): BusinessSubscriptionPayload
 }
 
 type UserConnection {
