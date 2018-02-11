@@ -1,0 +1,31 @@
+mutation {
+  first: createUser(data: {
+    username: "david.sola"
+    email: "d.sola.03@gmail.com"
+    password: "12345",
+    firstName: "David",
+    lastName: "Sola"
+  }) {
+    id
+  }
+
+  second: createUser(data: {
+    username: "ricard.bague"
+    email: "ricard.bague@planifan.com"
+    password: "12345",
+    firstName: "Ricard",
+    lastName: "Bague"
+  }) {
+    id
+  }
+
+  third: createUser(data: {
+    username: "peter.joustra"
+    email: "peter.joustra@planifan.com"
+    password: "12345",
+    firstName: "Peter",
+    lastName: "Joustra"
+  }) {
+    id
+  }
+}
