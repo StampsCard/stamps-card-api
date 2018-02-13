@@ -7,13 +7,19 @@ scalar Time
 # import BusinessType from "./generated/prisma.graphql"
 
 type Query {
-  users: [User]!
-  businesses: [Business]!
+  users: [User!]!
   user(id: ID!): User!
+
+  businesses: [Business!]!
+  business(id: ID!): Business!
 }
 
 type Mutation {
   createUser(username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
   updateUser(id: ID!, username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
   deleteUser(id: ID!): User!
+
+  createBusiness(name: String!, categoryName: String!, categoryDescription: String): Business!
+  updateBusiness(id: ID!, name: String!, categoryName: String!, categoryDescription: String): Business!
+  deleteBusiness(id: ID!): Business!
 }

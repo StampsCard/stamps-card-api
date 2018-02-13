@@ -10,6 +10,7 @@ type User {
 type BusinessType {
   id: ID! @unique
   name: String! @unique
+  description: String
 }
 
 type Business {
