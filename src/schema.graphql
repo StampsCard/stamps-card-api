@@ -12,6 +12,9 @@ type Query {
 
   businesses: [Business!]!
   business(id: ID!): Business!
+
+  businessType(id: ID!): BusinessType!
+  businessTypeByName(name: String!): BusinessType
 }
 
 type Mutation {

@@ -1,18 +1,18 @@
-exports = module.exports = () => {
-    return new Mutations();
+exports = module.exports = (userMutations, businessMutations, businessTypeMutations) => {
+    return new Mutations(userMutations, businessMutations, businessTypeMutations);
 };
 
 
-function Mutations() {
+function Mutations(userMutations, businessMutations, businessTypeMutations) {
     this._map = {
         //User
-        createUser: require('../mutations/users/create')(),
-        updateUser: require('../mutations/users/update')(),
-        deleteUser: require('../mutations/users/delete')(),
+        createUser: userMutations.create,
+        updateUser: userMutations.update,
+        deleteUser: userMutations.delete,
         //Business
-        createBusiness: require('../mutations/businesses/create')(),
-        updateBusiness: require('../mutations/businesses/update')(),
-        deleteBusiness: require('../mutations/businesses/delete')()
+        createBusiness: businessMutations.create,
+        updateBusiness: businessMutations.update,
+        deleteBusiness: businessMutations.delete
     };
 }
 
@@ -21,3 +21,4 @@ Mutations.prototype.get = function() {
 };
 
 exports['@singleton'] = true;
+exports['@require'] = ['mutations/users', 'mutations/businesses', 'mutations/business_types'];

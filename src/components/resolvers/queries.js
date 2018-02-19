@@ -10,9 +10,9 @@ function Queries(userQueries, businessQueries, businessTypeQueries) {
         //Business
         businesses: businessQueries.findAll,
         business: businessQueries.findOne,
-        // //Business Types
-        // businessTypeByName: businessTypeQueries.findByName,
-        // businessType: businessTypeQueries.findOne,
+        //Business Types
+        businessType: businessTypeQueries.findOne,
+        businessTypeByName: businessTypeQueries.findByName,
     };
 }
 
