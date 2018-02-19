@@ -5,6 +5,9 @@ type User {
   password: String!
   firstName: String
   lastName: String
+  purchases: [Purchase!]!
+  businesses: [Business!]!
+  stampCards: [StampCard!]!
 }
 
 type BusinessType {
@@ -17,6 +20,7 @@ type Business {
   id: ID! @unique
   name: String!
   category: BusinessType!
+  owner: User!
 }
 
 type StampCard {
