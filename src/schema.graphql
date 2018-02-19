@@ -5,6 +5,7 @@ scalar Time
 # import User from "./generated/prisma.graphql"
 # import Business from "./generated/prisma.graphql"
 # import BusinessType from "./generated/prisma.graphql"
+# import StampCard from "./generated/prisma.graphql"
 
 type Query {
   users: [User!]!
@@ -15,6 +16,9 @@ type Query {
 
   businessType(id: ID!): BusinessType!
   businessTypeByName(name: String!): BusinessType
+
+  stampCards: [StampCard!]!
+  stampCard(id: ID!): StampCard!
 }
 
 type Mutation {

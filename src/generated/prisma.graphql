@@ -17,6 +17,12 @@ type BusinessType implements Node {
   description: String
 }
 
+type StampCard implements Node {
+  id: ID!
+  stamp_price: Float!
+  total: Int!
+}
+
 type User implements Node {
   id: ID!
   username: String!
@@ -36,6 +42,10 @@ type AggregateBusiness {
 }
 
 type AggregateBusinessType {
+  count: Int!
+}
+
+type AggregateStampCard {
   count: Int!
 }
 
@@ -266,21 +276,27 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createBusinessType(data: BusinessTypeCreateInput!): BusinessType!
   createBusiness(data: BusinessCreateInput!): Business!
+  createStampCard(data: StampCardCreateInput!): StampCard!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateBusinessType(data: BusinessTypeUpdateInput!, where: BusinessTypeWhereUniqueInput!): BusinessType
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
+  updateStampCard(data: StampCardUpdateInput!, where: StampCardWhereUniqueInput!): StampCard
   deleteUser(where: UserWhereUniqueInput!): User
   deleteBusinessType(where: BusinessTypeWhereUniqueInput!): BusinessType
   deleteBusiness(where: BusinessWhereUniqueInput!): Business
+  deleteStampCard(where: StampCardWhereUniqueInput!): StampCard
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertBusinessType(where: BusinessTypeWhereUniqueInput!, create: BusinessTypeCreateInput!, update: BusinessTypeUpdateInput!): BusinessType!
   upsertBusiness(where: BusinessWhereUniqueInput!, create: BusinessCreateInput!, update: BusinessUpdateInput!): Business!
+  upsertStampCard(where: StampCardWhereUniqueInput!, create: StampCardCreateInput!, update: StampCardUpdateInput!): StampCard!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
   updateManyBusinessTypes(data: BusinessTypeUpdateInput!, where: BusinessTypeWhereInput!): BatchPayload!
   updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput!): BatchPayload!
+  updateManyStampCards(data: StampCardUpdateInput!, where: StampCardWhereInput!): BatchPayload!
   deleteManyUsers(where: UserWhereInput!): BatchPayload!
   deleteManyBusinessTypes(where: BusinessTypeWhereInput!): BatchPayload!
   deleteManyBusinesses(where: BusinessWhereInput!): BatchPayload!
+  deleteManyStampCards(where: StampCardWhereInput!): BatchPayload!
 }
 
 enum MutationType {
@@ -304,19 +320,119 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   businessTypes(where: BusinessTypeWhereInput, orderBy: BusinessTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BusinessType]!
   businesses(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Business]!
+  stampCards(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StampCard]!
   user(where: UserWhereUniqueInput!): User
   businessType(where: BusinessTypeWhereUniqueInput!): BusinessType
   business(where: BusinessWhereUniqueInput!): Business
+  stampCard(where: StampCardWhereUniqueInput!): StampCard
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   businessTypesConnection(where: BusinessTypeWhereInput, orderBy: BusinessTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessTypeConnection!
   businessesConnection(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessConnection!
+  stampCardsConnection(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StampCardConnection!
   node(id: ID!): Node
+}
+
+type StampCardConnection {
+  pageInfo: PageInfo!
+  edges: [StampCardEdge]!
+  aggregate: AggregateStampCard!
+}
+
+input StampCardCreateInput {
+  stamp_price: Float!
+  total: Int
+}
+
+type StampCardEdge {
+  node: StampCard!
+  cursor: String!
+}
+
+enum StampCardOrderByInput {
+  id_ASC
+  id_DESC
+  stamp_price_ASC
+  stamp_price_DESC
+  total_ASC
+  total_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type StampCardPreviousValues {
+  id: ID!
+  stamp_price: Float!
+  total: Int!
+}
+
+type StampCardSubscriptionPayload {
+  mutation: MutationType!
+  node: StampCard
+  updatedFields: [String!]
+  previousValues: StampCardPreviousValues
+}
+
+input StampCardSubscriptionWhereInput {
+  AND: [StampCardSubscriptionWhereInput!]
+  OR: [StampCardSubscriptionWhereInput!]
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: StampCardWhereInput
+}
+
+input StampCardUpdateInput {
+  stamp_price: Float
+  total: Int
+}
+
+input StampCardWhereInput {
+  AND: [StampCardWhereInput!]
+  OR: [StampCardWhereInput!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  stamp_price: Float
+  stamp_price_not: Float
+  stamp_price_in: [Float!]
+  stamp_price_not_in: [Float!]
+  stamp_price_lt: Float
+  stamp_price_lte: Float
+  stamp_price_gt: Float
+  stamp_price_gte: Float
+  total: Int
+  total_not: Int
+  total_in: [Int!]
+  total_not_in: [Int!]
+  total_lt: Int
+  total_lte: Int
+  total_gt: Int
+  total_gte: Int
+}
+
+input StampCardWhereUniqueInput {
+  id: ID
 }
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   businessType(where: BusinessTypeSubscriptionWhereInput): BusinessTypeSubscriptionPayload
   business(where: BusinessSubscriptionWhereInput): BusinessSubscriptionPayload
+  stampCard(where: StampCardSubscriptionWhereInput): StampCardSubscriptionPayload
 }
 
 type UserConnection {

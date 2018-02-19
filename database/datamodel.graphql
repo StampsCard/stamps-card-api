@@ -18,3 +18,9 @@ type Business {
   name: String!
   category: BusinessType!
 }
+
+type StampCard {
+  id: ID! @unique
+  stamp_price: Float!
+  total: Int! @default(value: 0)
+}

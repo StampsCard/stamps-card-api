@@ -1,8 +1,8 @@
-exports = module.exports = (userQueries, businessQueries, businessTypeQueries) => {
-    return new Queries(userQueries, businessQueries, businessTypeQueries);
+exports = module.exports = (userQueries, businessQueries, businessTypeQueries, stampCardQueries) => {
+    return new Queries(userQueries, businessQueries, businessTypeQueries, stampCardQueries);
 };
 
-function Queries(userQueries, businessQueries, businessTypeQueries) {
+function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQueries) {
     this._map = {
         //Users
         users: userQueries.findAll,
@@ -13,6 +13,9 @@ function Queries(userQueries, businessQueries, businessTypeQueries) {
         //Business Types
         businessType: businessTypeQueries.findOne,
         businessTypeByName: businessTypeQueries.findByName,
+        //Stamp Cards
+        stampCards: stampCardQueries.findAll,
+        stampCard: stampCardQueries.findOne
     };
 }
 
@@ -21,4 +24,4 @@ Queries.prototype.get = function() {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/users', 'queries/businesses', 'queries/business_types'];
+exports['@require'] = ['queries/users', 'queries/businesses', 'queries/business_types', 'queries/stamp_cards'];
