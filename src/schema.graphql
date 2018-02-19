@@ -31,4 +31,8 @@ type Mutation {
   deleteBusiness(id: ID!): Business!
 
   createBusinessType(name: String!, description: String): BusinessType!
+
+  createStampCard(stamp_price: Float!, user_id: String!, business_id: String!, total: Int!): StampCard!
+  updateStampCard(id: ID!, stamp_price: Float!, user_id: String!, business_id: String!, total: Int!): StampCard!
+  deleteStampCard(id: ID!): StampCard!
 }
