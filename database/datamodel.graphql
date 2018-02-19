@@ -26,3 +26,12 @@ type StampCard {
   user: User!
   business: Business!
 }
+
+type Purchase {
+  id: ID! @unique
+  amount: Float!
+  stamps: Int!
+  user: User!
+  stampCard: StampCard!
+  concept: String
+}

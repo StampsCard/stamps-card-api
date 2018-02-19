@@ -17,6 +17,15 @@ type BusinessType implements Node {
   description: String
 }
 
+type Purchase implements Node {
+  id: ID!
+  amount: Float!
+  stamps: Int!
+  user(where: UserWhereInput): User!
+  stampCard(where: StampCardWhereInput): StampCard!
+  concept: String
+}
+
 type StampCard implements Node {
   id: ID!
   stamp_price: Float!
@@ -44,6 +53,10 @@ type AggregateBusiness {
 }
 
 type AggregateBusinessType {
+  count: Int!
+}
+
+type AggregatePurchase {
   count: Int!
 }
 
@@ -291,26 +304,32 @@ type Mutation {
   createBusinessType(data: BusinessTypeCreateInput!): BusinessType!
   createBusiness(data: BusinessCreateInput!): Business!
   createStampCard(data: StampCardCreateInput!): StampCard!
+  createPurchase(data: PurchaseCreateInput!): Purchase!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateBusinessType(data: BusinessTypeUpdateInput!, where: BusinessTypeWhereUniqueInput!): BusinessType
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business
   updateStampCard(data: StampCardUpdateInput!, where: StampCardWhereUniqueInput!): StampCard
+  updatePurchase(data: PurchaseUpdateInput!, where: PurchaseWhereUniqueInput!): Purchase
   deleteUser(where: UserWhereUniqueInput!): User
   deleteBusinessType(where: BusinessTypeWhereUniqueInput!): BusinessType
   deleteBusiness(where: BusinessWhereUniqueInput!): Business
   deleteStampCard(where: StampCardWhereUniqueInput!): StampCard
+  deletePurchase(where: PurchaseWhereUniqueInput!): Purchase
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertBusinessType(where: BusinessTypeWhereUniqueInput!, create: BusinessTypeCreateInput!, update: BusinessTypeUpdateInput!): BusinessType!
   upsertBusiness(where: BusinessWhereUniqueInput!, create: BusinessCreateInput!, update: BusinessUpdateInput!): Business!
   upsertStampCard(where: StampCardWhereUniqueInput!, create: StampCardCreateInput!, update: StampCardUpdateInput!): StampCard!
+  upsertPurchase(where: PurchaseWhereUniqueInput!, create: PurchaseCreateInput!, update: PurchaseUpdateInput!): Purchase!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
   updateManyBusinessTypes(data: BusinessTypeUpdateInput!, where: BusinessTypeWhereInput!): BatchPayload!
   updateManyBusinesses(data: BusinessUpdateInput!, where: BusinessWhereInput!): BatchPayload!
   updateManyStampCards(data: StampCardUpdateInput!, where: StampCardWhereInput!): BatchPayload!
+  updateManyPurchases(data: PurchaseUpdateInput!, where: PurchaseWhereInput!): BatchPayload!
   deleteManyUsers(where: UserWhereInput!): BatchPayload!
   deleteManyBusinessTypes(where: BusinessTypeWhereInput!): BatchPayload!
   deleteManyBusinesses(where: BusinessWhereInput!): BatchPayload!
   deleteManyStampCards(where: StampCardWhereInput!): BatchPayload!
+  deleteManyPurchases(where: PurchaseWhereInput!): BatchPayload!
 }
 
 enum MutationType {
@@ -330,19 +349,143 @@ type PageInfo {
   endCursor: String
 }
 
+type PurchaseConnection {
+  pageInfo: PageInfo!
+  edges: [PurchaseEdge]!
+  aggregate: AggregatePurchase!
+}
+
+input PurchaseCreateInput {
+  amount: Float!
+  stamps: Int!
+  concept: String
+  user: UserCreateOneInput!
+  stampCard: StampCardCreateOneInput!
+}
+
+type PurchaseEdge {
+  node: Purchase!
+  cursor: String!
+}
+
+enum PurchaseOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+  stamps_ASC
+  stamps_DESC
+  concept_ASC
+  concept_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PurchasePreviousValues {
+  id: ID!
+  amount: Float!
+  stamps: Int!
+  concept: String
+}
+
+type PurchaseSubscriptionPayload {
+  mutation: MutationType!
+  node: Purchase
+  updatedFields: [String!]
+  previousValues: PurchasePreviousValues
+}
+
+input PurchaseSubscriptionWhereInput {
+  AND: [PurchaseSubscriptionWhereInput!]
+  OR: [PurchaseSubscriptionWhereInput!]
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PurchaseWhereInput
+}
+
+input PurchaseUpdateInput {
+  amount: Float
+  stamps: Int
+  concept: String
+  user: UserUpdateOneInput
+  stampCard: StampCardUpdateOneInput
+}
+
+input PurchaseWhereInput {
+  AND: [PurchaseWhereInput!]
+  OR: [PurchaseWhereInput!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  amount: Float
+  amount_not: Float
+  amount_in: [Float!]
+  amount_not_in: [Float!]
+  amount_lt: Float
+  amount_lte: Float
+  amount_gt: Float
+  amount_gte: Float
+  stamps: Int
+  stamps_not: Int
+  stamps_in: [Int!]
+  stamps_not_in: [Int!]
+  stamps_lt: Int
+  stamps_lte: Int
+  stamps_gt: Int
+  stamps_gte: Int
+  concept: String
+  concept_not: String
+  concept_in: [String!]
+  concept_not_in: [String!]
+  concept_lt: String
+  concept_lte: String
+  concept_gt: String
+  concept_gte: String
+  concept_contains: String
+  concept_not_contains: String
+  concept_starts_with: String
+  concept_not_starts_with: String
+  concept_ends_with: String
+  concept_not_ends_with: String
+  user: UserWhereInput
+  stampCard: StampCardWhereInput
+}
+
+input PurchaseWhereUniqueInput {
+  id: ID
+}
+
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   businessTypes(where: BusinessTypeWhereInput, orderBy: BusinessTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BusinessType]!
   businesses(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Business]!
   stampCards(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StampCard]!
+  purchases(where: PurchaseWhereInput, orderBy: PurchaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Purchase]!
   user(where: UserWhereUniqueInput!): User
   businessType(where: BusinessTypeWhereUniqueInput!): BusinessType
   business(where: BusinessWhereUniqueInput!): Business
   stampCard(where: StampCardWhereUniqueInput!): StampCard
+  purchase(where: PurchaseWhereUniqueInput!): Purchase
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   businessTypesConnection(where: BusinessTypeWhereInput, orderBy: BusinessTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessTypeConnection!
   businessesConnection(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BusinessConnection!
   stampCardsConnection(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StampCardConnection!
+  purchasesConnection(where: PurchaseWhereInput, orderBy: PurchaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PurchaseConnection!
   node(id: ID!): Node
 }
 
@@ -357,6 +500,11 @@ input StampCardCreateInput {
   total: Int
   user: UserCreateOneInput!
   business: BusinessCreateOneInput!
+}
+
+input StampCardCreateOneInput {
+  create: StampCardCreateInput
+  connect: StampCardWhereUniqueInput
 }
 
 type StampCardEdge {
@@ -407,6 +555,13 @@ input StampCardUpdateInput {
   business: BusinessUpdateOneInput
 }
 
+input StampCardUpdateOneInput {
+  create: StampCardCreateInput
+  connect: StampCardWhereUniqueInput
+  disconnect: StampCardWhereUniqueInput
+  delete: StampCardWhereUniqueInput
+}
+
 input StampCardWhereInput {
   AND: [StampCardWhereInput!]
   OR: [StampCardWhereInput!]
@@ -453,6 +608,7 @@ type Subscription {
   businessType(where: BusinessTypeSubscriptionWhereInput): BusinessTypeSubscriptionPayload
   business(where: BusinessSubscriptionWhereInput): BusinessSubscriptionPayload
   stampCard(where: StampCardSubscriptionWhereInput): StampCardSubscriptionPayload
+  purchase(where: PurchaseSubscriptionWhereInput): PurchaseSubscriptionPayload
 }
 
 type UserConnection {
