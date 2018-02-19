@@ -12,7 +12,9 @@ function Mutations(userMutations, businessMutations, businessTypeMutations) {
         //Business
         createBusiness: businessMutations.create,
         updateBusiness: businessMutations.update,
-        deleteBusiness: businessMutations.delete
+        deleteBusiness: businessMutations.delete,
+        //BusinessType
+        createBusinessType: businessTypeMutations.create
     };
 }
 

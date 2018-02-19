@@ -25,4 +25,6 @@ type Mutation {
   createBusiness(name: String!, categoryName: String!, categoryDescription: String): Business!
   updateBusiness(id: ID!, name: String!, categoryName: String!, categoryDescription: String): Business!
   deleteBusiness(id: ID!): Business!
+
+  createBusinessType(name: String!, description: String): BusinessType!
 }
