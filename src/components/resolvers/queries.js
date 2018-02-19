@@ -1,15 +1,18 @@
-exports = module.exports = (FindAllUsers) => {
-    return new Queries(FindAllUsers);
+exports = module.exports = (userQueries, businessQueries, businessTypeQueries) => {
+    return new Queries(userQueries, businessQueries, businessTypeQueries);
 };
 
-function Queries(userQueries) {
+function Queries(userQueries, businessQueries, businessTypeQueries) {
     this._map = {
         //Users
         users: userQueries.findAll,
         user: userQueries.findOne,
         //Business
-        businesses: require('../queries/businesses/FindAllBusinesses')(),
-        business: require('../queries/businesses/FindOneBusiness')()
+        businesses: businessQueries.findAll,
+        business: businessQueries.findOne,
+        // //Business Types
+        // businessTypeByName: businessTypeQueries.findByName,
+        // businessType: businessTypeQueries.findOne,
     };
 }
 
@@ -18,4 +21,4 @@ Queries.prototype.get = function() {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/users'];
+exports['@require'] = ['queries/users', 'queries/businesses', 'queries/business_types'];
