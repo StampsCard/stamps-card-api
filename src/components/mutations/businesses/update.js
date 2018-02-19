@@ -1,7 +1,7 @@
 module.exports = function() {
     return function(parent, {id, name, categoryName, categoryDescription}, ctx, info) {
         //define a dependency container!
-        let category = require('../../queries/business_types/find_by_name')(categoryName);
+        let category = require('../../queries/business_types/FindBusinessTypeByName')(categoryName);
         if (!Object.keys(category).length) {
             return ctx.db.mutation.updateBusiness(
                 {
