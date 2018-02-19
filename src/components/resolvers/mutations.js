@@ -1,9 +1,9 @@
-exports = module.exports = (userMutations, businessMutations, businessTypeMutations, stampCardMutations) => {
-    return new Mutations(userMutations, businessMutations, businessTypeMutations, stampCardMutations);
+exports = module.exports = (userMutations, businessMutations, businessTypeMutations, stampCardMutations, purchaseMutations) => {
+    return new Mutations(userMutations, businessMutations, businessTypeMutations, stampCardMutations, purchaseMutations);
 };
 
 
-function Mutations(userMutations, businessMutations, businessTypeMutations, stampCardMutations) {
+function Mutations(userMutations, businessMutations, businessTypeMutations, stampCardMutations, purchaseMutations) {
     this._map = {
         //User
         createUser: userMutations.create,
@@ -19,6 +19,8 @@ function Mutations(userMutations, businessMutations, businessTypeMutations, stam
         createStampCard: stampCardMutations.create,
         updateStampCard: stampCardMutations.update,
         deleteStampCard: stampCardMutations.delete,
+        //Purchase
+        createPurchase: purchaseMutations.create
     };
 }
 
@@ -27,4 +29,10 @@ Mutations.prototype.get = function() {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['mutations/users', 'mutations/businesses', 'mutations/business_types', 'mutations/stamp_cards'];
+exports['@require'] = [
+    'mutations/users',
+    'mutations/businesses',
+    'mutations/business_types',
+    'mutations/stamp_cards',
+    'mutations/purchases'
+];
