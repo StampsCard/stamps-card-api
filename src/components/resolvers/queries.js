@@ -1,14 +1,12 @@
-exports = module.exports = () => {
-    return new Queries();
+exports = module.exports = (FindAllUsers) => {
+    return new Queries(FindAllUsers);
 };
 
-
-function Queries() {
-    console.log(__dirname);
+function Queries(userQueries) {
     this._map = {
         //Users
-        users: require('../queries/users/FindAllUsers')(),
-        user: require('../queries/users/FindOneUser')(),
+        users: userQueries.findAll,
+        user: userQueries.findOne,
         //Business
         businesses: require('../queries/businesses/FindAllBusinesses')(),
         business: require('../queries/businesses/FindOneBusiness')()
@@ -20,3 +18,4 @@ Queries.prototype.get = function() {
 };
 
 exports['@singleton'] = true;
+exports['@require'] = ['queries/users'];
