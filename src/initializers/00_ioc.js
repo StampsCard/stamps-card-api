@@ -16,6 +16,6 @@ const ioc = require('electrolyte');
  */
 module.exports = () => {
     ioc.use(ioc.dir('src/components'));
-
+    ioc.use(ioc.node_modules());
     return ioc;
 };

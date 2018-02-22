@@ -2,7 +2,7 @@ mutation {
   first: createUser(data: {
     username: "david.sola"
     email: "d.sola.03@gmail.com"
-    password: "12345",
+    password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
     firstName: "David",
     lastName: "Sola"
   }) {
@@ -12,7 +12,7 @@ mutation {
   second: createUser(data: {
     username: "ricard.bague"
     email: "ricard.bague@planifan.com"
-    password: "12345",
+    password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
     firstName: "Ricard",
     lastName: "Bague"
   }) {
@@ -22,7 +22,7 @@ mutation {
   third: createUser(data: {
     username: "peter.joustra"
     email: "peter.joustra@planifan.com"
-    password: "12345",
+    password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
     firstName: "Peter",
     lastName: "Joustra"
   }) {
