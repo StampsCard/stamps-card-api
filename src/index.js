@@ -6,6 +6,7 @@ require('dotenv').config();
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 const graphQLConfig = require('./config/graphql');
+const { formatError } = require('apollo-errors');
 
 const ioc = require('./initializers/00_ioc')();
 
@@ -24,5 +25,10 @@ resolvers.then(function(resolvers){
         }),
       }),
     });
-    server.start(() => console.log('Server is running on http://localhost:4000'));
+
+    const serverOptions = {
+        formatError
+    };
+
+    server.start(serverOptions, () => console.log('Server is running on http://localhost:4000'));
 });

@@ -7,6 +7,7 @@ function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQue
         //Users
         users: userQueries.findAll,
         user: userQueries.findOne,
+        login: userQueries.login,
         //Business
         businesses: businessQueries.findAll,
         business: businessQueries.findOne,

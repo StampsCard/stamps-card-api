@@ -9,8 +9,7 @@ function UserMutations() {
 }
 
 UserMutations.prototype.create = (parent, {username, email, password, firstName, lastName}, ctx, info) => {
-    bcrypt.hash(password, UserMutations.prototype.saltRounds, function(err, hash) {
-        console.log(hash);
+    bcrypt.hash(password, UserMutations.prototype.saltRounds, (err, hash) => {
         return ctx.db.mutation.createUser(
             {
                 data: {
@@ -27,7 +26,7 @@ UserMutations.prototype.create = (parent, {username, email, password, firstName,
 };
 
 UserMutations.prototype.update = (parent, {id, username, email, password, firstName, lastName}, ctx, info) => {
-    bcrypt.hash(password, UserMutations.prototype.saltRounds, function(err, hash) {
+    bcrypt.hash(password, UserMutations.prototype.saltRounds, (err, hash) => {
         return ctx.db.mutation.updateUser(
             {
                 where: { id },
