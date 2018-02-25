@@ -28,7 +28,10 @@ UserQueries.prototype.login = async (parent, { email, password }, ctx, info) => 
 async function getUser(email, ctx, info) {
     const user = await ctx.db.query.user({where: { email: email }}, info);
     if (!Object.keys(user).length) {
-        throw new UserQueries.prototype.errors.EmailOrUsernameError();
+        const user = await ctx.db.query.user({where: { username: email }}, info);
+        if (!Object.keys(user).length) {
+            throw new UserQueries.prototype.errors.EmailOrUsernameError();
+        }
     }
     return user;
 }
