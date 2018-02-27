@@ -20,7 +20,9 @@ function Mutations(userMutations, businessMutations, businessTypeMutations, stam
         updateStampCard: stampCardMutations.update,
         deleteStampCard: stampCardMutations.delete,
         //Purchase
-        createPurchase: purchaseMutations.create
+        createPurchase: purchaseMutations.create,
+        confirmPurchase: purchaseMutations.confirm,
+        cancelPurchase: purchaseMutations.cancel
     };
 }
 

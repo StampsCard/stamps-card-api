@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 exports = module.exports = () => {
     return new PurchaseMutations();
 };
@@ -23,6 +25,30 @@ PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, user_id
                         id: stamp_id
                     }
                 }
+            },
+        },
+        info,
+    )
+};
+
+PurchaseMutations.prototype.confirm = (parent, { id }, ctx, info) => {
+    return ctx.db.mutation.updatePurchase(
+        {
+            where: { id },
+            data: {
+                confirmedAt: moment().format(),
+            },
+        },
+        info,
+    )
+};
+
+PurchaseMutations.prototype.cancel = (parent, { id }, ctx, info) => {
+    return ctx.db.mutation.updatePurchase(
+        {
+            where: { id },
+            data: {
+                cancelledAt: moment().format(),
             },
         },
         info,

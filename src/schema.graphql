@@ -42,5 +42,6 @@ type Mutation {
   deleteStampCard(id: ID!): StampCard!
 
   createPurchase(amount: Float!, stamps: Int!, concept: String!, user_id: ID!, stamp_id: ID!): Purchase!
-
+  confirmPurchase(id: ID!): Purchase!
+  cancelPurchase(id: ID!): Purchase!
 }

@@ -38,4 +38,6 @@ type Purchase {
   user: User!
   stampCard: StampCard!
   concept: String
+  confirmedAt: DateTime
+  cancelledAt: DateTime
 }
