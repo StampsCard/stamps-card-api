@@ -7,7 +7,39 @@ function PurchaseQueries() {
 }
 
 PurchaseQueries.prototype.findAll = (parent, args, ctx, info) => {
-    return ctx.db.query.purchases({}, info)
+    return ctx.db.query.purchases({ orderBy: "confirmedAt_DESC"}, info)
+};
+
+PurchaseQueries.prototype.findByUser = (parent, { userId }, ctx, info) => {
+    return ctx.db.query.purchases(
+        {
+            where: {
+                user: {
+                    id: userId
+                },
+                cancelledAt: null
+            },
+            orderBy: "confirmedAt_DESC"
+        },
+        info
+    )
+};
+
+PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx, info) => {
+    return ctx.db.query.purchases(
+        {
+            where: {
+                stampCard: {
+                    business: {
+                        id: businessId
+                    }
+                },
+                cancelledAt: null
+            },
+            orderBy: "confirmedAt_DESC"
+        },
+        info
+    )
 };
 
 PurchaseQueries.prototype.findOne = (parent, { id }, ctx, info) => {

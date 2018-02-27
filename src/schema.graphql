@@ -25,6 +25,8 @@ type Query {
 
   purchases: [Purchase!]!
   purchase(id: ID!): Purchase!
+  purchasesByUser(userId: ID!): [Purchase!]!
+  purchasesByBusiness(businessId: ID!): [Purchase!]!
 }
 
 type Mutation {

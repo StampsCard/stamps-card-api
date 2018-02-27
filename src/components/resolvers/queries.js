@@ -20,7 +20,9 @@ function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQue
         stampCardsByUser: stampCardQueries.findByUser,
         //Purchases
         purchases: purchaseQueries.findAll,
-        purchase: purchaseQueries.findOne
+        purchase: purchaseQueries.findOne,
+        purchasesByUser: purchaseQueries.findByUser,
+        purchasesByBusiness: purchaseQueries.findByBusiness
     };
 }
 
