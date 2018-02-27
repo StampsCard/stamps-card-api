@@ -1,11 +1,12 @@
 const moment = require('moment');
 
-exports = module.exports = () => {
-    return new PurchaseMutations();
+exports = module.exports = (queries, errors) => {
+    return new PurchaseMutations(queries, errors);
 };
 
-function PurchaseMutations() {
-
+function PurchaseMutations(queries, errors) {
+    PurchaseMutations.prototype.query = queries;
+    PurchaseMutations.prototype.errors = errors;
 }
 
 PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, user_id, stamp_id }, ctx, info) => {
@@ -31,7 +32,11 @@ PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, user_id
     )
 };
 
-PurchaseMutations.prototype.confirm = (parent, { id }, ctx, info) => {
+PurchaseMutations.prototype.confirm = async (parent, { id }, ctx, info) => {
+    const purchase = await PurchaseMutations.prototype.query.findOne(parent, { id }, ctx, info);
+    if ('cancelledAt' in purchase) {
+        throw new PurchaseMutations.prototype.errors.purchaseCancelledError();
+    }
     return ctx.db.mutation.updatePurchase(
         {
             where: { id },
@@ -43,7 +48,11 @@ PurchaseMutations.prototype.confirm = (parent, { id }, ctx, info) => {
     )
 };
 
-PurchaseMutations.prototype.cancel = (parent, { id }, ctx, info) => {
+PurchaseMutations.prototype.cancel = async (parent, { id }, ctx, info) => {
+    const purchase = await PurchaseMutations.prototype.query.findOne(parent, { id }, ctx, info);
+    if ('confirmedAt' in purchase) {
+        throw new PurchaseMutations.prototype.errors.purchaseConfirmedError();
+    }
     return ctx.db.mutation.updatePurchase(
         {
             where: { id },
@@ -56,3 +65,4 @@ PurchaseMutations.prototype.cancel = (parent, { id }, ctx, info) => {
 };
 
 exports['@singleton'] = true;
+exports['@require'] = ['queries/purchases', 'errors/purchase_errors'];
