@@ -21,6 +21,7 @@ type Query {
 
   stampCards: [StampCard!]!
   stampCard(id: ID!): StampCard!
+  stampCardsByUser(userId: ID!): [StampCard!]!
 
   purchases: [Purchase!]!
   purchase(id: ID!): Purchase!

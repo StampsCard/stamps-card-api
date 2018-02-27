@@ -14,4 +14,18 @@ StampCardQueries.prototype.findOne = (parent, { id }, ctx, info) => {
     return ctx.db.query.stampCard({ where: { id } }, info)
 };
 
+StampCardQueries.prototype.findByUser = (parent, { userId }, ctx, info) => {
+    return ctx.db.query.stampCards(
+        {
+            where: {
+                user: {
+                    id: userId
+                }
+            },
+            orderBy: "createdAt_DESC"
+        },
+        info
+    )
+};
+
 exports['@singleton'] = true;
