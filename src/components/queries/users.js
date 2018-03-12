@@ -12,8 +12,8 @@ UserQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.users({}, info)
 };
 
-UserQueries.prototype.findOne = (parent, { id }, ctx, info) => {
-    return ctx.db.query.user({ where: { id } }, info)
+UserQueries.prototype.findOne = (parent, { id }, ctx) => {
+    return ctx.db.query.user({ where: { id } })
 };
 
 UserQueries.prototype.login = async (parent, { email, password }, ctx, info) => {
@@ -26,9 +26,9 @@ UserQueries.prototype.login = async (parent, { email, password }, ctx, info) => 
 };
 
 async function getUser(email, ctx, info) {
-    const user = await ctx.db.query.user({where: { email: email }}, info);
+    const user = await ctx.db.query.user({where: { email: email }});
     if (!Object.keys(user).length) {
-        const user = await ctx.db.query.user({where: { username: email }}, info);
+        const user = await ctx.db.query.user({where: { username: email }});
         if (!Object.keys(user).length) {
             throw new UserQueries.prototype.errors.EmailOrUsernameError();
         }
