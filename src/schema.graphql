@@ -2,16 +2,26 @@ scalar DateTime
 scalar Date
 scalar Time
 
+enum UserRole {
+  CUSTOMER,
+  BUSINESS_OWNER
+}
+
 # import User from "./generated/prisma.graphql"
 # import Business from "./generated/prisma.graphql"
 # import BusinessType from "./generated/prisma.graphql"
 # import StampCard from "./generated/prisma.graphql"
 # import Purchase from "./generated/prisma.graphql"
 
+type AuthUser {
+  user: User!
+  userRole: UserRole
+}
+
 type Query {
   users: [User!]!
   user(id: ID!): User!
-  login(email: String!, password: String!): User!
+  login(email: String!, password: String!): AuthUser!
 
   businesses: [Business!]!
   business(id: ID!): Business!

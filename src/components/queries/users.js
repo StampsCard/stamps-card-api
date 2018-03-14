@@ -19,11 +19,22 @@ UserQueries.prototype.findOne = (parent, { id }, ctx, info) => {
 UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
     const user = await getUser(email, ctx);
     if (await isAValidPassword(password, user.password) === true) {
-        return user;
+        return {
+            user: user,
+            userRole: await getUserRole(ctx, user.id)
+        };
     } else {
         throw new UserQueries.prototype.errors.InvalidPasswordError();
     }
 };
+
+async function getUserRole(ctx, userId) {
+    const userHasBusiness = await ctx.db.exists.Business({ owner: { id: userId }});
+    if (!userHasBusiness) {
+        return "CUSTOMER";
+    }
+    return "BUSINESS_OWNER";
+}
 
 async function getUser(email, ctx) {
     const user = await ctx.db.query.user({where: { email: email }});
