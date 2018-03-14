@@ -27,8 +27,7 @@ PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, user_id
                     }
                 }
             },
-        },
-        info,
+        }
     )
 };
 

@@ -22,8 +22,7 @@ StampCardMutations.prototype.create = (parent, {stamp_price, user_id, business_i
                         id: business_id
                     },
                 },
-            },
-            info
+            }
         }
     )
 };
@@ -45,8 +44,7 @@ StampCardMutations.prototype.update = (parent, {id, stamp_price, user_id, busine
                     },
                 },
             },
-        },
-        info,
+        }
     )
 };
 

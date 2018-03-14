@@ -20,8 +20,7 @@ BusinessesMutations.prototype.create = (parent, {name, categoryName, categoryDes
                         }
                     }
                 },
-            },
-            info,
+            }
         )
     }
     return ctx.db.mutation.createBusiness(
@@ -34,8 +33,7 @@ BusinessesMutations.prototype.create = (parent, {name, categoryName, categoryDes
                     }
                 }
             },
-        },
-        info,
+        }
     )
 };
 
@@ -54,8 +52,7 @@ BusinessesMutations.prototype.update = (parent, {id, name, categoryName, categor
                         }
                     }
                 },
-            },
-            info,
+            }
         )
     }
     return ctx.db.mutation.updateBusiness(
@@ -69,8 +66,7 @@ BusinessesMutations.prototype.update = (parent, {id, name, categoryName, categor
                     }
                 }
             },
-        },
-        info,
+        }
     )
 };
 

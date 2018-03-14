@@ -33,8 +33,8 @@ type StampCard implements Node {
   id: ID!
   stamp_price: Float!
   total: Int!
-  user(where: UserWhereInput): User!
   business(where: BusinessWhereInput): Business!
+  purchases(where: PurchaseWhereInput, orderBy: PurchaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Purchase!]
 }
 
 type User implements Node {
@@ -408,12 +408,26 @@ input PurchaseCreateInput {
   confirmedAt: DateTime
   cancelledAt: DateTime
   user: UserCreateOneWithoutPurchasesInput!
-  stampCard: StampCardCreateOneInput!
+  stampCard: StampCardCreateOneWithoutPurchasesInput!
+}
+
+input PurchaseCreateManyWithoutStampCardInput {
+  create: [PurchaseCreateWithoutStampCardInput!]
+  connect: [PurchaseWhereUniqueInput!]
 }
 
 input PurchaseCreateManyWithoutUserInput {
   create: [PurchaseCreateWithoutUserInput!]
   connect: [PurchaseWhereUniqueInput!]
+}
+
+input PurchaseCreateWithoutStampCardInput {
+  amount: Float!
+  stamps: Int!
+  concept: String
+  confirmedAt: DateTime
+  cancelledAt: DateTime
+  user: UserCreateOneWithoutPurchasesInput!
 }
 
 input PurchaseCreateWithoutUserInput {
@@ -422,7 +436,7 @@ input PurchaseCreateWithoutUserInput {
   concept: String
   confirmedAt: DateTime
   cancelledAt: DateTime
-  stampCard: StampCardCreateOneInput!
+  stampCard: StampCardCreateOneWithoutPurchasesInput!
 }
 
 type PurchaseEdge {
@@ -482,7 +496,16 @@ input PurchaseUpdateInput {
   confirmedAt: DateTime
   cancelledAt: DateTime
   user: UserUpdateOneWithoutPurchasesInput
-  stampCard: StampCardUpdateOneInput
+  stampCard: StampCardUpdateOneWithoutPurchasesInput
+}
+
+input PurchaseUpdateManyWithoutStampCardInput {
+  create: [PurchaseCreateWithoutStampCardInput!]
+  connect: [PurchaseWhereUniqueInput!]
+  disconnect: [PurchaseWhereUniqueInput!]
+  delete: [PurchaseWhereUniqueInput!]
+  update: [PurchaseUpdateWithoutStampCardInput!]
+  upsert: [PurchaseUpsertWithoutStampCardInput!]
 }
 
 input PurchaseUpdateManyWithoutUserInput {
@@ -494,18 +517,38 @@ input PurchaseUpdateManyWithoutUserInput {
   upsert: [PurchaseUpsertWithoutUserInput!]
 }
 
+input PurchaseUpdateWithoutStampCardDataInput {
+  amount: Float
+  stamps: Int
+  concept: String
+  confirmedAt: DateTime
+  cancelledAt: DateTime
+  user: UserUpdateOneWithoutPurchasesInput
+}
+
+input PurchaseUpdateWithoutStampCardInput {
+  where: PurchaseWhereUniqueInput!
+  data: PurchaseUpdateWithoutStampCardDataInput!
+}
+
 input PurchaseUpdateWithoutUserDataInput {
   amount: Float
   stamps: Int
   concept: String
   confirmedAt: DateTime
   cancelledAt: DateTime
-  stampCard: StampCardUpdateOneInput
+  stampCard: StampCardUpdateOneWithoutPurchasesInput
 }
 
 input PurchaseUpdateWithoutUserInput {
   where: PurchaseWhereUniqueInput!
   data: PurchaseUpdateWithoutUserDataInput!
+}
+
+input PurchaseUpsertWithoutStampCardInput {
+  where: PurchaseWhereUniqueInput!
+  update: PurchaseUpdateWithoutStampCardDataInput!
+  create: PurchaseCreateWithoutStampCardInput!
 }
 
 input PurchaseUpsertWithoutUserInput {
@@ -613,21 +656,21 @@ type StampCardConnection {
 input StampCardCreateInput {
   stamp_price: Float!
   total: Int
-  user: UserCreateOneWithoutStampCardsInput!
   business: BusinessCreateOneInput!
+  purchases: PurchaseCreateManyWithoutStampCardInput
 }
 
-input StampCardCreateManyWithoutUserInput {
-  create: [StampCardCreateWithoutUserInput!]
+input StampCardCreateManyInput {
+  create: [StampCardCreateInput!]
   connect: [StampCardWhereUniqueInput!]
 }
 
-input StampCardCreateOneInput {
-  create: StampCardCreateInput
+input StampCardCreateOneWithoutPurchasesInput {
+  create: StampCardCreateWithoutPurchasesInput
   connect: StampCardWhereUniqueInput
 }
 
-input StampCardCreateWithoutUserInput {
+input StampCardCreateWithoutPurchasesInput {
   stamp_price: Float!
   total: Int
   business: BusinessCreateOneInput!
@@ -677,41 +720,41 @@ input StampCardSubscriptionWhereInput {
 input StampCardUpdateInput {
   stamp_price: Float
   total: Int
-  user: UserUpdateOneWithoutStampCardsInput
   business: BusinessUpdateOneInput
+  purchases: PurchaseUpdateManyWithoutStampCardInput
 }
 
-input StampCardUpdateManyWithoutUserInput {
-  create: [StampCardCreateWithoutUserInput!]
+input StampCardUpdateManyInput {
+  create: [StampCardCreateInput!]
   connect: [StampCardWhereUniqueInput!]
   disconnect: [StampCardWhereUniqueInput!]
   delete: [StampCardWhereUniqueInput!]
-  update: [StampCardUpdateWithoutUserInput!]
-  upsert: [StampCardUpsertWithoutUserInput!]
 }
 
-input StampCardUpdateOneInput {
-  create: StampCardCreateInput
+input StampCardUpdateOneWithoutPurchasesInput {
+  create: StampCardCreateWithoutPurchasesInput
   connect: StampCardWhereUniqueInput
   disconnect: StampCardWhereUniqueInput
   delete: StampCardWhereUniqueInput
+  update: StampCardUpdateWithoutPurchasesInput
+  upsert: StampCardUpsertWithoutPurchasesInput
 }
 
-input StampCardUpdateWithoutUserDataInput {
+input StampCardUpdateWithoutPurchasesDataInput {
   stamp_price: Float
   total: Int
   business: BusinessUpdateOneInput
 }
 
-input StampCardUpdateWithoutUserInput {
+input StampCardUpdateWithoutPurchasesInput {
   where: StampCardWhereUniqueInput!
-  data: StampCardUpdateWithoutUserDataInput!
+  data: StampCardUpdateWithoutPurchasesDataInput!
 }
 
-input StampCardUpsertWithoutUserInput {
+input StampCardUpsertWithoutPurchasesInput {
   where: StampCardWhereUniqueInput!
-  update: StampCardUpdateWithoutUserDataInput!
-  create: StampCardCreateWithoutUserInput!
+  update: StampCardUpdateWithoutPurchasesDataInput!
+  create: StampCardCreateWithoutPurchasesInput!
 }
 
 input StampCardWhereInput {
@@ -747,8 +790,10 @@ input StampCardWhereInput {
   total_lte: Int
   total_gt: Int
   total_gte: Int
-  user: UserWhereInput
   business: BusinessWhereInput
+  purchases_every: PurchaseWhereInput
+  purchases_some: PurchaseWhereInput
+  purchases_none: PurchaseWhereInput
 }
 
 input StampCardWhereUniqueInput {
@@ -777,7 +822,7 @@ input UserCreateInput {
   lastName: String
   purchases: PurchaseCreateManyWithoutUserInput
   businesses: BusinessCreateManyWithoutOwnerInput
-  stampCards: StampCardCreateManyWithoutUserInput
+  stampCards: StampCardCreateManyInput
 }
 
 input UserCreateOneWithoutBusinessesInput {
@@ -790,11 +835,6 @@ input UserCreateOneWithoutPurchasesInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutStampCardsInput {
-  create: UserCreateWithoutStampCardsInput
-  connect: UserWhereUniqueInput
-}
-
 input UserCreateWithoutBusinessesInput {
   username: String!
   email: String!
@@ -802,7 +842,7 @@ input UserCreateWithoutBusinessesInput {
   firstName: String
   lastName: String
   purchases: PurchaseCreateManyWithoutUserInput
-  stampCards: StampCardCreateManyWithoutUserInput
+  stampCards: StampCardCreateManyInput
 }
 
 input UserCreateWithoutPurchasesInput {
@@ -812,17 +852,7 @@ input UserCreateWithoutPurchasesInput {
   firstName: String
   lastName: String
   businesses: BusinessCreateManyWithoutOwnerInput
-  stampCards: StampCardCreateManyWithoutUserInput
-}
-
-input UserCreateWithoutStampCardsInput {
-  username: String!
-  email: String!
-  password: String!
-  firstName: String
-  lastName: String
-  purchases: PurchaseCreateManyWithoutUserInput
-  businesses: BusinessCreateManyWithoutOwnerInput
+  stampCards: StampCardCreateManyInput
 }
 
 type UserEdge {
@@ -883,7 +913,7 @@ input UserUpdateInput {
   lastName: String
   purchases: PurchaseUpdateManyWithoutUserInput
   businesses: BusinessUpdateManyWithoutOwnerInput
-  stampCards: StampCardUpdateManyWithoutUserInput
+  stampCards: StampCardUpdateManyInput
 }
 
 input UserUpdateOneWithoutBusinessesInput {
@@ -904,15 +934,6 @@ input UserUpdateOneWithoutPurchasesInput {
   upsert: UserUpsertWithoutPurchasesInput
 }
 
-input UserUpdateOneWithoutStampCardsInput {
-  create: UserCreateWithoutStampCardsInput
-  connect: UserWhereUniqueInput
-  disconnect: UserWhereUniqueInput
-  delete: UserWhereUniqueInput
-  update: UserUpdateWithoutStampCardsInput
-  upsert: UserUpsertWithoutStampCardsInput
-}
-
 input UserUpdateWithoutBusinessesDataInput {
   username: String
   email: String
@@ -920,7 +941,7 @@ input UserUpdateWithoutBusinessesDataInput {
   firstName: String
   lastName: String
   purchases: PurchaseUpdateManyWithoutUserInput
-  stampCards: StampCardUpdateManyWithoutUserInput
+  stampCards: StampCardUpdateManyInput
 }
 
 input UserUpdateWithoutBusinessesInput {
@@ -935,27 +956,12 @@ input UserUpdateWithoutPurchasesDataInput {
   firstName: String
   lastName: String
   businesses: BusinessUpdateManyWithoutOwnerInput
-  stampCards: StampCardUpdateManyWithoutUserInput
+  stampCards: StampCardUpdateManyInput
 }
 
 input UserUpdateWithoutPurchasesInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutPurchasesDataInput!
-}
-
-input UserUpdateWithoutStampCardsDataInput {
-  username: String
-  email: String
-  password: String
-  firstName: String
-  lastName: String
-  purchases: PurchaseUpdateManyWithoutUserInput
-  businesses: BusinessUpdateManyWithoutOwnerInput
-}
-
-input UserUpdateWithoutStampCardsInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateWithoutStampCardsDataInput!
 }
 
 input UserUpsertWithoutBusinessesInput {
@@ -968,12 +974,6 @@ input UserUpsertWithoutPurchasesInput {
   where: UserWhereUniqueInput!
   update: UserUpdateWithoutPurchasesDataInput!
   create: UserCreateWithoutPurchasesInput!
-}
-
-input UserUpsertWithoutStampCardsInput {
-  where: UserWhereUniqueInput!
-  update: UserUpdateWithoutStampCardsDataInput!
-  create: UserCreateWithoutStampCardsInput!
 }
 
 input UserWhereInput {

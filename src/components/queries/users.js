@@ -16,8 +16,8 @@ UserQueries.prototype.findOne = (parent, { id }, ctx) => {
     return ctx.db.query.user({ where: { id } })
 };
 
-UserQueries.prototype.login = async (parent, { email, password }, ctx, info) => {
-    const user = await getUser(email, ctx, info);
+UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
+    const user = await getUser(email, ctx);
     if (await isAValidPassword(password, user.password) === true) {
         return user;
     } else {
@@ -25,7 +25,7 @@ UserQueries.prototype.login = async (parent, { email, password }, ctx, info) => 
     }
 };
 
-async function getUser(email, ctx, info) {
+async function getUser(email, ctx) {
     const user = await ctx.db.query.user({where: { email: email }});
     if (!Object.keys(user).length) {
         const user = await ctx.db.query.user({where: { username: email }});

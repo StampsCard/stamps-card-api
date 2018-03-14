@@ -10,7 +10,7 @@ PurchaseQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.purchases({ orderBy: "confirmedAt_DESC"}, info)
 };
 
-PurchaseQueries.prototype.findByUser = (parent, { userId }, ctx, info) => {
+PurchaseQueries.prototype.findByUser = (parent, { userId }, ctx) => {
     return ctx.db.query.purchases(
         {
             where: {
@@ -20,12 +20,11 @@ PurchaseQueries.prototype.findByUser = (parent, { userId }, ctx, info) => {
                 cancelledAt: null
             },
             orderBy: "confirmedAt_DESC"
-        },
-        info
+        }
     )
 };
 
-PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx, info) => {
+PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx) => {
     return ctx.db.query.purchases(
         {
             where: {
@@ -37,8 +36,7 @@ PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx, info) =
                 cancelledAt: null
             },
             orderBy: "confirmedAt_DESC"
-        },
-        info
+        }
     )
 };
 

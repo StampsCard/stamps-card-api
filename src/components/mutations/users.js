@@ -19,12 +19,11 @@ UserMutations.prototype.create = async (parent, {username, email, password, firs
                 firstName,
                 lastName
             },
-        },
-        info,
+        }
     );
 };
 
-UserMutations.prototype.update = async (parent, {id, username, email, password, firstName, lastName}, ctx, info) => {
+UserMutations.prototype.update = async (parent, {id, username, email, password, firstName, lastName}, ctx) => {
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
     return ctx.db.mutation.updateUser(
         {
@@ -37,7 +36,6 @@ UserMutations.prototype.update = async (parent, {id, username, email, password, 
                 lastName
             },
         },
-        info
     );
 };
 
