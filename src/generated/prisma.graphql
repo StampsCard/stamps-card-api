@@ -35,6 +35,7 @@ type StampCard implements Node {
   total: Int!
   business(where: BusinessWhereInput): Business!
   purchases(where: PurchaseWhereInput, orderBy: PurchaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Purchase!]
+  discount: String!
 }
 
 type User implements Node {
@@ -656,6 +657,7 @@ type StampCardConnection {
 input StampCardCreateInput {
   stamp_price: Float!
   total: Int
+  discount: String!
   business: BusinessCreateOneInput!
   purchases: PurchaseCreateManyWithoutStampCardInput
 }
@@ -673,6 +675,7 @@ input StampCardCreateOneWithoutPurchasesInput {
 input StampCardCreateWithoutPurchasesInput {
   stamp_price: Float!
   total: Int
+  discount: String!
   business: BusinessCreateOneInput!
 }
 
@@ -688,6 +691,8 @@ enum StampCardOrderByInput {
   stamp_price_DESC
   total_ASC
   total_DESC
+  discount_ASC
+  discount_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -698,6 +703,7 @@ type StampCardPreviousValues {
   id: ID!
   stamp_price: Float!
   total: Int!
+  discount: String!
 }
 
 type StampCardSubscriptionPayload {
@@ -720,6 +726,7 @@ input StampCardSubscriptionWhereInput {
 input StampCardUpdateInput {
   stamp_price: Float
   total: Int
+  discount: String
   business: BusinessUpdateOneInput
   purchases: PurchaseUpdateManyWithoutStampCardInput
 }
@@ -743,6 +750,7 @@ input StampCardUpdateOneWithoutPurchasesInput {
 input StampCardUpdateWithoutPurchasesDataInput {
   stamp_price: Float
   total: Int
+  discount: String
   business: BusinessUpdateOneInput
 }
 
@@ -790,6 +798,20 @@ input StampCardWhereInput {
   total_lte: Int
   total_gt: Int
   total_gte: Int
+  discount: String
+  discount_not: String
+  discount_in: [String!]
+  discount_not_in: [String!]
+  discount_lt: String
+  discount_lte: String
+  discount_gt: String
+  discount_gte: String
+  discount_contains: String
+  discount_not_contains: String
+  discount_starts_with: String
+  discount_not_starts_with: String
+  discount_ends_with: String
+  discount_not_ends_with: String
   business: BusinessWhereInput
   purchases_every: PurchaseWhereInput
   purchases_some: PurchaseWhereInput

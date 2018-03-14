@@ -29,6 +29,7 @@ type StampCard {
   total: Int! @default(value: 0)
   business: Business!
   purchases: [Purchase!]!
+  discount: String!
 }
 
 type Purchase {

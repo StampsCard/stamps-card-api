@@ -12,8 +12,8 @@ UserQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.users({}, info)
 };
 
-UserQueries.prototype.findOne = (parent, { id }, ctx) => {
-    return ctx.db.query.user({ where: { id } })
+UserQueries.prototype.findOne = (parent, { id }, ctx, info) => {
+    return ctx.db.query.user({ where: { id } }, info)
 };
 
 UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
