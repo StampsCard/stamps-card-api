@@ -1,24 +1,22 @@
-exports = module.exports = (businessTypeQueries, userQueries, businessErrors) => {
-    return new BusinessesMutations(businessTypeQueries, userQueries, businessErrors);
+exports = module.exports = (businessTypeQueries, businessErrors) => {
+    return new BusinessesMutations(businessTypeQueries, businessErrors);
 };
 
-function BusinessesMutations(businessTypeQueries, userQueries, businessErrors) {
+function BusinessesMutations(businessTypeQueries, businessErrors) {
     BusinessesMutations.prototype.businessTypeQueries = businessTypeQueries;
-    BusinessesMutations.prototype.userQueries = userQueries;
     BusinessesMutations.prototype.errors = businessErrors;
 }
 
-BusinessesMutations.prototype.create = (parent, {name, categoryName, categoryDescription, ownerId}, ctx, info) => {
-    let category = BusinessesMutations.prototype.businessTypeQueries.findByName(parent, categoryName, ctx, info);
-    if (!Object.keys(category).length) {
-        return ctx.db.mutation.createBusiness(
+BusinessesMutations.prototype.create = async (parent, {name, categoryName, categoryDescription, ownerId}, ctx, info) => {
+    const category = await ctx.db.query.businessType({ where: { name: categoryName } }, info);
+    if (category) {
+        return await ctx.db.mutation.createBusiness(
             {
                 data: {
                     name: name,
                     category: {
-                        create: {
-                            name: categoryName,
-                            description: categoryDescription
+                        connect: {
+                            name: categoryName
                         }
                     },
                     owner: {
@@ -28,15 +26,16 @@ BusinessesMutations.prototype.create = (parent, {name, categoryName, categoryDes
                     }
                 },
             }
-        )
+        );
     }
-    return ctx.db.mutation.createBusiness(
+    return await ctx.db.mutation.createBusiness(
         {
             data: {
                 name: name,
                 category: {
-                    connect: {
-                        name: categoryName
+                    create: {
+                        name: categoryName,
+                        description: categoryDescription
                     }
                 },
                 owner: {
@@ -46,21 +45,20 @@ BusinessesMutations.prototype.create = (parent, {name, categoryName, categoryDes
                 }
             },
         }
-    )
+    );
 };
 
-BusinessesMutations.prototype.update = (parent, {id, name, categoryName, categoryDescription, ownerId}, ctx, info) => {
-    let category = this.businessTypeQueries.findByName(parent, categoryName, ctx, info);
-    if (!Object.keys(category).length) {
+BusinessesMutations.prototype.update = async (parent, {id, name, categoryName, categoryDescription, ownerId}, ctx, info) => {
+    const category = await ctx.db.query.businessType({ where: { name: categoryName } }, info);
+    if (category) {
         return ctx.db.mutation.updateBusiness(
             {
                 where: { id },
                 data: {
                     name: name,
                     category: {
-                        create: {
-                            name: categoryName,
-                            description: categoryDescription
+                        connect: {
+                            name: categoryName
                         }
                     },
                     owner: {
@@ -70,16 +68,18 @@ BusinessesMutations.prototype.update = (parent, {id, name, categoryName, categor
                     }
                 },
             }
-        )
+        );
     }
-    return ctx.db.mutation.updateBusiness(
+
+    return await ctx.db.mutation.updateBusiness(
         {
             where: { id },
             data: {
                 name: name,
                 category: {
-                    connect: {
-                        name: categoryName
+                    create: {
+                        name: categoryName,
+                        description: categoryDescription
                     }
                 },
                 owner: {
@@ -89,7 +89,7 @@ BusinessesMutations.prototype.update = (parent, {id, name, categoryName, categor
                 }
             },
         }
-    )
+    );
 };
 
 BusinessesMutations.prototype.delete = (parent, { id }, ctx, info) => {
@@ -97,4 +97,4 @@ BusinessesMutations.prototype.delete = (parent, { id }, ctx, info) => {
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/business_types', 'queries/users', 'errors/business_errors'];
+exports['@require'] = ['queries/business_types', 'errors/business_errors'];
