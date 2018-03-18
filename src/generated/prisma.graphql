@@ -10,6 +10,7 @@ type Business implements Node {
   name: String!
   category(where: BusinessTypeWhereInput): BusinessType!
   owner(where: UserWhereInput): User!
+  stampCards(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StampCard!]
 }
 
 type BusinessType implements Node {
@@ -89,6 +90,7 @@ input BusinessCreateInput {
   name: String!
   category: BusinessTypeCreateOneInput!
   owner: UserCreateOneWithoutBusinessesInput!
+  stampCards: StampCardCreateManyWithoutBusinessInput
 }
 
 input BusinessCreateManyWithoutOwnerInput {
@@ -96,14 +98,21 @@ input BusinessCreateManyWithoutOwnerInput {
   connect: [BusinessWhereUniqueInput!]
 }
 
-input BusinessCreateOneInput {
-  create: BusinessCreateInput
+input BusinessCreateOneWithoutStampCardsInput {
+  create: BusinessCreateWithoutStampCardsInput
   connect: BusinessWhereUniqueInput
 }
 
 input BusinessCreateWithoutOwnerInput {
   name: String!
   category: BusinessTypeCreateOneInput!
+  stampCards: StampCardCreateManyWithoutBusinessInput
+}
+
+input BusinessCreateWithoutStampCardsInput {
+  name: String!
+  category: BusinessTypeCreateOneInput!
+  owner: UserCreateOneWithoutBusinessesInput!
 }
 
 type BusinessEdge {
@@ -269,6 +278,7 @@ input BusinessUpdateInput {
   name: String
   category: BusinessTypeUpdateOneInput
   owner: UserUpdateOneWithoutBusinessesInput
+  stampCards: StampCardUpdateManyWithoutBusinessInput
 }
 
 input BusinessUpdateManyWithoutOwnerInput {
@@ -280,16 +290,19 @@ input BusinessUpdateManyWithoutOwnerInput {
   upsert: [BusinessUpsertWithoutOwnerInput!]
 }
 
-input BusinessUpdateOneInput {
-  create: BusinessCreateInput
+input BusinessUpdateOneWithoutStampCardsInput {
+  create: BusinessCreateWithoutStampCardsInput
   connect: BusinessWhereUniqueInput
   disconnect: BusinessWhereUniqueInput
   delete: BusinessWhereUniqueInput
+  update: BusinessUpdateWithoutStampCardsInput
+  upsert: BusinessUpsertWithoutStampCardsInput
 }
 
 input BusinessUpdateWithoutOwnerDataInput {
   name: String
   category: BusinessTypeUpdateOneInput
+  stampCards: StampCardUpdateManyWithoutBusinessInput
 }
 
 input BusinessUpdateWithoutOwnerInput {
@@ -297,10 +310,27 @@ input BusinessUpdateWithoutOwnerInput {
   data: BusinessUpdateWithoutOwnerDataInput!
 }
 
+input BusinessUpdateWithoutStampCardsDataInput {
+  name: String
+  category: BusinessTypeUpdateOneInput
+  owner: UserUpdateOneWithoutBusinessesInput
+}
+
+input BusinessUpdateWithoutStampCardsInput {
+  where: BusinessWhereUniqueInput!
+  data: BusinessUpdateWithoutStampCardsDataInput!
+}
+
 input BusinessUpsertWithoutOwnerInput {
   where: BusinessWhereUniqueInput!
   update: BusinessUpdateWithoutOwnerDataInput!
   create: BusinessCreateWithoutOwnerInput!
+}
+
+input BusinessUpsertWithoutStampCardsInput {
+  where: BusinessWhereUniqueInput!
+  update: BusinessUpdateWithoutStampCardsDataInput!
+  create: BusinessCreateWithoutStampCardsInput!
 }
 
 input BusinessWhereInput {
@@ -336,6 +366,9 @@ input BusinessWhereInput {
   name_not_ends_with: String
   category: BusinessTypeWhereInput
   owner: UserWhereInput
+  stampCards_every: StampCardWhereInput
+  stampCards_some: StampCardWhereInput
+  stampCards_none: StampCardWhereInput
 }
 
 input BusinessWhereUniqueInput {
@@ -658,7 +691,7 @@ input StampCardCreateInput {
   stamp_price: Float!
   total: Int
   discount: String!
-  business: BusinessCreateOneInput!
+  business: BusinessCreateOneWithoutStampCardsInput!
   purchases: PurchaseCreateManyWithoutStampCardInput
 }
 
@@ -667,16 +700,28 @@ input StampCardCreateManyInput {
   connect: [StampCardWhereUniqueInput!]
 }
 
+input StampCardCreateManyWithoutBusinessInput {
+  create: [StampCardCreateWithoutBusinessInput!]
+  connect: [StampCardWhereUniqueInput!]
+}
+
 input StampCardCreateOneWithoutPurchasesInput {
   create: StampCardCreateWithoutPurchasesInput
   connect: StampCardWhereUniqueInput
+}
+
+input StampCardCreateWithoutBusinessInput {
+  stamp_price: Float!
+  total: Int
+  discount: String!
+  purchases: PurchaseCreateManyWithoutStampCardInput
 }
 
 input StampCardCreateWithoutPurchasesInput {
   stamp_price: Float!
   total: Int
   discount: String!
-  business: BusinessCreateOneInput!
+  business: BusinessCreateOneWithoutStampCardsInput!
 }
 
 type StampCardEdge {
@@ -727,7 +772,7 @@ input StampCardUpdateInput {
   stamp_price: Float
   total: Int
   discount: String
-  business: BusinessUpdateOneInput
+  business: BusinessUpdateOneWithoutStampCardsInput
   purchases: PurchaseUpdateManyWithoutStampCardInput
 }
 
@@ -736,6 +781,15 @@ input StampCardUpdateManyInput {
   connect: [StampCardWhereUniqueInput!]
   disconnect: [StampCardWhereUniqueInput!]
   delete: [StampCardWhereUniqueInput!]
+}
+
+input StampCardUpdateManyWithoutBusinessInput {
+  create: [StampCardCreateWithoutBusinessInput!]
+  connect: [StampCardWhereUniqueInput!]
+  disconnect: [StampCardWhereUniqueInput!]
+  delete: [StampCardWhereUniqueInput!]
+  update: [StampCardUpdateWithoutBusinessInput!]
+  upsert: [StampCardUpsertWithoutBusinessInput!]
 }
 
 input StampCardUpdateOneWithoutPurchasesInput {
@@ -747,16 +801,34 @@ input StampCardUpdateOneWithoutPurchasesInput {
   upsert: StampCardUpsertWithoutPurchasesInput
 }
 
+input StampCardUpdateWithoutBusinessDataInput {
+  stamp_price: Float
+  total: Int
+  discount: String
+  purchases: PurchaseUpdateManyWithoutStampCardInput
+}
+
+input StampCardUpdateWithoutBusinessInput {
+  where: StampCardWhereUniqueInput!
+  data: StampCardUpdateWithoutBusinessDataInput!
+}
+
 input StampCardUpdateWithoutPurchasesDataInput {
   stamp_price: Float
   total: Int
   discount: String
-  business: BusinessUpdateOneInput
+  business: BusinessUpdateOneWithoutStampCardsInput
 }
 
 input StampCardUpdateWithoutPurchasesInput {
   where: StampCardWhereUniqueInput!
   data: StampCardUpdateWithoutPurchasesDataInput!
+}
+
+input StampCardUpsertWithoutBusinessInput {
+  where: StampCardWhereUniqueInput!
+  update: StampCardUpdateWithoutBusinessDataInput!
+  create: StampCardCreateWithoutBusinessInput!
 }
 
 input StampCardUpsertWithoutPurchasesInput {

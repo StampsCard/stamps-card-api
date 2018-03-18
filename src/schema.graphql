@@ -22,9 +22,12 @@ type Query {
   users: [User!]!
   user(id: ID!): User!
   login(email: String!, password: String!): AuthUser!
+  usersByBusiness(businessId: ID!): [User!]!
 
   businesses: [Business!]!
   business(id: ID!): Business!
+  businessesByCustomer(userId: ID!): [Business!]!
+
 
   businessType(id: ID!): BusinessType!
   businessTypeByName(name: String!): BusinessType
@@ -44,17 +47,17 @@ type Mutation {
   updateUser(id: ID!, username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
   deleteUser(id: ID!): User!
 
-  createBusiness(name: String!, categoryName: String!, categoryDescription: String): Business!
-  updateBusiness(id: ID!, name: String!, categoryName: String!, categoryDescription: String): Business!
+  createBusiness(name: String!, categoryName: String!, categoryDescription: String, ownerId: ID!): Business!
+  updateBusiness(id: ID!, name: String!, categoryName: String!, categoryDescription: String, ownerId: ID!): Business!
   deleteBusiness(id: ID!): Business!
 
   createBusinessType(name: String!, description: String): BusinessType!
 
-  createStampCard(stamp_price: Float!, business_id: ID!, total: Int!, discount: String!): StampCard!
+  createStampCard(stamp_price: Float!, businessId: ID!, total: Int!, discount: String!): StampCard!
   updateStampCard(id: ID!, stamp_price: Float!, business_id: String!, total: Int!, discount: String!): StampCard!
   deleteStampCard(id: ID!): StampCard!
 
-  createPurchase(amount: Float!, stamps: Int!, concept: String!, user_id: ID!, stamp_id: ID!): Purchase!
+  createPurchase(amount: Float!, stamps: Int!, concept: String!, userId: ID!, stampId: ID!): Purchase!
   confirmPurchase(id: ID!): Purchase!
   cancelPurchase(id: ID!): Purchase!
 }

@@ -21,6 +21,7 @@ type Business {
   name: String!
   category: BusinessType!
   owner: User!
+  stampCards: [StampCard!]!
 }
 
 type StampCard {
