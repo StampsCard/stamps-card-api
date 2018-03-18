@@ -6,16 +6,16 @@ function StampCardMutations() {
 
 }
 
-StampCardMutations.prototype.create = (parent, {stamp_price, business_id, total, discount}, ctx) => {
+StampCardMutations.prototype.create = (parent, {stampPrice, businessId, total, discount}, ctx) => {
     return ctx.db.mutation.createStampCard(
         {
             data: {
-                stamp_price,
+                stampPrice,
                 total,
                 discount,
                 business: {
                     connect: {
-                        id: business_id
+                        id: businessId
                     },
                 },
             }
@@ -23,16 +23,16 @@ StampCardMutations.prototype.create = (parent, {stamp_price, business_id, total,
     )
 };
 
-StampCardMutations.prototype.update = (parent, {id, stamp_price, business_id, total, discount}, ctx) => {
+StampCardMutations.prototype.update = (parent, {id, stampPrice, businessId, total, discount}, ctx) => {
     return ctx.db.mutation.updateStampCard(
         {
             data: {
-                stamp_price,
+                stampPrice,
                 total,
                 discount,
                 business: {
                     connect: {
-                        id: business_id
+                        id: businessId
                     },
                 },
             },

@@ -53,8 +53,8 @@ type Mutation {
 
   createBusinessType(name: String!, description: String): BusinessType!
 
-  createStampCard(stamp_price: Float!, businessId: ID!, total: Int!, discount: String!): StampCard!
-  updateStampCard(id: ID!, stamp_price: Float!, business_id: String!, total: Int!, discount: String!): StampCard!
+  createStampCard(stampPrice: Float!, businessId: ID!, total: Int!, discount: String!): StampCard!
+  updateStampCard(id: ID!, stampPrice: Float!, businessId: String!, total: Int!, discount: String!): StampCard!
   deleteStampCard(id: ID!): StampCard!
 
   createPurchase(amount: Float!, stamps: Int!, concept: String!, userId: ID!, stampId: ID!): Purchase!

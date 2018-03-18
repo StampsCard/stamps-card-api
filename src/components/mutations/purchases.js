@@ -9,7 +9,7 @@ function PurchaseMutations(queries, errors) {
     PurchaseMutations.prototype.errors = errors;
 }
 
-PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, user_id, stamp_id }, ctx, info) => {
+PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, userId, stampId }, ctx) => {
     return ctx.db.mutation.createPurchase(
         {
             data: {
@@ -18,12 +18,12 @@ PurchaseMutations.prototype.create = (parent, { amount, stamps, concept, user_id
                 concept,
                 user: {
                     connect: {
-                        id: user_id
+                        id: userId
                     }
                 },
                 stampCard: {
                     connect: {
-                        id: stamp_id
+                        id: stampId
                     }
                 }
             },
