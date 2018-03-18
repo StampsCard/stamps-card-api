@@ -22,7 +22,7 @@ type Query {
   users: [User!]!
   user(id: ID!): User!
   login(email: String!, password: String!): AuthUser!
-  usersByBusiness(businessId: ID!): [User!]!
+  customersByBusiness(businessId: ID!): [User!]!
 
   businesses: [Business!]!
   business(id: ID!): Business!

@@ -18,7 +18,7 @@ type BusinessType {
 
 type Business {
   id: ID! @unique
-  name: String!
+  name: String! @unique
   category: BusinessType!
   owner: User!
   stampCards: [StampCard!]!

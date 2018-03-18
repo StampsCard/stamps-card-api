@@ -14,8 +14,12 @@ BusinessQueries.prototype.findOne = (parent, { id }, ctx, info) => {
     return ctx.db.query.business({ where: { id } }, info)
 };
 
+BusinessQueries.prototype.exists = async (parent, { id }, ctx) => {
+    return await ctx.db.exists.Business({  id: id });
+};
+
 BusinessQueries.prototype.findByCustomer = (parent, { userId }, ctx, info) => {
-    return ctx.db.query.business({
+    return ctx.db.query.businesses({
             where: {
                 stampCards_some: {
                     purchases_some: {

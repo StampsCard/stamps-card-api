@@ -10,9 +10,9 @@ StampCardMutations.prototype.create = (parent, {stampPrice, businessId, total, d
     return ctx.db.mutation.createStampCard(
         {
             data: {
-                stampPrice,
-                total,
-                discount,
+                stamp_price: stampPrice,
+                total: total,
+                discount: discount,
                 business: {
                     connect: {
                         id: businessId
@@ -27,9 +27,9 @@ StampCardMutations.prototype.update = (parent, {id, stampPrice, businessId, tota
     return ctx.db.mutation.updateStampCard(
         {
             data: {
-                stampPrice,
-                total,
-                discount,
+                stamp_price: stampPrice,
+                total: total,
+                discount: discount,
                 business: {
                     connect: {
                         id: businessId

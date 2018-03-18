@@ -1,10 +1,11 @@
 const bcrpyt = require('bcrypt');
 
-exports = module.exports = (userErrors) => {
-    return new UserQueries(userErrors);
+exports = module.exports = (businessQueries, userErrors) => {
+    return new UserQueries(businessQueries, userErrors);
 };
 
-function UserQueries(userErrors) {
+function UserQueries(businessQueries, userErrors) {
+    UserQueries.prototype.businessQueries = businessQueries;
     UserQueries.prototype.errors = userErrors;
 }
 
@@ -26,6 +27,24 @@ UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
     } else {
         throw new UserQueries.prototype.errors.InvalidPasswordError();
     }
+};
+
+UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx) => {
+    const business = await UserQueries.prototype.businessQueries.exists(parent, businessId, ctx);
+    if (!business) {
+        throw new UserQueries.prototype.errors.BusinessNotExistsError();
+    }
+    return await ctx.db.query.users({
+        where: {
+            purchases_some: {
+                stampCard: {
+                    business: {
+                        id: businessId
+                    }
+                }
+            }
+        },
+    })
 };
 
 async function getUserRole(ctx, userId) {
@@ -52,4 +71,4 @@ async function isAValidPassword(passwordRequested, originalPassword) {
 }
 
 exports['@singleton'] = true;
-exports['@require'] = ['errors/user_errors'];
+exports['@require'] = ['queries/businesses', 'errors/user_errors'];
