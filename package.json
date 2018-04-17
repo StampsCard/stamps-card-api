@@ -16,6 +16,7 @@
     "graphql-yoga": "1.2.0",
     "moment": "^2.20.1",
     "momentjs": "^2.0.0",
+    "node-gyp": "^3.6.2",
     "prisma-binding": "1.4.0",
     "reflect-metadata": "^0.1.12",
     "underscore": "^1.8.3"
