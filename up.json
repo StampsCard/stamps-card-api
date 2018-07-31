@@ -1,0 +1,12 @@
+{
+  "name": "stamps-card-api",
+  "environment": {
+    "NODE_ENV": "prod",
+    "PRISMA_STAGE": "dev",
+    "PRISMA_ENDPOINT": "http://18.196.125.187:4466/stamp-cards-api/dev"
+  },
+  "profile": "default",
+  "regions": [
+    "eu-central-1"
+  ]
+}
