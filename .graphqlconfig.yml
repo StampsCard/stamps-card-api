@@ -3,7 +3,7 @@ projects:
     schemaPath: "src/schema.graphql"
     extensions:
       endpoints:
-        default: "http://localhost:4000"
+        default: ${env:API_ENDPOINT}
   database:
     schemaPath: "src/generated/prisma.graphql"
     extensions:

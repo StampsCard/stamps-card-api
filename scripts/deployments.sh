@@ -11,6 +11,7 @@ prisma deploy # deploy the changes to the server configured in prisma.yml
 prisma init # create a new docker-compose file
 prisma delete # delete the current service.
 
-# UP-Hex
+# Deploy it with now
+now --dotenv .env.prod
 
 
