@@ -15,7 +15,7 @@ function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQue
         //Business Types
         businessType: businessTypeQueries.findOne,
         businessTypeByName: businessTypeQueries.findByName,
-        businessesByCustomer: businessQueries.findByCustomer,
+        storesByCustomer: businessQueries.storesByCustomer,
         //Stamp Cards
         stampCards: stampCardQueries.findAll,
         stampCard: stampCardQueries.findOne,

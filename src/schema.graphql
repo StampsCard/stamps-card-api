@@ -18,6 +18,11 @@ type AuthUser {
   userRole: UserRole
 }
 
+type Store {
+  business: Business!
+  totalOfStamps: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: ID!): User!
@@ -26,7 +31,7 @@ type Query {
 
   businesses: [Business!]!
   business(id: ID!): Business!
-  businessesByCustomer(userId: ID!): [Business!]!
+  storesByCustomer(userId: ID!): [Store!]!
 
 
   businessType(id: ID!): BusinessType!
