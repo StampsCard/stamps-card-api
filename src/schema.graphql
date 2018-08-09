@@ -29,6 +29,12 @@ type Customer {
   spent: Int!
 }
 
+type StampCardWithStats {
+  stampCard: StampCard!
+  spent: Int!
+  amount: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: ID!): User!
@@ -45,7 +51,7 @@ type Query {
 
   stampCards: [StampCard!]!
   stampCard(id: ID!): StampCard!
-  stampCardsByUser(userId: ID!): [StampCard!]!
+  stampCardsByUser(userId: ID!): [StampCardWithStats!]!
 
   purchases: [Purchase!]!
   purchase(id: ID!): Purchase!

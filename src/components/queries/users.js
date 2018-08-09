@@ -2,13 +2,14 @@ const bcrpyt = require('bcrypt');
 const _ = require('lodash');
 const moment = require('moment');
 
-exports = module.exports = (businessQueries, userErrors) => {
-    return new UserQueries(businessQueries, userErrors);
+exports = module.exports = (businessQueries, purchaseQueries, userErrors) => {
+    return new UserQueries(businessQueries, purchaseQueries, userErrors);
 };
 
-function UserQueries(businessQueries, userErrors) {
+function UserQueries(businessQueries, purchaseQueries, userErrors) {
     UserQueries.prototype.businessQueries = businessQueries;
     UserQueries.prototype.errors = userErrors;
+    UserQueries.prototype.purchaseQueries = purchaseQueries;
 }
 
 UserQueries.prototype.findAll = (parent, args, ctx, info) => {
@@ -68,34 +69,11 @@ UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx, 
 
         return {
             user: user,
-            spent: sumAllPurchases(purchases),
-            lastPayment: getLastPurchaseDate(purchases)
+            spent: UserQueries.prototype.purchaseQueries.sumTotal(purchases),
+            lastPayment: UserQueries.prototype.purchaseQueries.getLatestPurchaseDate(purchases)
         };
     });
 };
-
-function sumAllPurchases(purchases) {
-    return _.reduce(purchases, function(sum, purchase) {
-        return sum + purchase.amount;
-    }, 0);
-}
-
-function getLastPurchaseDate(purchases) {
-    return _.reduce(purchases, function(date, purchase) {
-        return isAfter(date, purchase.confirmedAt);
-    }, null);
-}
-
-function isAfter(date1, date2) {
-
-    if (!date1) return date2;
-    if (!date2) return date1;
-
-    if (moment(date1).isBefore(moment(date2))) {
-        return date2;
-    }
-    return date1;
-}
 
 async function getUserRole(ctx, userId) {
     const userHasBusiness = await ctx.db.exists.Business({ owner: { id: userId }});
@@ -121,4 +99,4 @@ async function isAValidPassword(passwordRequested, originalPassword) {
 }
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/businesses', 'errors/user_errors'];
+exports['@require'] = ['queries/businesses', 'queries/purchases', 'errors/user_errors'];

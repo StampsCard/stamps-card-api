@@ -1,14 +1,14 @@
 const _ = require('lodash');
 
-exports = module.exports = () => {
-    return new BusinessQueries();
+exports = module.exports = (purchaseQueries) => {
+    return new BusinessQueries(purchaseQueries);
 };
 
-function BusinessQueries() {
-
+function BusinessQueries(purchaseQueries) {
+    BusinessQueries.prototype.purchaseQueries = purchaseQueries;
 }
 
-async function findByCustomer(userId, ctx) {
+BusinessQueries.prototype.findByCustomer = async (userId, ctx) => {
     return await ctx.db.query.businesses({
             where: {
                 stampCards_some: {
@@ -22,28 +22,7 @@ async function findByCustomer(userId, ctx) {
             orderBy: "createdAt_DESC"
         }
     )
-}
-
-async function totalOfStamps(userId, businessId, ctx) {
-    const purchases = await ctx.db.query.purchases({
-            where: {
-                user: {
-                    id: userId
-                },
-                stampCard: {
-                    business: {
-                        id: businessId
-                    }
-                }
-            },
-
-        }
-    );
-
-    return _.reduce(purchases, function(sum, purchase) {
-        return sum + purchase.stamps;
-    }, 0);
-}
+};
 
 BusinessQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.businesses({}, info)
@@ -58,12 +37,15 @@ BusinessQueries.prototype.exists = async (parent, { id }, ctx) => {
 };
 
 BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx) => {
-    const businesses = await findByCustomer(userId, ctx);
+    const businesses = await BusinessQueries.prototype.findByCustomer(userId, ctx);
     return _.map(businesses, async function (business) {
-        const total = await totalOfStamps(userId, business.id, ctx);
         return {
             business: business,
-            totalOfStamps: total
+            totalOfStamps: await BusinessQueries.prototype.purchaseQueries.getTotalStampsByUserAndBusiness(
+                userId,
+                business.id,
+                ctx
+            )
         }
     });
 };
@@ -83,3 +65,4 @@ BusinessQueries.prototype.findByOwner = async (parent, { userId }, ctx, info) =>
 
 
 exports['@singleton'] = true;
+exports['@require'] = ['queries/purchases'];
