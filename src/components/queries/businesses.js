@@ -20,7 +20,22 @@ BusinessQueries.prototype.findByCustomer = async (userId, ctx) => {
                 }
             },
             orderBy: "createdAt_DESC"
-        }
+        },`{
+            id
+            name
+            category {
+              id
+              name
+              description
+            }
+            owner {
+              id
+              username
+              email
+              firstName
+              lastName
+            }
+        }`
     )
 };
 
@@ -36,8 +51,8 @@ BusinessQueries.prototype.exists = async (parent, { id }, ctx) => {
     return await ctx.db.exists.Business({  id: id });
 };
 
-BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx) => {
-    const businesses = await BusinessQueries.prototype.findByCustomer(userId, ctx);
+BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx, info) => {
+    const businesses = await BusinessQueries.prototype.findByCustomer(userId, ctx, info);
     return _.map(businesses, async function (business) {
         return {
             business: business,
