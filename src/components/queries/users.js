@@ -1,4 +1,6 @@
 const bcrpyt = require('bcrypt');
+const _ = require('lodash');
+const moment = require('moment');
 
 exports = module.exports = (businessQueries, userErrors) => {
     return new UserQueries(businessQueries, userErrors);
@@ -29,12 +31,12 @@ UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
     }
 };
 
-UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx) => {
+UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx, info) => {
     const business = await UserQueries.prototype.businessQueries.exists(parent, businessId, ctx);
     if (!business) {
         throw new UserQueries.prototype.errors.BusinessNotExistsError();
     }
-    return await ctx.db.query.users({
+    const users = await ctx.db.query.users({
         where: {
             purchases_some: {
                 stampCard: {
@@ -44,8 +46,56 @@ UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx) 
                 }
             }
         },
-    })
+    },
+    `{
+          id
+          username
+          email
+          password
+          firstName
+          lastName
+          purchases {
+            id
+            amount
+            confirmedAt
+            cancelledAt
+          }
+      }
+    `);
+
+    return _.map(users, (user) => {
+        const purchases = user.purchases;
+
+        return {
+            user: user,
+            spent: sumAllPurchases(purchases),
+            lastPayment: getLastPurchaseDate(purchases)
+        };
+    });
 };
+
+function sumAllPurchases(purchases) {
+    return _.reduce(purchases, function(sum, purchase) {
+        return sum + purchase.amount;
+    }, 0);
+}
+
+function getLastPurchaseDate(purchases) {
+    return _.reduce(purchases, function(date, purchase) {
+        return isAfter(date, purchase.confirmedAt);
+    }, null);
+}
+
+function isAfter(date1, date2) {
+
+    if (!date1) return date2;
+    if (!date2) return date1;
+
+    if (moment(date1).isBefore(moment(date2))) {
+        return date2;
+    }
+    return date1;
+}
 
 async function getUserRole(ctx, userId) {
     const userHasBusiness = await ctx.db.exists.Business({ owner: { id: userId }});

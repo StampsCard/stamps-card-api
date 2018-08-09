@@ -23,11 +23,17 @@ type Store {
   totalOfStamps: Int!
 }
 
+type Customer {
+  user: User!
+  lastPayment: DateTime
+  spent: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: ID!): User!
   login(email: String!, password: String!): AuthUser!
-  customersByBusiness(businessId: ID!): [User!]!
+  customersByBusiness(businessId: ID!): [Customer!]!
 
   businesses: [Business!]!
   business(id: ID!): Business!
