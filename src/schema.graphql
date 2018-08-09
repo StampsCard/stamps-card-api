@@ -32,7 +32,7 @@ type Query {
   businesses: [Business!]!
   business(id: ID!): Business!
   storesByCustomer(userId: ID!): [Store!]!
-
+  businessesByOwner(userId: ID!): [Business!]!
 
   businessType(id: ID!): BusinessType!
   businessTypeByName(name: String!): BusinessType

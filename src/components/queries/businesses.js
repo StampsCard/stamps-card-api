@@ -69,4 +69,17 @@ BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx) => 
 };
 
 
+BusinessQueries.prototype.findByOwner = async (parent, { userId }, ctx, info) => {
+    return ctx.db.query.businesses({
+            where: {
+                owner: {
+                    id: userId
+                }
+            }
+        },
+        info
+    );
+};
+
+
 exports['@singleton'] = true;
