@@ -22,4 +22,8 @@ docker-compose up -d
 # Display the IP from the machine
 docker-machine ip prisma
 
+# To connect using SSH
+docker-machine ssh prisma
+
+
 # Assign the security groups: RDS, prisma and docker-machine to the AWS instance using the dashboard
