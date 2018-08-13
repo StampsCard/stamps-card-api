@@ -1,12 +1,12 @@
 const moment = require('moment');
 const _ = require('lodash');
 
-exports = module.exports = () => {
-    return new PurchaseQueries();
+exports = module.exports = (purchaseErrors) => {
+    return new PurchaseQueries(purchaseErrors);
 };
 
-function PurchaseQueries() {
-
+function PurchaseQueries(purchaseErrors) {
+    PurchaseQueries.prototype.errors = purchaseErrors;
 }
 
 PurchaseQueries.prototype.findAll = (parent, args, ctx, info) => {
@@ -45,8 +45,14 @@ PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx, info) =
     )
 };
 
-PurchaseQueries.prototype.findOne = (parent, { id }, ctx, info) => {
-    return ctx.db.query.purchase({ where: { id } }, info)
+PurchaseQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
+    const purchase = await ctx.db.query.purchase({ where: { id } }, info);
+
+    if (!Object.keys(purchase).length) {
+        throw new PurchaseQueries.prototype.errors.purchaseNotFoundError();
+    }
+
+    return purchase;
 };
 
 PurchaseQueries.prototype.getTotalStampsByUserAndBusiness = async (userId, businessId, ctx) => {
@@ -98,3 +104,4 @@ function isAfter(date1, date2) {
 }
 
 exports['@singleton'] = true;
+exports['@require'] = ['errors/purchase_errors'];

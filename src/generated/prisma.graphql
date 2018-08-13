@@ -1,5 +1,5 @@
-# source: http://18.196.125.187:4466/stamps-card-api/dev
-# timestamp: Tue Jul 31 2018 22:17:02 GMT+0200 (CEST)
+# source: http://localhost:4466/stamps-card-api/dev
+# timestamp: Mon Aug 13 2018 21:41:48 GMT+0200 (CEST)
 
 type AggregateBusiness {
   count: Int!
@@ -614,7 +614,7 @@ type Purchase implements Node {
   id: ID!
   amount: Float!
   stamps: Int!
-  user(where: UserWhereInput): User!
+  user(where: UserWhereInput): User
   stampCard(where: StampCardWhereInput): StampCard!
   concept: String
   confirmedAt: DateTime
@@ -637,7 +637,7 @@ input PurchaseCreateInput {
   concept: String
   confirmedAt: DateTime
   cancelledAt: DateTime
-  user: UserCreateOneWithoutPurchasesInput!
+  user: UserCreateOneWithoutPurchasesInput
   stampCard: StampCardCreateOneWithoutPurchasesInput!
 }
 
@@ -657,7 +657,7 @@ input PurchaseCreateWithoutStampCardInput {
   concept: String
   confirmedAt: DateTime
   cancelledAt: DateTime
-  user: UserCreateOneWithoutPurchasesInput!
+  user: UserCreateOneWithoutPurchasesInput
 }
 
 input PurchaseCreateWithoutUserInput {
@@ -1543,6 +1543,7 @@ input UserUpdateOneWithoutBusinessesInput {
 input UserUpdateOneWithoutPurchasesInput {
   create: UserCreateWithoutPurchasesInput
   connect: UserWhereUniqueInput
+  disconnect: Boolean
   delete: Boolean
   update: UserUpdateWithoutPurchasesDataInput
   upsert: UserUpsertWithoutPurchasesInput

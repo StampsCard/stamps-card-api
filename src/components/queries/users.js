@@ -1,6 +1,5 @@
 const bcrpyt = require('bcrypt');
 const _ = require('lodash');
-const moment = require('moment');
 
 exports = module.exports = (businessQueries, purchaseQueries, userErrors) => {
     return new UserQueries(businessQueries, purchaseQueries, userErrors);
@@ -16,8 +15,14 @@ UserQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.users({}, info)
 };
 
-UserQueries.prototype.findOne = (parent, { id }, ctx, info) => {
-    return ctx.db.query.user({ where: { id } }, info)
+UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
+    const user = await ctx.db.query.user({ where: { id } }, info);
+
+    if (!Object.keys(user).length) {
+        throw new UserQueries.prototype.errors.userNotFoundError();
+    }
+
+    return user;
 };
 
 UserQueries.prototype.login = async (parent, { email, password }, ctx) => {

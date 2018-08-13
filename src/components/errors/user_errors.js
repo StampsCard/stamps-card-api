@@ -19,4 +19,8 @@ UserErrors.prototype.BusinessNotExistsError = createError('BusinessNotExistsErro
     'message': 'The business not exists on the system.'
 });
 
+UserErrors.prototype.userNotFoundError = createError('UserNotFoundError', {
+    'message': 'The user was not found.'
+});
+
 exports['@singleton'] = true;

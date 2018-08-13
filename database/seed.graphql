@@ -1,5 +1,6 @@
 mutation {
   first: createUser(data: {
+    id: "cjksop8pz000f0a24d9ll56",
     username: "david.sola"
     email: "d.sola.03@gmail.com"
     password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
@@ -28,4 +29,28 @@ mutation {
   }) {
     id
   }
+
+  forth: createBusiness(data: {
+    id: "cjkspkuen000s0a24dwsk9zhb",
+    name: "Pizza pazza",
+    categoryName: "Restaurant",
+    categoryDescription: "This is a restaurant.",
+    ownerId: "cjksop8pz000f0a24d9ll56ej"
+  }) {
+      id
+      name
+    }
+
+  fifth: createStampCard(data: {
+    id: "cjkspp21a000z0a24is0yo8cy",
+    stampPrice: 5.0,
+    businessId:"cjkspkuen000s0a24dwsk9zhb",
+    total: 10,
+    discount:"A new pizza."
+  }) {
+      id
+      stamp_price
+    }
+
+
 }

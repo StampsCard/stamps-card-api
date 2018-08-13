@@ -1,19 +1,26 @@
 const _ = require('lodash');
 
-exports = module.exports = (purchaseQueries) => {
-    return new StampCardQueries(purchaseQueries);
+exports = module.exports = (purchaseQueries, stampCardErrors) => {
+    return new StampCardQueries(purchaseQueries, stampCardErrors);
 };
 
-function StampCardQueries(purchaseQueries) {
+function StampCardQueries(purchaseQueries, stampCardErrors) {
     StampCardQueries.prototype.purchaseQueries = purchaseQueries;
+    StampCardQueries.prototype.errors = stampCardErrors;
 }
 
 StampCardQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.stampCards({}, info)
 };
 
-StampCardQueries.prototype.findOne = (parent, { id }, ctx, info) => {
-    return ctx.db.query.stampCard({ where: { id } }, info)
+StampCardQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
+    const stampCard = await ctx.db.query.stampCard({ where: { id } }, info);
+
+    if (!Object.keys(stampCard).length) {
+        throw new StampCardQueries.prototype.errors.stampCardNotFound();
+    }
+
+    return stampCard;
 };
 
 StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
@@ -28,7 +35,7 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
             },
             orderBy: "createdAt_DESC"
         },
-    `{
+        `{
         id
         stamp_price
         total
@@ -56,17 +63,17 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
     );
 
     return _.map(stampCards, function(stampCard) {
-       return {
-           stampCard: stampCard,
-           spent: StampCardQueries.prototype.purchaseQueries.sumTotal(stampCard.purchases),
-           amount: StampCardQueries.prototype.purchaseQueries.getTotalStamps(
-               stampCard.purchases
-           )
-       }
+        return {
+            stampCard: stampCard,
+            spent: StampCardQueries.prototype.purchaseQueries.sumTotal(stampCard.purchases),
+            amount: StampCardQueries.prototype.purchaseQueries.getTotalStamps(
+                stampCard.purchases
+            )
+        }
     });
 
 
 };
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/purchases'];
+exports['@require'] = ['queries/purchases', 'errors/stamp_card_errors'];

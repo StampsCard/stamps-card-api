@@ -16,4 +16,8 @@ PurchaseErrors.prototype.purchaseCancelledError = createError('purchaseCancelled
     'message': 'You can not confirm a cancelled purchase.'
 });
 
+PurchaseErrors.prototype.purchaseNotFoundError = createError('purchaseNotFoundError', {
+    'message': 'The purchase could not be found.'
+});
+
 exports['@singleton'] = true;
