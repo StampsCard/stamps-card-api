@@ -56,6 +56,7 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
           id
           amount
           confirmedAt
+          cancelledAt
           stamps
         }
         discount
@@ -85,9 +86,7 @@ StampCardQueries.prototype.findByPurchase = async (parent, { purchaseId }, ctx) 
     return {
         stampCard: stampCard,
         spent: StampCardQueries.prototype.purchaseQueries.sumTotal(stampCard.purchases),
-        amount: StampCardQueries.prototype.purchaseQueries.getTotalStamps(
-            stampCard.purchases
-        )
+        amount: StampCardQueries.prototype.purchaseQueries.getTotalStamps(stampCard.purchases)
     };
 
 };

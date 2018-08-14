@@ -76,6 +76,8 @@ PurchaseQueries.prototype.findOneWithStamps = async (parent, { id }, ctx) => {
             id
             amount
             stamps
+            confirmedAt
+            cancelledAt
           }
           discount
         }
@@ -108,7 +110,7 @@ PurchaseQueries.prototype.getTotalStampsByUserAndBusiness = async (userId, busin
 PurchaseQueries.prototype.getTotalStamps = (purchases) => {
     return _.reduce(purchases, function(sum, purchase) {
         if (purchaseIsConfirmed(purchase)) {
-            return sum + purchase.stamps;
+            sum = sum + purchase.stamps;
         }
         return sum;
     }, 0);
@@ -117,7 +119,7 @@ PurchaseQueries.prototype.getTotalStamps = (purchases) => {
 PurchaseQueries.prototype.sumTotal = (purchases) => {
     return _.reduce(purchases, function(sum, purchase) {
         if (purchaseIsConfirmed(purchase)) {
-            return sum + purchase.amount;
+            sum = sum + purchase.amount;
         }
         return sum;
     }, 0);
