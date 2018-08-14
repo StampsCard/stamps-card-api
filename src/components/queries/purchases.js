@@ -13,23 +13,26 @@ PurchaseQueries.prototype.findAll = (parent, args, ctx, info) => {
     return ctx.db.query.purchases({ orderBy: "confirmedAt_DESC"}, info)
 };
 
-PurchaseQueries.prototype.findByUser = (parent, { userId }, ctx, info) => {
-    return ctx.db.query.purchases(
+PurchaseQueries.prototype.findByUser = async (parent, { userId }, ctx, info) => {
+    const purchases = await ctx.db.query.purchases(
         {
             where: {
                 user: {
                     id: userId
-                },
-                cancelledAt: null
+                }
             },
             orderBy: "confirmedAt_DESC"
         },
         info
-    )
+    );
+
+    return _.filter(purchases, function(purchase) {
+        return purchaseIsConfirmed(purchase);
+    });
 };
 
-PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx, info) => {
-    return ctx.db.query.purchases(
+PurchaseQueries.prototype.findByBusiness = async (parent, { businessId }, ctx, info) => {
+    const purchases = await ctx.db.query.purchases(
         {
             where: {
                 stampCard: {
@@ -37,12 +40,15 @@ PurchaseQueries.prototype.findByBusiness = (parent, { businessId }, ctx, info) =
                         id: businessId
                     }
                 },
-                cancelledAt: null
             },
             orderBy: "confirmedAt_DESC"
         },
         info
-    )
+    );
+
+    return _.filter(purchases, function(purchase) {
+        return purchaseIsConfirmed(purchase);
+    });
 };
 
 PurchaseQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
@@ -101,13 +107,19 @@ PurchaseQueries.prototype.getTotalStampsByUserAndBusiness = async (userId, busin
 
 PurchaseQueries.prototype.getTotalStamps = (purchases) => {
     return _.reduce(purchases, function(sum, purchase) {
-        return sum + purchase.stamps;
+        if (purchaseIsConfirmed(purchase)) {
+            return sum + purchase.stamps;
+        }
+        return sum;
     }, 0);
 };
 
 PurchaseQueries.prototype.sumTotal = (purchases) => {
     return _.reduce(purchases, function(sum, purchase) {
-        return sum + purchase.amount;
+        if (purchaseIsConfirmed(purchase)) {
+            return sum + purchase.amount;
+        }
+        return sum;
     }, 0);
 };
 
@@ -126,6 +138,10 @@ function isAfter(date1, date2) {
         return date2;
     }
     return date1;
+}
+
+function purchaseIsConfirmed(purchase) {
+    return purchase.confirmedAt && null === purchase.cancelledAt;
 }
 
 exports['@singleton'] = true;

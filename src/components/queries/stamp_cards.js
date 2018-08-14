@@ -30,8 +30,7 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
                 purchases_some: {
                     user: {
                         id: userId
-                    },
-                    cancelledAt: null
+                    }
                 }
             },
             orderBy: "createdAt_DESC"
@@ -62,6 +61,7 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
         discount
     }`
     );
+
 
     return _.map(stampCards, function(stampCard) {
         return {
