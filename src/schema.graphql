@@ -31,7 +31,7 @@ type Customer {
 
 type StampCardWithStats {
   stampCard: StampCard!
-  spent: Int!
+  spent: Float!
   amount: Int!
 }
 
