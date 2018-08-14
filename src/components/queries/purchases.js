@@ -55,6 +55,31 @@ PurchaseQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
     return purchase;
 };
 
+PurchaseQueries.prototype.findOneWithStamps = async (parent, { id }, ctx) => {
+    return await ctx.db.query.purchase({ where: { id } },
+    `{
+        id
+        amount
+        stamps
+        concept
+        stampCard {
+          id
+          stamp_price
+          total
+          purchases {
+            id
+            amount
+            stamps
+          }
+          discount
+        }
+        confirmedAt
+        cancelledAt
+      }
+    `
+    );
+};
+
 PurchaseQueries.prototype.getTotalStampsByUserAndBusiness = async (userId, businessId, ctx) => {
     const purchases = await ctx.db.query.purchases({
             where: {

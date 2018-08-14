@@ -63,8 +63,6 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
     }`
     );
 
-    console.log(stampCard.purchases);
-
     return _.map(stampCards, function(stampCard) {
         return {
             stampCard: stampCard,
@@ -74,7 +72,23 @@ StampCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
             )
         }
     });
+};
 
+StampCardQueries.prototype.findByPurchase = async (parent, { purchaseId }, ctx) => {
+    const purchase = await StampCardQueries.prototype.purchaseQueries.findOneWithStamps(
+        parent,
+        { id: purchaseId },
+        ctx
+    );
+    const stampCard = await purchase.stampCard;
+
+    return {
+        stampCard: stampCard,
+        spent: StampCardQueries.prototype.purchaseQueries.sumTotal(stampCard.purchases),
+        amount: StampCardQueries.prototype.purchaseQueries.getTotalStamps(
+            stampCard.purchases
+        )
+    };
 
 };
 
