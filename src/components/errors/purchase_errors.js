@@ -20,4 +20,12 @@ PurchaseErrors.prototype.purchaseNotFoundError = createError('purchaseNotFoundEr
     'message': 'The purchase could not be found.'
 });
 
+PurchaseErrors.prototype.purchaseAlreadyConfirmedError = createError('purchaseAlreadyConfirmedError', {
+    'message': 'The purchase has been already confirmed before.'
+});
+
+PurchaseErrors.prototype.purchaseAlreadyCancelledError = createError('purchaseAlreadyCancelledError', {
+    'message': 'The purchase has been already cancelled before.'
+});
+
 exports['@singleton'] = true;

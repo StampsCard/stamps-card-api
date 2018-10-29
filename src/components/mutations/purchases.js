@@ -37,11 +37,16 @@ PurchaseMutations.prototype.confirm = async (parent, { id, userId }, ctx, info) 
 
     await PurchaseMutations.prototype.userQueries.findOne(parent, { id: userId }, ctx);
 
-    const purchase = await PurchaseMutations.prototype.query.findOne(parent, { id }, ctx, info);
+    const purchase = await PurchaseMutations.prototype.query.findOne(parent, { id }, ctx);
 
-    if ('cancelledAt' in purchase) {
+    if (null !== purchase.cancelledAt) {
         throw new PurchaseMutations.prototype.errors.purchaseCancelledError();
     }
+
+    if (null !== purchase.confirmedAt) {
+        throw new PurchaseMutations.prototype.errors.purchaseAlreadyConfirmedError();
+    }
+
     return ctx.db.mutation.updatePurchase(
         {
             where: { id },
@@ -65,6 +70,7 @@ PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) =
     };
 
     if (userId) {
+        // Throws an error if the user has not found.
         await PurchaseMutations.prototype.userQueries.findOne(parent, { id: userId }, ctx);
         data = Object.assign({}, data, {
             user: {
@@ -76,10 +82,16 @@ PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) =
     }
 
 
-    const purchase = await PurchaseMutations.prototype.query.findOne(parent, { id }, ctx, info);
-    if ('confirmedAt' in purchase) {
+    const purchase = await PurchaseMutations.prototype.query.findOne(parent, { id }, ctx);
+
+    if (null !== purchase.confirmedAt) {
         throw new PurchaseMutations.prototype.errors.purchaseConfirmedError();
     }
+
+    if (null !== purchase.cancelledAt) {
+        throw new PurchaseMutations.prototype.errors.purchaseAlreadyCancelledError();
+    }
+
     return ctx.db.mutation.updatePurchase(
         {
             where: { id },
