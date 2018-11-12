@@ -26,7 +26,7 @@ permissions.then((permissionsPromise) => {
                 db: new Prisma({
                     typeDefs: graphQLConfig.prismaSchemaPath,
                     endpoint: process.env.PRISMA_ENDPOINT, // the endpoint of the Prisma DB service
-                    secret: process.env.PRISMA_SECRET, // specified in database/prisma.yml
+                    secret: process.env.APP_SECRET, // specified in database/prisma.yml
                     debug: process.env.DEBUG, // log all GraphQL queries & mutations
                 }),
             }),
