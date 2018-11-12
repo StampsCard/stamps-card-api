@@ -12,4 +12,8 @@ AuthErrors.prototype.notAuthorized = createError('notAuthorizedError', {
     'message': "You are not authorized to use this API."
 });
 
+AuthErrors.prototype.InvalidPasswordError = createError('InvalidPasswordError', {
+    'message': 'The password is not correct. Please, try again.'
+});
+
 exports['@singleton'] = true;

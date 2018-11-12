@@ -1,13 +1,28 @@
-exports = module.exports = (userQueries, businessQueries, businessTypeQueries, stampCardQueries, purchaseQueries) => {
-    return new Queries(userQueries, businessQueries, businessTypeQueries, stampCardQueries, purchaseQueries);
+exports = module.exports = (
+    userQueries,
+    businessQueries,
+    businessTypeQueries,
+    stampCardQueries,
+    purchaseQueries,
+    authQueries
+) => {
+    return new Queries(
+        userQueries,
+        businessQueries,
+        businessTypeQueries,
+        stampCardQueries,
+        purchaseQueries,
+        authQueries
+    );
 };
 
-function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQueries, purchaseQueries) {
+function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQueries, purchaseQueries, authQueries) {
     this._map = {
+        //Auth
+        login: authQueries.login,
         //Users
         users: userQueries.findAll,
         user: userQueries.findOne,
-        login: userQueries.login,
         customersByBusiness: userQueries.customersByBusiness,
         //Business
         businesses: businessQueries.findAll,
@@ -40,5 +55,6 @@ exports['@require'] = [
     'queries/businesses',
     'queries/business_types',
     'queries/stamp_cards',
-    'queries/purchases'
+    'queries/purchases',
+    'queries/auth_queries'
 ];

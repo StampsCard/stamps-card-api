@@ -1,4 +1,3 @@
-const bcrpyt = require('bcrypt');
 const _ = require('lodash');
 
 exports = module.exports = (businessQueries, purchaseQueries, authToken, userErrors) => {
@@ -13,6 +12,7 @@ function UserQueries(businessQueries, purchaseQueries, authToken, userErrors) {
 }
 
 UserQueries.prototype.findAll = (parent, args, ctx, info) => {
+    UserQueries.prototype.authToken.validateToken(ctx);
     return ctx.db.query.users({}, info)
 };
 
@@ -26,18 +26,6 @@ UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
     return user;
 };
 
-UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
-    const user = await getUser(email, ctx);
-    if (await isAValidPassword(password, user.password) === true) {
-        return {
-            user: user,
-            userRole: await getUserRole(ctx, user.id),
-            token: UserQueries.prototype.authToken.sign(user.id)
-        };
-    } else {
-        throw new UserQueries.prototype.errors.InvalidPasswordError();
-    }
-};
 
 UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx, info) => {
     const business = await UserQueries.prototype.businessQueries.exists(parent, businessId, ctx);
@@ -82,15 +70,15 @@ UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx, 
     });
 };
 
-async function getUserRole(ctx, userId) {
+UserQueries.prototype.getUserRole = async (ctx, userId) => {
     const userHasBusiness = await ctx.db.exists.Business({ owner: { id: userId }});
     if (!userHasBusiness) {
         return "CUSTOMER";
     }
     return "BUSINESS_OWNER";
-}
+};
 
-async function getUser(email, ctx) {
+UserQueries.prototype.getUser = async(email, ctx) => {
     const user = await ctx.db.query.user({where: { email: email }});
     if (!Object.keys(user).length) {
         const user = await ctx.db.query.user({where: { username: email }});
@@ -99,11 +87,8 @@ async function getUser(email, ctx) {
         }
     }
     return user;
-}
+};
 
-async function isAValidPassword(passwordRequested, originalPassword) {
-    return await bcrpyt.compare(passwordRequested, originalPassword);
-}
 
 exports['@singleton'] = true;
 exports['@require'] = ['queries/businesses', 'queries/purchases', 'auth/auth_token', 'errors/user_errors'];
