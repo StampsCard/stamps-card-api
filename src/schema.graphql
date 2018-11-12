@@ -15,7 +15,8 @@ enum UserRole {
 
 type AuthUser {
   user: User!
-  userRole: UserRole
+  userRole: UserRole,
+  token: String!
 }
 
 type Store {

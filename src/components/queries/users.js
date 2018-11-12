@@ -1,14 +1,15 @@
 const bcrpyt = require('bcrypt');
 const _ = require('lodash');
 
-exports = module.exports = (businessQueries, purchaseQueries, userErrors) => {
-    return new UserQueries(businessQueries, purchaseQueries, userErrors);
+exports = module.exports = (businessQueries, purchaseQueries, authToken, userErrors) => {
+    return new UserQueries(businessQueries, purchaseQueries, authToken, userErrors);
 };
 
-function UserQueries(businessQueries, purchaseQueries, userErrors) {
+function UserQueries(businessQueries, purchaseQueries, authToken, userErrors) {
     UserQueries.prototype.businessQueries = businessQueries;
     UserQueries.prototype.errors = userErrors;
     UserQueries.prototype.purchaseQueries = purchaseQueries;
+    UserQueries.prototype.authToken = authToken;
 }
 
 UserQueries.prototype.findAll = (parent, args, ctx, info) => {
@@ -30,7 +31,8 @@ UserQueries.prototype.login = async (parent, { email, password }, ctx) => {
     if (await isAValidPassword(password, user.password) === true) {
         return {
             user: user,
-            userRole: await getUserRole(ctx, user.id)
+            userRole: await getUserRole(ctx, user.id),
+            token: UserQueries.prototype.authToken.sign(user.id)
         };
     } else {
         throw new UserQueries.prototype.errors.InvalidPasswordError();
@@ -104,4 +106,4 @@ async function isAValidPassword(passwordRequested, originalPassword) {
 }
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/businesses', 'queries/purchases', 'errors/user_errors'];
+exports['@require'] = ['queries/businesses', 'queries/purchases', 'auth/auth_token', 'errors/user_errors'];
