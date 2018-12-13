@@ -12,6 +12,6 @@ prisma init # create a new docker-compose file
 prisma delete # delete the current service.
 
 # Deploy it with now
-now --dotenv .env.prod # Don't forget to update the API_ENDPOINT
+now -e NODE_ENV=prod # Don't forget to update the API_ENDPOINT
 
 

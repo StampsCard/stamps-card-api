@@ -1,18 +1,19 @@
 __global = __dirname + '/';
 
 const dotenv = require('dotenv');
-dotenv.load(require('dotenv').config());
-
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 const graphQLConfig = require('./config/graphql');
 const { formatError } = require('apollo-errors');
-
 const ioc = require('./initializers/00_ioc')();
 const resolvers = ioc.create('resolvers/index');
 const permissions = ioc.create('middlewares/permissions');
 
+dotenv.load(require('dotenv').config());
+
 permissions.then((permissionsPromise) => {
+
+    console.log(permissionsPromise.get());
 
     resolvers.then((resolversPromise) => {
         const server = new GraphQLServer({
