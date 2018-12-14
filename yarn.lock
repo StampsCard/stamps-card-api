@@ -3742,6 +3742,10 @@ node-gyp@^3.6.2:
     tar "^2.0.0"
     which "1"
 
+node-logger@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/node-logger/-/node-logger-0.0.1.tgz#e269fc0de12aacf84518bc27637355905fb6a18a"
+
 node-pre-gyp@0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.9.1.tgz#f11c07516dd92f87199dbc7e1838eab7cd56c9e0"

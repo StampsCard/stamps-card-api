@@ -20,6 +20,7 @@
     "lodash": "^4.17.10",
     "moment": "^2.20.1",
     "node-gyp": "^3.6.2",
+    "node-logger": "^0.0.1",
     "prisma-binding": "2.1.1",
     "reflect-metadata": "^0.1.12",
     "underscore": "^1.8.3"

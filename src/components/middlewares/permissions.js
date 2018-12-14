@@ -1,13 +1,13 @@
+const { rule, shield } = require('graphql-shield');
 const { validateToken } = require('../auth/auth_token');
 
 const rules = {
-    authorizeToken: (resolve, root, args, context, info) => {
-        validateToken(context);
-        return true;
-    }
+    authorizeToken: rule()(async(root, args, context, info) => {
+        return validateToken(context);
+    })
 };
 
-const permissions = {
+const permissions = shield({
     Query: {
         //Users
         users: rules.authorizeToken,
@@ -53,7 +53,7 @@ const permissions = {
         cancelPurchase: rules.authorizeToken
     }
 
-};
+});
 
 module.exports = {
     permissions,

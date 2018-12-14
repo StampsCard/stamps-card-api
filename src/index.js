@@ -12,10 +12,10 @@ const resolvers = ioc.create('resolvers/index');
 
 dotenv.load(require('dotenv').config());
 
-resolvers.then((resolversPromise) => {
+resolvers.then((resolvers) => {
     const server = new GraphQLServer({
         typeDefs: graphQLConfig.graphSchemaPath,
-        resolvers: resolversPromise.get(),
+        resolvers: resolvers.get(),
         resolverValidationOptions: {
             requireResolversForResolveType: false
         },
@@ -35,5 +35,5 @@ resolvers.then((resolversPromise) => {
         formatError
     };
 
-    server.start(serverOptions, () => console.log('Server is running on http://localhost:4000'));
+    server.start(serverOptions, () => console.log('Server is running on ' + process.env.API_ENDPOINT));
 });
