@@ -1,18 +1,16 @@
 const _ = require('lodash');
 
-exports = module.exports = (businessQueries, purchaseQueries, authToken, userErrors) => {
-    return new UserQueries(businessQueries, purchaseQueries, authToken, userErrors);
+exports = module.exports = (businessQueries, purchaseQueries, userErrors) => {
+    return new UserQueries(businessQueries, purchaseQueries, userErrors);
 };
 
-function UserQueries(businessQueries, purchaseQueries, authToken, userErrors) {
+function UserQueries(businessQueries, purchaseQueries, userErrors) {
     UserQueries.prototype.businessQueries = businessQueries;
     UserQueries.prototype.errors = userErrors;
     UserQueries.prototype.purchaseQueries = purchaseQueries;
-    UserQueries.prototype.authToken = authToken;
 }
 
 UserQueries.prototype.findAll = (parent, args, ctx, info) => {
-    UserQueries.prototype.authToken.validateToken(ctx);
     return ctx.db.query.users({}, info)
 };
 
@@ -91,4 +89,4 @@ UserQueries.prototype.getUser = async(email, ctx) => {
 
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/businesses', 'queries/purchases', 'auth/auth_token', 'errors/user_errors'];
+exports['@require'] = ['queries/businesses', 'queries/purchases', 'errors/user_errors'];

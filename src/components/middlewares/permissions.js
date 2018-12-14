@@ -1,68 +1,60 @@
-exports = module.exports = (authQueries) => {
+const { validateToken } = require('../auth/auth_token');
 
-    return new Permissions(authQueries);
+const rules = {
+    authorizeToken: (resolve, root, args, context, info) => {
+        validateToken(context);
+        return true;
+    }
 };
 
-function Permissions(authQueries) {
-    Permissions.prototype.authQueries = authQueries;
+const permissions = {
+    Query: {
+        //Users
+        users: rules.authorizeToken,
+        user: rules.authorizeToken,
+        customersByBusiness: rules.authorizeToken,
+        //Business
+        businesses: rules.authorizeToken,
+        business: rules.authorizeToken,
+        //Business Types
+        businessType: rules.authorizeToken,
+        businessTypeByName: rules.authorizeToken,
+        storesByCustomer: rules.authorizeToken,
+        businessesByOwner: rules.authorizeToken,
+        //Stamp Cards
+        stampCards: rules.authorizeToken,
+        stampCard: rules.authorizeToken,
+        stampCardsByUser: rules.authorizeToken,
+        stampCardByPurchase: rules.authorizeToken,
+        //Purchases
+        purchases: rules.authorizeToken,
+        purchase: rules.authorizeToken,
+        purchasesByUser: rules.authorizeToken,
+        purchasesByBusiness: rules.authorizeToken
+    },
+    Mutation: {
+        //User
+        createUser: rules.authorizeToken,
+        updateUser: rules.authorizeToken,
+        deleteUser: rules.authorizeToken,
+        //Business
+        createBusiness: rules.authorizeToken,
+        updateBusiness: rules.authorizeToken,
+        deleteBusiness: rules.authorizeToken,
+        //BusinessType
+        createBusinessType: rules.authorizeToken,
+        //StampsCard
+        createStampCard: rules.authorizeToken,
+        updateStampCard: rules.authorizeToken,
+        deleteStampCard: rules.authorizeToken,
+        //Purchase
+        createPurchase: rules.authorizeToken,
+        confirmPurchase: rules.authorizeToken,
+        cancelPurchase: rules.authorizeToken
+    }
 
-    this._map = {
-        Query: {
-            //Users
-            users: authorizeToken,
-            user: authorizeToken,
-            customersByBusiness: authorizeToken,
-            //Business
-            businesses: authorizeToken,
-            business: authorizeToken,
-            //Business Types
-            businessType: authorizeToken,
-            businessTypeByName: authorizeToken,
-            storesByCustomer: authorizeToken,
-            businessesByOwner: authorizeToken,
-            //Stamp Cards
-            stampCards: authorizeToken,
-            stampCard: authorizeToken,
-            stampCardsByUser: authorizeToken,
-            stampCardByPurchase: authorizeToken,
-            //Purchases
-            purchases: authorizeToken,
-            purchase: authorizeToken,
-            purchasesByUser: authorizeToken,
-            purchasesByBusiness: authorizeToken
-        },
-        Mutation: {
-            //User
-            createUser: authorizeToken,
-            updateUser: authorizeToken,
-            deleteUser: authorizeToken,
-            //Business
-            createBusiness: authorizeToken,
-            updateBusiness: authorizeToken,
-            deleteBusiness: authorizeToken,
-            //BusinessType
-            createBusinessType: authorizeToken,
-            //StampsCard
-            createStampCard: authorizeToken,
-            updateStampCard: authorizeToken,
-            deleteStampCard: authorizeToken,
-            //Purchase
-            createPurchase: authorizeToken,
-            confirmPurchase: authorizeToken,
-            cancelPurchase: authorizeToken
-        }
-
-    };
-}
-
-Permissions.prototype.get = function() {
-    return this._map;
 };
 
-const authorizeToken = async(resolve, root, args, context, info) => {
-    Permissions.prototype.authQueries.validateToken(context);
-    return resolve();
+module.exports = {
+    permissions,
 };
-
-exports['@singleton'] = true;
-exports['@require'] = ['queries/auth_queries'];
