@@ -22,10 +22,10 @@ const permissions = shield({
         storesByCustomer: rules.authorizeToken,
         businessesByOwner: rules.authorizeToken,
         //Stamp Cards
-        stampCards: rules.authorizeToken,
-        stampCard: rules.authorizeToken,
-        stampCardsByUser: rules.authorizeToken,
-        stampCardByPurchase: rules.authorizeToken,
+        stampsCards: rules.authorizeToken,
+        stampsCard: rules.authorizeToken,
+        stampsCardsByUser: rules.authorizeToken,
+        stampsCardByPurchase: rules.authorizeToken,
         //Purchases
         purchases: rules.authorizeToken,
         purchase: rules.authorizeToken,
@@ -44,9 +44,9 @@ const permissions = shield({
         //BusinessType
         createBusinessType: rules.authorizeToken,
         //StampsCard
-        createStampCard: rules.authorizeToken,
-        updateStampCard: rules.authorizeToken,
-        deleteStampCard: rules.authorizeToken,
+        createStampsCard: rules.authorizeToken,
+        updateStampsCard: rules.authorizeToken,
+        deleteStampsCard: rules.authorizeToken,
         //Purchase
         createPurchase: rules.authorizeToken,
         confirmPurchase: rules.authorizeToken,

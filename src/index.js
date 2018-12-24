@@ -32,7 +32,8 @@ resolvers.then((resolvers) => {
     });
 
     const serverOptions = {
-        formatError
+        formatError,
+        debug: process.env.DEBUG
     };
 
     server.start(serverOptions, () => console.log('Server is running on ' + process.env.API_ENDPOINT));

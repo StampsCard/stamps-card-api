@@ -16,9 +16,9 @@ function Mutations(userMutations, businessMutations, businessTypeMutations, stam
         //BusinessType
         createBusinessType: businessTypeMutations.create,
         //StampsCard
-        createStampCard: stampCardMutations.create,
-        updateStampCard: stampCardMutations.update,
-        deleteStampCard: stampCardMutations.delete,
+        createStampsCard: stampCardMutations.create,
+        updateStampsCard: stampCardMutations.update,
+        deleteStampsCard: stampCardMutations.delete,
         //Purchase
         createPurchase: purchaseMutations.create,
         confirmPurchase: purchaseMutations.confirm,
@@ -35,6 +35,6 @@ exports['@require'] = [
     'mutations/users',
     'mutations/businesses',
     'mutations/business_types',
-    'mutations/stamp_cards',
+    'mutations/stamps_cards',
     'mutations/purchases'
 ];

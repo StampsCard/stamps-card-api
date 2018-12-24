@@ -13,9 +13,9 @@ function PurchaseMutations(queries, stampCardQueries, userQueries, errors) {
 
 PurchaseMutations.prototype.create = async (parent, { amount, concept, stampId }, ctx) => {
 
-    const stampCard = await PurchaseMutations.prototype.stampCardQueries.findOne(parent, { id: stampId }, ctx);
+    const stampsCard = await PurchaseMutations.prototype.stampCardQueries.findOne(parent, { id: stampId }, ctx);
 
-    const stamps = Math.round(amount/stampCard.stamp_price);
+    const stamps = Math.round(amount/stampsCard.stamp_price);
 
     return ctx.db.mutation.createPurchase(
         {
@@ -104,7 +104,7 @@ PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) =
 exports['@singleton'] = true;
 exports['@require'] = [
     'queries/purchases',
-    'queries/stamp_cards',
+    'queries/stamps_cards',
     'queries/users',
     'errors/purchase_errors'
 ];

@@ -1,12 +1,11 @@
 exports = module.exports = () => {
-    return new StampCardMutations();
+    return new StampsCardsMutations();
 };
 
-function StampCardMutations() {
-
+function StampsCardsMutations() {
 }
 
-StampCardMutations.prototype.create = (parent, {stampPrice, businessId, total, discount}, ctx) => {
+StampsCardsMutations.prototype.create = (parent, {stampPrice, businessId, total, discount}, ctx) => {
     return ctx.db.mutation.createStampCard(
         {
             data: {
@@ -23,7 +22,7 @@ StampCardMutations.prototype.create = (parent, {stampPrice, businessId, total, d
     )
 };
 
-StampCardMutations.prototype.update = (parent, {id, stampPrice, businessId, total, discount}, ctx) => {
+StampsCardsMutations.prototype.update = (parent, {id, stampPrice, businessId, total, discount}, ctx) => {
     return ctx.db.mutation.updateStampCard(
         {
             data: {
@@ -40,7 +39,7 @@ StampCardMutations.prototype.update = (parent, {id, stampPrice, businessId, tota
     )
 };
 
-StampCardMutations.prototype.delete = (parent, { id }, ctx, info) => {
+StampsCardsMutations.prototype.delete = (parent, { id }, ctx, info) => {
     return ctx.db.mutation.deleteStampCard({ where: { id } }, info)
 };
 

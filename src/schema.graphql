@@ -30,8 +30,8 @@ type Customer {
   spent: Int!
 }
 
-type StampCardWithStats {
-  stampCard: StampCard!
+type StampsCardWithStats {
+  stampsCard: StampCard!
   spent: Float!
   amount: Int!
 }
@@ -50,10 +50,10 @@ type Query {
   businessType(id: ID!): BusinessType!
   businessTypeByName(name: String!): BusinessType
 
-  stampCards: [StampCard!]!
-  stampCard(id: ID!): StampCard!
-  stampCardsByUser(userId: ID!): [StampCardWithStats!]!
-  stampCardByPurchase(purchaseId: ID!): StampCardWithStats!
+  stampsCards: [StampCard!]!
+  stampsCard(id: ID!): StampCard!
+  stampsCardsByUser(userId: ID!): [StampsCardWithStats!]!
+  stampsCardByPurchase(purchaseId: ID!): StampsCardWithStats!
 
   purchases: [Purchase!]!
   purchase(id: ID!): Purchase!
@@ -72,9 +72,9 @@ type Mutation {
 
   createBusinessType(name: String!, description: String): BusinessType!
 
-  createStampCard(stampPrice: Float!, businessId: ID!, total: Int!, discount: String!): StampCard!
-  updateStampCard(id: ID!, stampPrice: Float!, businessId: String!, total: Int!, discount: String!): StampCard!
-  deleteStampCard(id: ID!): StampCard!
+  createStampsCard(stampPrice: Float!, businessId: ID!, total: Int!, discount: String!): StampCard!
+  updateStampsCard(id: ID!, stampPrice: Float!, businessId: String!, total: Int!, discount: String!): StampCard!
+  deleteStampsCard(id: ID!): StampCard!
 
   createPurchase(amount: Float!, stampId: ID!, concept: String): Purchase!
   confirmPurchase(id: ID!, userId: ID!): Purchase!

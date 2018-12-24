@@ -33,10 +33,10 @@ function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQue
         storesByCustomer: businessQueries.storesByCustomer,
         businessesByOwner: businessQueries.findByOwner,
         //Stamp Cards
-        stampCards: stampCardQueries.findAll,
-        stampCard: stampCardQueries.findOne,
-        stampCardsByUser: stampCardQueries.findByUser,
-        stampCardByPurchase: stampCardQueries.findByPurchase,
+        stampsCards: stampCardQueries.findAll,
+        stampsCard: stampCardQueries.findOne,
+        stampsCardsByUser: stampCardQueries.findByUser,
+        stampsCardByPurchase: stampCardQueries.findByPurchase,
         //Purchases
         purchases: purchaseQueries.findAll,
         purchase: purchaseQueries.findOne,
@@ -54,7 +54,7 @@ exports['@require'] = [
     'queries/users',
     'queries/businesses',
     'queries/business_types',
-    'queries/stamp_cards',
+    'queries/stamps_cards',
     'queries/purchases',
     'queries/auth_queries'
 ];
