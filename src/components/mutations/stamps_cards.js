@@ -23,8 +23,10 @@ StampsCardsMutations.prototype.create = (parent, {stampPrice, businessId, total,
 };
 
 StampsCardsMutations.prototype.update = (parent, {id, stampPrice, businessId, total, discount}, ctx) => {
+
     return ctx.db.mutation.updateStampCard(
         {
+            where: { id },
             data: {
                 stamp_price: stampPrice,
                 total: total,
