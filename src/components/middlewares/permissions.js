@@ -50,7 +50,8 @@ const permissions = shield({
         //Purchase
         createPurchase: rules.authorizeToken,
         confirmPurchase: rules.authorizeToken,
-        cancelPurchase: rules.authorizeToken
+        cancelPurchase: rules.authorizeToken,
+        deletePurchase: rules.authorizeToken
     }
 
 });

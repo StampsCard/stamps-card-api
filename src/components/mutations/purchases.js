@@ -101,6 +101,14 @@ PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) =
     )
 };
 
+PurchaseMutations.prototype.delete = async (parent, { id }, ctx, info) => {
+    ctx.db.mutation.deletePurchase({
+        where: { id }
+    });
+
+    return true;
+};
+
 exports['@singleton'] = true;
 exports['@require'] = [
     'queries/purchases',

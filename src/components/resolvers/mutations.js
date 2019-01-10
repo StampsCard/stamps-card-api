@@ -22,7 +22,8 @@ function Mutations(userMutations, businessMutations, businessTypeMutations, stam
         //Purchase
         createPurchase: purchaseMutations.create,
         confirmPurchase: purchaseMutations.confirm,
-        cancelPurchase: purchaseMutations.cancel
+        cancelPurchase: purchaseMutations.cancel,
+        deletePurchase: purchaseMutations.delete
     };
 }
 
