@@ -1,19 +1,35 @@
 mutation {
   first: createUser(data: {
-    id: "cjksop8pz000f0a24d9ll56",
     username: "david.sola"
-    email: "d.sola.03@gmail.com"
-    password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
+    email: "david.sola@stampscard.com"
+    password: "$2b$10$TY1C34GoBZ4AYJ4Rrv09U.9fdHr/lSNKE3RsbAI0TKXLjv1vRUnJS",
     firstName: "David",
-    lastName: "Sola"
+    lastName: "Sola",
+    businesses: {
+      create: [{
+        name: "Pizza pazza",
+        category: {
+          create: {
+            name: "Restaurants"
+          }
+        }
+        stampCards: {
+          create: [{
+            stamp_price: 5.0,
+            total: 10,
+            discount:"A new pizza."
+          }]
+        }
+      }]
+    }
   }) {
     id
   }
 
   second: createUser(data: {
     username: "ricard.bague"
-    email: "ricard.bague@planifan.com"
-    password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
+    email: "ricard.bague@stampscard.com"
+    password: "$2b$10$TY1C34GoBZ4AYJ4Rrv09U.9fdHr/lSNKE3RsbAI0TKXLjv1vRUnJS",
     firstName: "Ricard",
     lastName: "Bague"
   }) {
@@ -22,35 +38,11 @@ mutation {
 
   third: createUser(data: {
     username: "peter.joustra"
-    email: "peter.joustra@planifan.com"
-    password: "$2y$10$tKIGWZwPUACI47T09enz6uiXM/Gk/E3Yps06k4by8SgsE0rEWSbKa",
+    email: "peter.joustra@stampscard.com"
+    password: "$2b$10$TY1C34GoBZ4AYJ4Rrv09U.9fdHr/lSNKE3RsbAI0TKXLjv1vRUnJS",
     firstName: "Peter",
     lastName: "Joustra"
   }) {
     id
   }
-
-  forth: createBusiness(data: {
-    id: "cjkspkuen000s0a24dwsk9zhb",
-    name: "Pizza pazza",
-    categoryName: "Restaurant",
-    categoryDescription: "This is a restaurant.",
-    ownerId: "cjksop8pz000f0a24d9ll56ej"
-  }) {
-      id
-      name
-    }
-
-  fifth: createStampCard(data: {
-    id: "cjkspp21a000z0a24is0yo8cy",
-    stampPrice: 5.0,
-    businessId:"cjkspkuen000s0a24dwsk9zhb",
-    total: 10,
-    discount:"A new pizza."
-  }) {
-      id
-      stamp_price
-    }
-
-
 }

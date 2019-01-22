@@ -78,9 +78,9 @@ UserQueries.prototype.getUserRole = async (ctx, userId) => {
 
 UserQueries.prototype.getUser = async(email, ctx) => {
     const user = await ctx.db.query.user({where: { email: email }});
-    if (!Object.keys(user).length) {
+    if (!user) {
         const user = await ctx.db.query.user({where: { username: email }});
-        if (!Object.keys(user).length) {
+        if (!user) {
             throw new UserQueries.prototype.errors.EmailOrUsernameError();
         }
     }

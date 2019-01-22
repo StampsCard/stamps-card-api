@@ -54,7 +54,7 @@ PurchaseQueries.prototype.findByBusiness = async (parent, { businessId }, ctx, i
 PurchaseQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
     const purchase = await ctx.db.query.purchase({ where: { id } }, info);
 
-    if (!Object.keys(purchase).length) {
+    if (!purchase) {
         throw new PurchaseQueries.prototype.errors.purchaseNotFoundError();
     }
 

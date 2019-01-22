@@ -9,7 +9,7 @@ function UserErrors() {
 }
 
 UserErrors.prototype.EmailOrUsernameError = createError('EmailOrUsernameError', {
-    'message': 'The email and username from this request are not valid.'
+    'message': 'The email or username from this request are not valid.'
 });
 
 

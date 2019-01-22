@@ -16,7 +16,7 @@ StampsCardQueries.prototype.findAll = (parent, args, ctx, info) => {
 StampsCardQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
     const stampsCard = await ctx.db.query.stampCard({ where: { id } }, info);
 
-    if (!Object.keys(stampsCard).length) {
+    if (!stampsCard) {
         throw new StampsCardQueries.prototype.errors.stampsCardNotFound();
     }
 
