@@ -13,7 +13,7 @@ AuthErrors.prototype.notAuthorized = createError('notAuthorizedError', {
 });
 
 AuthErrors.prototype.InvalidPasswordError = createError('InvalidPasswordError', {
-    'message': 'The password is not correct. Please, try again.'
+    'message': 'The password is not correct. Please, try it again.'
 });
 
 exports['@singleton'] = true;
