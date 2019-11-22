@@ -15,7 +15,7 @@
     "electrolyte": "^0.5.0",
     "graphql-iso-date": "^3.4.0",
     "graphql-shield": "^4.1.2",
-    "graphql-yoga": "^1.16.7",
+    "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "moment": "^2.20.1",
@@ -28,6 +28,11 @@
   "devDependencies": {
     "graphql-cli": "^2.16.5",
     "npm-run-all": "4.1.2",
-    "prisma": "^1.24.0"
-  }
+    "prisma": "^1.34.8"
+  },
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@bitbucket.org:stampscard/stamps-card-api.git",
+  "author": "David Sola <d.sola.03@gmail.com>",
+  "license": "MIT"
 }

@@ -1,23 +1,25 @@
 type User {
-  id: ID! @unique
+  id: ID! @id
   username: String! @unique
   email: String! @unique
   password: String!
   firstName: String
   lastName: String
+  fbToken: String
+  igToken: String
   purchases: [Purchase!]!
   businesses: [Business!]!
   stampCards: [StampCard!]!
 }
 
 type BusinessType {
-  id: ID! @unique
+  id: ID! @id
   name: String! @unique
   description: String
 }
 
 type Business {
-  id: ID! @unique
+  id: ID! @id
   name: String! @unique
   category: BusinessType!
   owner: User!
@@ -25,7 +27,7 @@ type Business {
 }
 
 type StampCard {
-  id: ID! @unique
+  id: ID! @id
   stamp_price: Float!
   total: Int! @default(value: 0)
   business: Business!
@@ -34,7 +36,7 @@ type StampCard {
 }
 
 type Purchase {
-  id: ID! @unique
+  id: ID! @id
   amount: Float!
   stamps: Int!
   user: User
