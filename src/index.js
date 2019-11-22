@@ -21,7 +21,7 @@ resolvers
             middlewares: [permissions],
             context: req => ({
                 ...req,
-                db: prismaClient,
+                db: prismaClient.prisma,
             }),
         });
         

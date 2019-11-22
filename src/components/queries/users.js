@@ -69,7 +69,7 @@ UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx, 
 };
 
 UserQueries.prototype.getUserRole = async (ctx, userId) => {
-    const userHasBusiness = await ctx.db.exists.Business({ owner: { id: userId }});
+    const userHasBusiness = await ctx.db.user({ id: userId }).businesses().length;
     if (!userHasBusiness) {
         return "CUSTOMER";
     }
@@ -77,9 +77,9 @@ UserQueries.prototype.getUserRole = async (ctx, userId) => {
 };
 
 UserQueries.prototype.getUser = async(email, ctx) => {
-    const user = await ctx.db.query.user({where: { email: email }});
+    const user = await ctx.db.user({ email: email });
     if (!user) {
-        const user = await ctx.db.query.user({where: { username: email }});
+        const user = await ctx.db.user({ email: email });
         if (!user) {
             throw new UserQueries.prototype.errors.EmailOrUsernameError();
         }
