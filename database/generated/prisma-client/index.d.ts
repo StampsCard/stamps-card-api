@@ -16,6 +16,10 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  business: (where?: BusinessWhereInput) => Promise<boolean>;
+  businessType: (where?: BusinessTypeWhereInput) => Promise<boolean>;
+  purchase: (where?: PurchaseWhereInput) => Promise<boolean>;
+  stampCard: (where?: StampCardWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -38,6 +42,84 @@ export interface Prisma {
    * Queries
    */
 
+  business: (where: BusinessWhereUniqueInput) => BusinessNullablePromise;
+  businesses: (args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Business>;
+  businessesConnection: (args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => BusinessConnectionPromise;
+  businessType: (
+    where: BusinessTypeWhereUniqueInput
+  ) => BusinessTypeNullablePromise;
+  businessTypes: (args?: {
+    where?: BusinessTypeWhereInput;
+    orderBy?: BusinessTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<BusinessType>;
+  businessTypesConnection: (args?: {
+    where?: BusinessTypeWhereInput;
+    orderBy?: BusinessTypeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => BusinessTypeConnectionPromise;
+  purchase: (where: PurchaseWhereUniqueInput) => PurchaseNullablePromise;
+  purchases: (args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Purchase>;
+  purchasesConnection: (args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PurchaseConnectionPromise;
+  stampCard: (where: StampCardWhereUniqueInput) => StampCardNullablePromise;
+  stampCards: (args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<StampCard>;
+  stampCardsConnection: (args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => StampCardConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -63,6 +145,74 @@ export interface Prisma {
    * Mutations
    */
 
+  createBusiness: (data: BusinessCreateInput) => BusinessPromise;
+  updateBusiness: (args: {
+    data: BusinessUpdateInput;
+    where: BusinessWhereUniqueInput;
+  }) => BusinessPromise;
+  updateManyBusinesses: (args: {
+    data: BusinessUpdateManyMutationInput;
+    where?: BusinessWhereInput;
+  }) => BatchPayloadPromise;
+  upsertBusiness: (args: {
+    where: BusinessWhereUniqueInput;
+    create: BusinessCreateInput;
+    update: BusinessUpdateInput;
+  }) => BusinessPromise;
+  deleteBusiness: (where: BusinessWhereUniqueInput) => BusinessPromise;
+  deleteManyBusinesses: (where?: BusinessWhereInput) => BatchPayloadPromise;
+  createBusinessType: (data: BusinessTypeCreateInput) => BusinessTypePromise;
+  updateBusinessType: (args: {
+    data: BusinessTypeUpdateInput;
+    where: BusinessTypeWhereUniqueInput;
+  }) => BusinessTypePromise;
+  updateManyBusinessTypes: (args: {
+    data: BusinessTypeUpdateManyMutationInput;
+    where?: BusinessTypeWhereInput;
+  }) => BatchPayloadPromise;
+  upsertBusinessType: (args: {
+    where: BusinessTypeWhereUniqueInput;
+    create: BusinessTypeCreateInput;
+    update: BusinessTypeUpdateInput;
+  }) => BusinessTypePromise;
+  deleteBusinessType: (
+    where: BusinessTypeWhereUniqueInput
+  ) => BusinessTypePromise;
+  deleteManyBusinessTypes: (
+    where?: BusinessTypeWhereInput
+  ) => BatchPayloadPromise;
+  createPurchase: (data: PurchaseCreateInput) => PurchasePromise;
+  updatePurchase: (args: {
+    data: PurchaseUpdateInput;
+    where: PurchaseWhereUniqueInput;
+  }) => PurchasePromise;
+  updateManyPurchases: (args: {
+    data: PurchaseUpdateManyMutationInput;
+    where?: PurchaseWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPurchase: (args: {
+    where: PurchaseWhereUniqueInput;
+    create: PurchaseCreateInput;
+    update: PurchaseUpdateInput;
+  }) => PurchasePromise;
+  deletePurchase: (where: PurchaseWhereUniqueInput) => PurchasePromise;
+  deleteManyPurchases: (where?: PurchaseWhereInput) => BatchPayloadPromise;
+  createStampCard: (data: StampCardCreateInput) => StampCardPromise;
+  updateStampCard: (args: {
+    data: StampCardUpdateInput;
+    where: StampCardWhereUniqueInput;
+  }) => StampCardPromise;
+  updateManyStampCards: (args: {
+    data: StampCardUpdateManyMutationInput;
+    where?: StampCardWhereInput;
+  }) => BatchPayloadPromise;
+  upsertStampCard: (args: {
+    where: StampCardWhereUniqueInput;
+    create: StampCardCreateInput;
+    update: StampCardUpdateInput;
+  }) => StampCardPromise;
+  deleteStampCard: (where: StampCardWhereUniqueInput) => StampCardPromise;
+  deleteManyStampCards: (where?: StampCardWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -88,6 +238,18 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  business: (
+    where?: BusinessSubscriptionWhereInput
+  ) => BusinessSubscriptionPayloadSubscription;
+  businessType: (
+    where?: BusinessTypeSubscriptionWhereInput
+  ) => BusinessTypeSubscriptionPayloadSubscription;
+  purchase: (
+    where?: PurchaseSubscriptionWhereInput
+  ) => PurchaseSubscriptionPayloadSubscription;
+  stampCard: (
+    where?: StampCardSubscriptionWhereInput
+  ) => StampCardSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -101,15 +263,265 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type UserOrderByInput = "id_ASC" | "id_DESC" | "name_ASC" | "name_DESC";
+export type PurchaseOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "amount_ASC"
+  | "amount_DESC"
+  | "stamps_ASC"
+  | "stamps_DESC"
+  | "concept_ASC"
+  | "concept_DESC"
+  | "confirmedAt_ASC"
+  | "confirmedAt_DESC"
+  | "cancelledAt_ASC"
+  | "cancelledAt_DESC";
+
+export type BusinessOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC";
+
+export type StampCardOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "stamp_price_ASC"
+  | "stamp_price_DESC"
+  | "total_ASC"
+  | "total_DESC"
+  | "discount_ASC"
+  | "discount_DESC";
+
+export type BusinessTypeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "description_ASC"
+  | "description_DESC";
+
+export type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "username_ASC"
+  | "username_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "firstName_ASC"
+  | "firstName_DESC"
+  | "lastName_ASC"
+  | "lastName_DESC"
+  | "fbToken_ASC"
+  | "fbToken_DESC"
+  | "igToken_ASC"
+  | "igToken_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export type BusinessWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  name?: Maybe<String>;
 }>;
 
+export interface PurchaseWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  amount?: Maybe<Float>;
+  amount_not?: Maybe<Float>;
+  amount_in?: Maybe<Float[] | Float>;
+  amount_not_in?: Maybe<Float[] | Float>;
+  amount_lt?: Maybe<Float>;
+  amount_lte?: Maybe<Float>;
+  amount_gt?: Maybe<Float>;
+  amount_gte?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  stamps_not?: Maybe<Int>;
+  stamps_in?: Maybe<Int[] | Int>;
+  stamps_not_in?: Maybe<Int[] | Int>;
+  stamps_lt?: Maybe<Int>;
+  stamps_lte?: Maybe<Int>;
+  stamps_gt?: Maybe<Int>;
+  stamps_gte?: Maybe<Int>;
+  user?: Maybe<UserWhereInput>;
+  stampCard?: Maybe<StampCardWhereInput>;
+  concept?: Maybe<String>;
+  concept_not?: Maybe<String>;
+  concept_in?: Maybe<String[] | String>;
+  concept_not_in?: Maybe<String[] | String>;
+  concept_lt?: Maybe<String>;
+  concept_lte?: Maybe<String>;
+  concept_gt?: Maybe<String>;
+  concept_gte?: Maybe<String>;
+  concept_contains?: Maybe<String>;
+  concept_not_contains?: Maybe<String>;
+  concept_starts_with?: Maybe<String>;
+  concept_not_starts_with?: Maybe<String>;
+  concept_ends_with?: Maybe<String>;
+  concept_not_ends_with?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  confirmedAt_not?: Maybe<DateTimeInput>;
+  confirmedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  confirmedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  confirmedAt_lt?: Maybe<DateTimeInput>;
+  confirmedAt_lte?: Maybe<DateTimeInput>;
+  confirmedAt_gt?: Maybe<DateTimeInput>;
+  confirmedAt_gte?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+  cancelledAt_not?: Maybe<DateTimeInput>;
+  cancelledAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  cancelledAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  cancelledAt_lt?: Maybe<DateTimeInput>;
+  cancelledAt_lte?: Maybe<DateTimeInput>;
+  cancelledAt_gt?: Maybe<DateTimeInput>;
+  cancelledAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<PurchaseWhereInput[] | PurchaseWhereInput>;
+  OR?: Maybe<PurchaseWhereInput[] | PurchaseWhereInput>;
+  NOT?: Maybe<PurchaseWhereInput[] | PurchaseWhereInput>;
+}
+
 export interface UserWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  username?: Maybe<String>;
+  username_not?: Maybe<String>;
+  username_in?: Maybe<String[] | String>;
+  username_not_in?: Maybe<String[] | String>;
+  username_lt?: Maybe<String>;
+  username_lte?: Maybe<String>;
+  username_gt?: Maybe<String>;
+  username_gte?: Maybe<String>;
+  username_contains?: Maybe<String>;
+  username_not_contains?: Maybe<String>;
+  username_starts_with?: Maybe<String>;
+  username_not_starts_with?: Maybe<String>;
+  username_ends_with?: Maybe<String>;
+  username_not_ends_with?: Maybe<String>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  password?: Maybe<String>;
+  password_not?: Maybe<String>;
+  password_in?: Maybe<String[] | String>;
+  password_not_in?: Maybe<String[] | String>;
+  password_lt?: Maybe<String>;
+  password_lte?: Maybe<String>;
+  password_gt?: Maybe<String>;
+  password_gte?: Maybe<String>;
+  password_contains?: Maybe<String>;
+  password_not_contains?: Maybe<String>;
+  password_starts_with?: Maybe<String>;
+  password_not_starts_with?: Maybe<String>;
+  password_ends_with?: Maybe<String>;
+  password_not_ends_with?: Maybe<String>;
+  firstName?: Maybe<String>;
+  firstName_not?: Maybe<String>;
+  firstName_in?: Maybe<String[] | String>;
+  firstName_not_in?: Maybe<String[] | String>;
+  firstName_lt?: Maybe<String>;
+  firstName_lte?: Maybe<String>;
+  firstName_gt?: Maybe<String>;
+  firstName_gte?: Maybe<String>;
+  firstName_contains?: Maybe<String>;
+  firstName_not_contains?: Maybe<String>;
+  firstName_starts_with?: Maybe<String>;
+  firstName_not_starts_with?: Maybe<String>;
+  firstName_ends_with?: Maybe<String>;
+  firstName_not_ends_with?: Maybe<String>;
+  lastName?: Maybe<String>;
+  lastName_not?: Maybe<String>;
+  lastName_in?: Maybe<String[] | String>;
+  lastName_not_in?: Maybe<String[] | String>;
+  lastName_lt?: Maybe<String>;
+  lastName_lte?: Maybe<String>;
+  lastName_gt?: Maybe<String>;
+  lastName_gte?: Maybe<String>;
+  lastName_contains?: Maybe<String>;
+  lastName_not_contains?: Maybe<String>;
+  lastName_starts_with?: Maybe<String>;
+  lastName_not_starts_with?: Maybe<String>;
+  lastName_ends_with?: Maybe<String>;
+  lastName_not_ends_with?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  fbToken_not?: Maybe<String>;
+  fbToken_in?: Maybe<String[] | String>;
+  fbToken_not_in?: Maybe<String[] | String>;
+  fbToken_lt?: Maybe<String>;
+  fbToken_lte?: Maybe<String>;
+  fbToken_gt?: Maybe<String>;
+  fbToken_gte?: Maybe<String>;
+  fbToken_contains?: Maybe<String>;
+  fbToken_not_contains?: Maybe<String>;
+  fbToken_starts_with?: Maybe<String>;
+  fbToken_not_starts_with?: Maybe<String>;
+  fbToken_ends_with?: Maybe<String>;
+  fbToken_not_ends_with?: Maybe<String>;
+  igToken?: Maybe<String>;
+  igToken_not?: Maybe<String>;
+  igToken_in?: Maybe<String[] | String>;
+  igToken_not_in?: Maybe<String[] | String>;
+  igToken_lt?: Maybe<String>;
+  igToken_lte?: Maybe<String>;
+  igToken_gt?: Maybe<String>;
+  igToken_gte?: Maybe<String>;
+  igToken_contains?: Maybe<String>;
+  igToken_not_contains?: Maybe<String>;
+  igToken_starts_with?: Maybe<String>;
+  igToken_not_starts_with?: Maybe<String>;
+  igToken_ends_with?: Maybe<String>;
+  igToken_not_ends_with?: Maybe<String>;
+  purchases_every?: Maybe<PurchaseWhereInput>;
+  purchases_some?: Maybe<PurchaseWhereInput>;
+  purchases_none?: Maybe<PurchaseWhereInput>;
+  businesses_every?: Maybe<BusinessWhereInput>;
+  businesses_some?: Maybe<BusinessWhereInput>;
+  businesses_none?: Maybe<BusinessWhereInput>;
+  stampCards_every?: Maybe<StampCardWhereInput>;
+  stampCards_some?: Maybe<StampCardWhereInput>;
+  stampCards_none?: Maybe<StampCardWhereInput>;
+  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
+  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
+  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+}
+
+export interface BusinessWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -138,22 +550,951 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
-  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
-  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+  category?: Maybe<BusinessTypeWhereInput>;
+  owner?: Maybe<UserWhereInput>;
+  stampCards_every?: Maybe<StampCardWhereInput>;
+  stampCards_some?: Maybe<StampCardWhereInput>;
+  stampCards_none?: Maybe<StampCardWhereInput>;
+  AND?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
+  OR?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
+  NOT?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
+}
+
+export interface BusinessTypeWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  AND?: Maybe<BusinessTypeWhereInput[] | BusinessTypeWhereInput>;
+  OR?: Maybe<BusinessTypeWhereInput[] | BusinessTypeWhereInput>;
+  NOT?: Maybe<BusinessTypeWhereInput[] | BusinessTypeWhereInput>;
+}
+
+export interface StampCardWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  stamp_price?: Maybe<Float>;
+  stamp_price_not?: Maybe<Float>;
+  stamp_price_in?: Maybe<Float[] | Float>;
+  stamp_price_not_in?: Maybe<Float[] | Float>;
+  stamp_price_lt?: Maybe<Float>;
+  stamp_price_lte?: Maybe<Float>;
+  stamp_price_gt?: Maybe<Float>;
+  stamp_price_gte?: Maybe<Float>;
+  total?: Maybe<Int>;
+  total_not?: Maybe<Int>;
+  total_in?: Maybe<Int[] | Int>;
+  total_not_in?: Maybe<Int[] | Int>;
+  total_lt?: Maybe<Int>;
+  total_lte?: Maybe<Int>;
+  total_gt?: Maybe<Int>;
+  total_gte?: Maybe<Int>;
+  business?: Maybe<BusinessWhereInput>;
+  purchases_every?: Maybe<PurchaseWhereInput>;
+  purchases_some?: Maybe<PurchaseWhereInput>;
+  purchases_none?: Maybe<PurchaseWhereInput>;
+  discount?: Maybe<String>;
+  discount_not?: Maybe<String>;
+  discount_in?: Maybe<String[] | String>;
+  discount_not_in?: Maybe<String[] | String>;
+  discount_lt?: Maybe<String>;
+  discount_lte?: Maybe<String>;
+  discount_gt?: Maybe<String>;
+  discount_gte?: Maybe<String>;
+  discount_contains?: Maybe<String>;
+  discount_not_contains?: Maybe<String>;
+  discount_starts_with?: Maybe<String>;
+  discount_not_starts_with?: Maybe<String>;
+  discount_ends_with?: Maybe<String>;
+  discount_not_ends_with?: Maybe<String>;
+  AND?: Maybe<StampCardWhereInput[] | StampCardWhereInput>;
+  OR?: Maybe<StampCardWhereInput[] | StampCardWhereInput>;
+  NOT?: Maybe<StampCardWhereInput[] | StampCardWhereInput>;
+}
+
+export type BusinessTypeWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export type PurchaseWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type StampCardWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  username?: Maybe<String>;
+  email?: Maybe<String>;
+}>;
+
+export interface BusinessCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  category: BusinessTypeCreateOneInput;
+  owner: UserCreateOneWithoutBusinessesInput;
+  stampCards?: Maybe<StampCardCreateManyWithoutBusinessInput>;
+}
+
+export interface BusinessTypeCreateOneInput {
+  create?: Maybe<BusinessTypeCreateInput>;
+  connect?: Maybe<BusinessTypeWhereUniqueInput>;
+}
+
+export interface BusinessTypeCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  description?: Maybe<String>;
+}
+
+export interface UserCreateOneWithoutBusinessesInput {
+  create?: Maybe<UserCreateWithoutBusinessesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutBusinessesInput {
+  id?: Maybe<ID_Input>;
+  username: String;
+  email: String;
+  password: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+  purchases?: Maybe<PurchaseCreateManyWithoutUserInput>;
+  stampCards?: Maybe<StampCardCreateManyInput>;
+}
+
+export interface PurchaseCreateManyWithoutUserInput {
+  create?: Maybe<
+    PurchaseCreateWithoutUserInput[] | PurchaseCreateWithoutUserInput
+  >;
+  connect?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+}
+
+export interface PurchaseCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  amount: Float;
+  stamps: Int;
+  stampCard: StampCardCreateOneWithoutPurchasesInput;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface StampCardCreateOneWithoutPurchasesInput {
+  create?: Maybe<StampCardCreateWithoutPurchasesInput>;
+  connect?: Maybe<StampCardWhereUniqueInput>;
+}
+
+export interface StampCardCreateWithoutPurchasesInput {
+  id?: Maybe<ID_Input>;
+  stamp_price: Float;
+  total?: Maybe<Int>;
+  business: BusinessCreateOneWithoutStampCardsInput;
+  discount: String;
+}
+
+export interface BusinessCreateOneWithoutStampCardsInput {
+  create?: Maybe<BusinessCreateWithoutStampCardsInput>;
+  connect?: Maybe<BusinessWhereUniqueInput>;
+}
+
+export interface BusinessCreateWithoutStampCardsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  category: BusinessTypeCreateOneInput;
+  owner: UserCreateOneWithoutBusinessesInput;
+}
+
+export interface StampCardCreateManyInput {
+  create?: Maybe<StampCardCreateInput[] | StampCardCreateInput>;
+  connect?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+}
+
+export interface StampCardCreateInput {
+  id?: Maybe<ID_Input>;
+  stamp_price: Float;
+  total?: Maybe<Int>;
+  business: BusinessCreateOneWithoutStampCardsInput;
+  purchases?: Maybe<PurchaseCreateManyWithoutStampCardInput>;
+  discount: String;
+}
+
+export interface PurchaseCreateManyWithoutStampCardInput {
+  create?: Maybe<
+    PurchaseCreateWithoutStampCardInput[] | PurchaseCreateWithoutStampCardInput
+  >;
+  connect?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+}
+
+export interface PurchaseCreateWithoutStampCardInput {
+  id?: Maybe<ID_Input>;
+  amount: Float;
+  stamps: Int;
+  user?: Maybe<UserCreateOneWithoutPurchasesInput>;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface UserCreateOneWithoutPurchasesInput {
+  create?: Maybe<UserCreateWithoutPurchasesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutPurchasesInput {
+  id?: Maybe<ID_Input>;
+  username: String;
+  email: String;
+  password: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+  businesses?: Maybe<BusinessCreateManyWithoutOwnerInput>;
+  stampCards?: Maybe<StampCardCreateManyInput>;
+}
+
+export interface BusinessCreateManyWithoutOwnerInput {
+  create?: Maybe<
+    BusinessCreateWithoutOwnerInput[] | BusinessCreateWithoutOwnerInput
+  >;
+  connect?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+}
+
+export interface BusinessCreateWithoutOwnerInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  category: BusinessTypeCreateOneInput;
+  stampCards?: Maybe<StampCardCreateManyWithoutBusinessInput>;
+}
+
+export interface StampCardCreateManyWithoutBusinessInput {
+  create?: Maybe<
+    StampCardCreateWithoutBusinessInput[] | StampCardCreateWithoutBusinessInput
+  >;
+  connect?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+}
+
+export interface StampCardCreateWithoutBusinessInput {
+  id?: Maybe<ID_Input>;
+  stamp_price: Float;
+  total?: Maybe<Int>;
+  purchases?: Maybe<PurchaseCreateManyWithoutStampCardInput>;
+  discount: String;
+}
+
+export interface BusinessUpdateInput {
+  name?: Maybe<String>;
+  category?: Maybe<BusinessTypeUpdateOneRequiredInput>;
+  owner?: Maybe<UserUpdateOneRequiredWithoutBusinessesInput>;
+  stampCards?: Maybe<StampCardUpdateManyWithoutBusinessInput>;
+}
+
+export interface BusinessTypeUpdateOneRequiredInput {
+  create?: Maybe<BusinessTypeCreateInput>;
+  update?: Maybe<BusinessTypeUpdateDataInput>;
+  upsert?: Maybe<BusinessTypeUpsertNestedInput>;
+  connect?: Maybe<BusinessTypeWhereUniqueInput>;
+}
+
+export interface BusinessTypeUpdateDataInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface BusinessTypeUpsertNestedInput {
+  update: BusinessTypeUpdateDataInput;
+  create: BusinessTypeCreateInput;
+}
+
+export interface UserUpdateOneRequiredWithoutBusinessesInput {
+  create?: Maybe<UserCreateWithoutBusinessesInput>;
+  update?: Maybe<UserUpdateWithoutBusinessesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutBusinessesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutBusinessesDataInput {
+  username?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+  purchases?: Maybe<PurchaseUpdateManyWithoutUserInput>;
+  stampCards?: Maybe<StampCardUpdateManyInput>;
+}
+
+export interface PurchaseUpdateManyWithoutUserInput {
+  create?: Maybe<
+    PurchaseCreateWithoutUserInput[] | PurchaseCreateWithoutUserInput
+  >;
+  delete?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  connect?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  set?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  disconnect?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  update?: Maybe<
+    | PurchaseUpdateWithWhereUniqueWithoutUserInput[]
+    | PurchaseUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | PurchaseUpsertWithWhereUniqueWithoutUserInput[]
+    | PurchaseUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
+  updateMany?: Maybe<
+    | PurchaseUpdateManyWithWhereNestedInput[]
+    | PurchaseUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface PurchaseUpdateWithWhereUniqueWithoutUserInput {
+  where: PurchaseWhereUniqueInput;
+  data: PurchaseUpdateWithoutUserDataInput;
+}
+
+export interface PurchaseUpdateWithoutUserDataInput {
+  amount?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  stampCard?: Maybe<StampCardUpdateOneRequiredWithoutPurchasesInput>;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface StampCardUpdateOneRequiredWithoutPurchasesInput {
+  create?: Maybe<StampCardCreateWithoutPurchasesInput>;
+  update?: Maybe<StampCardUpdateWithoutPurchasesDataInput>;
+  upsert?: Maybe<StampCardUpsertWithoutPurchasesInput>;
+  connect?: Maybe<StampCardWhereUniqueInput>;
+}
+
+export interface StampCardUpdateWithoutPurchasesDataInput {
+  stamp_price?: Maybe<Float>;
+  total?: Maybe<Int>;
+  business?: Maybe<BusinessUpdateOneRequiredWithoutStampCardsInput>;
+  discount?: Maybe<String>;
+}
+
+export interface BusinessUpdateOneRequiredWithoutStampCardsInput {
+  create?: Maybe<BusinessCreateWithoutStampCardsInput>;
+  update?: Maybe<BusinessUpdateWithoutStampCardsDataInput>;
+  upsert?: Maybe<BusinessUpsertWithoutStampCardsInput>;
+  connect?: Maybe<BusinessWhereUniqueInput>;
+}
+
+export interface BusinessUpdateWithoutStampCardsDataInput {
+  name?: Maybe<String>;
+  category?: Maybe<BusinessTypeUpdateOneRequiredInput>;
+  owner?: Maybe<UserUpdateOneRequiredWithoutBusinessesInput>;
+}
+
+export interface BusinessUpsertWithoutStampCardsInput {
+  update: BusinessUpdateWithoutStampCardsDataInput;
+  create: BusinessCreateWithoutStampCardsInput;
+}
+
+export interface StampCardUpsertWithoutPurchasesInput {
+  update: StampCardUpdateWithoutPurchasesDataInput;
+  create: StampCardCreateWithoutPurchasesInput;
+}
+
+export interface PurchaseUpsertWithWhereUniqueWithoutUserInput {
+  where: PurchaseWhereUniqueInput;
+  update: PurchaseUpdateWithoutUserDataInput;
+  create: PurchaseCreateWithoutUserInput;
+}
+
+export interface PurchaseScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  amount?: Maybe<Float>;
+  amount_not?: Maybe<Float>;
+  amount_in?: Maybe<Float[] | Float>;
+  amount_not_in?: Maybe<Float[] | Float>;
+  amount_lt?: Maybe<Float>;
+  amount_lte?: Maybe<Float>;
+  amount_gt?: Maybe<Float>;
+  amount_gte?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  stamps_not?: Maybe<Int>;
+  stamps_in?: Maybe<Int[] | Int>;
+  stamps_not_in?: Maybe<Int[] | Int>;
+  stamps_lt?: Maybe<Int>;
+  stamps_lte?: Maybe<Int>;
+  stamps_gt?: Maybe<Int>;
+  stamps_gte?: Maybe<Int>;
+  concept?: Maybe<String>;
+  concept_not?: Maybe<String>;
+  concept_in?: Maybe<String[] | String>;
+  concept_not_in?: Maybe<String[] | String>;
+  concept_lt?: Maybe<String>;
+  concept_lte?: Maybe<String>;
+  concept_gt?: Maybe<String>;
+  concept_gte?: Maybe<String>;
+  concept_contains?: Maybe<String>;
+  concept_not_contains?: Maybe<String>;
+  concept_starts_with?: Maybe<String>;
+  concept_not_starts_with?: Maybe<String>;
+  concept_ends_with?: Maybe<String>;
+  concept_not_ends_with?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  confirmedAt_not?: Maybe<DateTimeInput>;
+  confirmedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  confirmedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  confirmedAt_lt?: Maybe<DateTimeInput>;
+  confirmedAt_lte?: Maybe<DateTimeInput>;
+  confirmedAt_gt?: Maybe<DateTimeInput>;
+  confirmedAt_gte?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+  cancelledAt_not?: Maybe<DateTimeInput>;
+  cancelledAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  cancelledAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  cancelledAt_lt?: Maybe<DateTimeInput>;
+  cancelledAt_lte?: Maybe<DateTimeInput>;
+  cancelledAt_gt?: Maybe<DateTimeInput>;
+  cancelledAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
+  OR?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
+  NOT?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
+}
+
+export interface PurchaseUpdateManyWithWhereNestedInput {
+  where: PurchaseScalarWhereInput;
+  data: PurchaseUpdateManyDataInput;
+}
+
+export interface PurchaseUpdateManyDataInput {
+  amount?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface StampCardUpdateManyInput {
+  create?: Maybe<StampCardCreateInput[] | StampCardCreateInput>;
+  update?: Maybe<
+    | StampCardUpdateWithWhereUniqueNestedInput[]
+    | StampCardUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | StampCardUpsertWithWhereUniqueNestedInput[]
+    | StampCardUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  connect?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  set?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  disconnect?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  deleteMany?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
+  updateMany?: Maybe<
+    | StampCardUpdateManyWithWhereNestedInput[]
+    | StampCardUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface StampCardUpdateWithWhereUniqueNestedInput {
+  where: StampCardWhereUniqueInput;
+  data: StampCardUpdateDataInput;
+}
+
+export interface StampCardUpdateDataInput {
+  stamp_price?: Maybe<Float>;
+  total?: Maybe<Int>;
+  business?: Maybe<BusinessUpdateOneRequiredWithoutStampCardsInput>;
+  purchases?: Maybe<PurchaseUpdateManyWithoutStampCardInput>;
+  discount?: Maybe<String>;
+}
+
+export interface PurchaseUpdateManyWithoutStampCardInput {
+  create?: Maybe<
+    PurchaseCreateWithoutStampCardInput[] | PurchaseCreateWithoutStampCardInput
+  >;
+  delete?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  connect?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  set?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  disconnect?: Maybe<PurchaseWhereUniqueInput[] | PurchaseWhereUniqueInput>;
+  update?: Maybe<
+    | PurchaseUpdateWithWhereUniqueWithoutStampCardInput[]
+    | PurchaseUpdateWithWhereUniqueWithoutStampCardInput
+  >;
+  upsert?: Maybe<
+    | PurchaseUpsertWithWhereUniqueWithoutStampCardInput[]
+    | PurchaseUpsertWithWhereUniqueWithoutStampCardInput
+  >;
+  deleteMany?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
+  updateMany?: Maybe<
+    | PurchaseUpdateManyWithWhereNestedInput[]
+    | PurchaseUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface PurchaseUpdateWithWhereUniqueWithoutStampCardInput {
+  where: PurchaseWhereUniqueInput;
+  data: PurchaseUpdateWithoutStampCardDataInput;
+}
+
+export interface PurchaseUpdateWithoutStampCardDataInput {
+  amount?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneWithoutPurchasesInput>;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface UserUpdateOneWithoutPurchasesInput {
+  create?: Maybe<UserCreateWithoutPurchasesInput>;
+  update?: Maybe<UserUpdateWithoutPurchasesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutPurchasesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutPurchasesDataInput {
+  username?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+  businesses?: Maybe<BusinessUpdateManyWithoutOwnerInput>;
+  stampCards?: Maybe<StampCardUpdateManyInput>;
+}
+
+export interface BusinessUpdateManyWithoutOwnerInput {
+  create?: Maybe<
+    BusinessCreateWithoutOwnerInput[] | BusinessCreateWithoutOwnerInput
+  >;
+  delete?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  connect?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  set?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  disconnect?: Maybe<BusinessWhereUniqueInput[] | BusinessWhereUniqueInput>;
+  update?: Maybe<
+    | BusinessUpdateWithWhereUniqueWithoutOwnerInput[]
+    | BusinessUpdateWithWhereUniqueWithoutOwnerInput
+  >;
+  upsert?: Maybe<
+    | BusinessUpsertWithWhereUniqueWithoutOwnerInput[]
+    | BusinessUpsertWithWhereUniqueWithoutOwnerInput
+  >;
+  deleteMany?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+  updateMany?: Maybe<
+    | BusinessUpdateManyWithWhereNestedInput[]
+    | BusinessUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface BusinessUpdateWithWhereUniqueWithoutOwnerInput {
+  where: BusinessWhereUniqueInput;
+  data: BusinessUpdateWithoutOwnerDataInput;
+}
+
+export interface BusinessUpdateWithoutOwnerDataInput {
+  name?: Maybe<String>;
+  category?: Maybe<BusinessTypeUpdateOneRequiredInput>;
+  stampCards?: Maybe<StampCardUpdateManyWithoutBusinessInput>;
+}
+
+export interface StampCardUpdateManyWithoutBusinessInput {
+  create?: Maybe<
+    StampCardCreateWithoutBusinessInput[] | StampCardCreateWithoutBusinessInput
+  >;
+  delete?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  connect?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  set?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  disconnect?: Maybe<StampCardWhereUniqueInput[] | StampCardWhereUniqueInput>;
+  update?: Maybe<
+    | StampCardUpdateWithWhereUniqueWithoutBusinessInput[]
+    | StampCardUpdateWithWhereUniqueWithoutBusinessInput
+  >;
+  upsert?: Maybe<
+    | StampCardUpsertWithWhereUniqueWithoutBusinessInput[]
+    | StampCardUpsertWithWhereUniqueWithoutBusinessInput
+  >;
+  deleteMany?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
+  updateMany?: Maybe<
+    | StampCardUpdateManyWithWhereNestedInput[]
+    | StampCardUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface StampCardUpdateWithWhereUniqueWithoutBusinessInput {
+  where: StampCardWhereUniqueInput;
+  data: StampCardUpdateWithoutBusinessDataInput;
+}
+
+export interface StampCardUpdateWithoutBusinessDataInput {
+  stamp_price?: Maybe<Float>;
+  total?: Maybe<Int>;
+  purchases?: Maybe<PurchaseUpdateManyWithoutStampCardInput>;
+  discount?: Maybe<String>;
+}
+
+export interface StampCardUpsertWithWhereUniqueWithoutBusinessInput {
+  where: StampCardWhereUniqueInput;
+  update: StampCardUpdateWithoutBusinessDataInput;
+  create: StampCardCreateWithoutBusinessInput;
+}
+
+export interface StampCardScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  stamp_price?: Maybe<Float>;
+  stamp_price_not?: Maybe<Float>;
+  stamp_price_in?: Maybe<Float[] | Float>;
+  stamp_price_not_in?: Maybe<Float[] | Float>;
+  stamp_price_lt?: Maybe<Float>;
+  stamp_price_lte?: Maybe<Float>;
+  stamp_price_gt?: Maybe<Float>;
+  stamp_price_gte?: Maybe<Float>;
+  total?: Maybe<Int>;
+  total_not?: Maybe<Int>;
+  total_in?: Maybe<Int[] | Int>;
+  total_not_in?: Maybe<Int[] | Int>;
+  total_lt?: Maybe<Int>;
+  total_lte?: Maybe<Int>;
+  total_gt?: Maybe<Int>;
+  total_gte?: Maybe<Int>;
+  discount?: Maybe<String>;
+  discount_not?: Maybe<String>;
+  discount_in?: Maybe<String[] | String>;
+  discount_not_in?: Maybe<String[] | String>;
+  discount_lt?: Maybe<String>;
+  discount_lte?: Maybe<String>;
+  discount_gt?: Maybe<String>;
+  discount_gte?: Maybe<String>;
+  discount_contains?: Maybe<String>;
+  discount_not_contains?: Maybe<String>;
+  discount_starts_with?: Maybe<String>;
+  discount_not_starts_with?: Maybe<String>;
+  discount_ends_with?: Maybe<String>;
+  discount_not_ends_with?: Maybe<String>;
+  AND?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
+  OR?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
+  NOT?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
+}
+
+export interface StampCardUpdateManyWithWhereNestedInput {
+  where: StampCardScalarWhereInput;
+  data: StampCardUpdateManyDataInput;
+}
+
+export interface StampCardUpdateManyDataInput {
+  stamp_price?: Maybe<Float>;
+  total?: Maybe<Int>;
+  discount?: Maybe<String>;
+}
+
+export interface BusinessUpsertWithWhereUniqueWithoutOwnerInput {
+  where: BusinessWhereUniqueInput;
+  update: BusinessUpdateWithoutOwnerDataInput;
+  create: BusinessCreateWithoutOwnerInput;
+}
+
+export interface BusinessScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+  OR?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+  NOT?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
+}
+
+export interface BusinessUpdateManyWithWhereNestedInput {
+  where: BusinessScalarWhereInput;
+  data: BusinessUpdateManyDataInput;
+}
+
+export interface BusinessUpdateManyDataInput {
+  name?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutPurchasesInput {
+  update: UserUpdateWithoutPurchasesDataInput;
+  create: UserCreateWithoutPurchasesInput;
+}
+
+export interface PurchaseUpsertWithWhereUniqueWithoutStampCardInput {
+  where: PurchaseWhereUniqueInput;
+  update: PurchaseUpdateWithoutStampCardDataInput;
+  create: PurchaseCreateWithoutStampCardInput;
+}
+
+export interface StampCardUpsertWithWhereUniqueNestedInput {
+  where: StampCardWhereUniqueInput;
+  update: StampCardUpdateDataInput;
+  create: StampCardCreateInput;
+}
+
+export interface UserUpsertWithoutBusinessesInput {
+  update: UserUpdateWithoutBusinessesDataInput;
+  create: UserCreateWithoutBusinessesInput;
+}
+
+export interface BusinessUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface BusinessTypeUpdateInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface BusinessTypeUpdateManyMutationInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface PurchaseCreateInput {
+  id?: Maybe<ID_Input>;
+  amount: Float;
+  stamps: Int;
+  user?: Maybe<UserCreateOneWithoutPurchasesInput>;
+  stampCard: StampCardCreateOneWithoutPurchasesInput;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface PurchaseUpdateInput {
+  amount?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneWithoutPurchasesInput>;
+  stampCard?: Maybe<StampCardUpdateOneRequiredWithoutPurchasesInput>;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface PurchaseUpdateManyMutationInput {
+  amount?: Maybe<Float>;
+  stamps?: Maybe<Int>;
+  concept?: Maybe<String>;
+  confirmedAt?: Maybe<DateTimeInput>;
+  cancelledAt?: Maybe<DateTimeInput>;
+}
+
+export interface StampCardUpdateInput {
+  stamp_price?: Maybe<Float>;
+  total?: Maybe<Int>;
+  business?: Maybe<BusinessUpdateOneRequiredWithoutStampCardsInput>;
+  purchases?: Maybe<PurchaseUpdateManyWithoutStampCardInput>;
+  discount?: Maybe<String>;
+}
+
+export interface StampCardUpdateManyMutationInput {
+  stamp_price?: Maybe<Float>;
+  total?: Maybe<Int>;
+  discount?: Maybe<String>;
 }
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
-  name: String;
+  username: String;
+  email: String;
+  password: String;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+  purchases?: Maybe<PurchaseCreateManyWithoutUserInput>;
+  businesses?: Maybe<BusinessCreateManyWithoutOwnerInput>;
+  stampCards?: Maybe<StampCardCreateManyInput>;
 }
 
 export interface UserUpdateInput {
-  name?: Maybe<String>;
+  username?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+  purchases?: Maybe<PurchaseUpdateManyWithoutUserInput>;
+  businesses?: Maybe<BusinessUpdateManyWithoutOwnerInput>;
+  stampCards?: Maybe<StampCardUpdateManyInput>;
 }
 
 export interface UserUpdateManyMutationInput {
-  name?: Maybe<String>;
+  username?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  fbToken?: Maybe<String>;
+  igToken?: Maybe<String>;
+}
+
+export interface BusinessSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<BusinessWhereInput>;
+  AND?: Maybe<
+    BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  >;
+  OR?: Maybe<BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput>;
+  NOT?: Maybe<
+    BusinessSubscriptionWhereInput[] | BusinessSubscriptionWhereInput
+  >;
+}
+
+export interface BusinessTypeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<BusinessTypeWhereInput>;
+  AND?: Maybe<
+    BusinessTypeSubscriptionWhereInput[] | BusinessTypeSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    BusinessTypeSubscriptionWhereInput[] | BusinessTypeSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    BusinessTypeSubscriptionWhereInput[] | BusinessTypeSubscriptionWhereInput
+  >;
+}
+
+export interface PurchaseSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<PurchaseWhereInput>;
+  AND?: Maybe<
+    PurchaseSubscriptionWhereInput[] | PurchaseSubscriptionWhereInput
+  >;
+  OR?: Maybe<PurchaseSubscriptionWhereInput[] | PurchaseSubscriptionWhereInput>;
+  NOT?: Maybe<
+    PurchaseSubscriptionWhereInput[] | PurchaseSubscriptionWhereInput
+  >;
+}
+
+export interface StampCardSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<StampCardWhereInput>;
+  AND?: Maybe<
+    StampCardSubscriptionWhereInput[] | StampCardSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    StampCardSubscriptionWhereInput[] | StampCardSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    StampCardSubscriptionWhereInput[] | StampCardSubscriptionWhereInput
+  >;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -171,49 +1512,349 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface User {
+export interface Business {
   id: ID_Output;
   name: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface BusinessPromise extends Promise<Business>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  category: <T = BusinessTypePromise>() => T;
+  owner: <T = UserPromise>() => T;
+  stampCards: <T = FragmentableArray<StampCard>>(args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface BusinessSubscription
+  extends Promise<AsyncIterator<Business>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  category: <T = BusinessTypeSubscription>() => T;
+  owner: <T = UserSubscription>() => T;
+  stampCards: <T = Promise<AsyncIterator<StampCardSubscription>>>(args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface BusinessNullablePromise
+  extends Promise<Business | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  category: <T = BusinessTypePromise>() => T;
+  owner: <T = UserPromise>() => T;
+  stampCards: <T = FragmentableArray<StampCard>>(args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface BusinessType {
+  id: ID_Output;
+  name: String;
+  description?: String;
+}
+
+export interface BusinessTypePromise
+  extends Promise<BusinessType>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+}
+
+export interface BusinessTypeSubscription
+  extends Promise<AsyncIterator<BusinessType>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BusinessTypeNullablePromise
+  extends Promise<BusinessType | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+}
+
+export interface User {
+  id: ID_Output;
+  username: String;
+  email: String;
+  password: String;
+  firstName?: String;
+  lastName?: String;
+  fbToken?: String;
+  igToken?: String;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  username: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  fbToken: () => Promise<String>;
+  igToken: () => Promise<String>;
+  purchases: <T = FragmentableArray<Purchase>>(args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  businesses: <T = FragmentableArray<Business>>(args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  stampCards: <T = FragmentableArray<StampCard>>(args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  firstName: () => Promise<AsyncIterator<String>>;
+  lastName: () => Promise<AsyncIterator<String>>;
+  fbToken: () => Promise<AsyncIterator<String>>;
+  igToken: () => Promise<AsyncIterator<String>>;
+  purchases: <T = Promise<AsyncIterator<PurchaseSubscription>>>(args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  businesses: <T = Promise<AsyncIterator<BusinessSubscription>>>(args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  stampCards: <T = Promise<AsyncIterator<StampCardSubscription>>>(args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  username: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  fbToken: () => Promise<String>;
+  igToken: () => Promise<String>;
+  purchases: <T = FragmentableArray<Purchase>>(args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  businesses: <T = FragmentableArray<Business>>(args?: {
+    where?: BusinessWhereInput;
+    orderBy?: BusinessOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  stampCards: <T = FragmentableArray<StampCard>>(args?: {
+    where?: StampCardWhereInput;
+    orderBy?: StampCardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
-export interface UserConnection {
+export interface Purchase {
+  id: ID_Output;
+  amount: Float;
+  stamps: Int;
+  concept?: String;
+  confirmedAt?: DateTimeOutput;
+  cancelledAt?: DateTimeOutput;
+}
+
+export interface PurchasePromise extends Promise<Purchase>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  amount: () => Promise<Float>;
+  stamps: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  stampCard: <T = StampCardPromise>() => T;
+  concept: () => Promise<String>;
+  confirmedAt: () => Promise<DateTimeOutput>;
+  cancelledAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PurchaseSubscription
+  extends Promise<AsyncIterator<Purchase>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  stamps: () => Promise<AsyncIterator<Int>>;
+  user: <T = UserSubscription>() => T;
+  stampCard: <T = StampCardSubscription>() => T;
+  concept: () => Promise<AsyncIterator<String>>;
+  confirmedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  cancelledAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface PurchaseNullablePromise
+  extends Promise<Purchase | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  amount: () => Promise<Float>;
+  stamps: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  stampCard: <T = StampCardPromise>() => T;
+  concept: () => Promise<String>;
+  confirmedAt: () => Promise<DateTimeOutput>;
+  cancelledAt: () => Promise<DateTimeOutput>;
+}
+
+export interface StampCard {
+  id: ID_Output;
+  stamp_price: Float;
+  total: Int;
+  discount: String;
+}
+
+export interface StampCardPromise extends Promise<StampCard>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  stamp_price: () => Promise<Float>;
+  total: () => Promise<Int>;
+  business: <T = BusinessPromise>() => T;
+  purchases: <T = FragmentableArray<Purchase>>(args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  discount: () => Promise<String>;
+}
+
+export interface StampCardSubscription
+  extends Promise<AsyncIterator<StampCard>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  stamp_price: () => Promise<AsyncIterator<Float>>;
+  total: () => Promise<AsyncIterator<Int>>;
+  business: <T = BusinessSubscription>() => T;
+  purchases: <T = Promise<AsyncIterator<PurchaseSubscription>>>(args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  discount: () => Promise<AsyncIterator<String>>;
+}
+
+export interface StampCardNullablePromise
+  extends Promise<StampCard | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  stamp_price: () => Promise<Float>;
+  total: () => Promise<Int>;
+  business: <T = BusinessPromise>() => T;
+  purchases: <T = FragmentableArray<Purchase>>(args?: {
+    where?: PurchaseWhereInput;
+    orderBy?: PurchaseOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  discount: () => Promise<String>;
+}
+
+export interface BusinessConnection {
   pageInfo: PageInfo;
-  edges: UserEdge[];
+  edges: BusinessEdge[];
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface BusinessConnectionPromise
+  extends Promise<BusinessConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
+  edges: <T = FragmentableArray<BusinessEdge>>() => T;
+  aggregate: <T = AggregateBusinessPromise>() => T;
 }
 
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
+export interface BusinessConnectionSubscription
+  extends Promise<AsyncIterator<BusinessConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<BusinessEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateBusinessSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -237,6 +1878,230 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BusinessEdge {
+  node: Business;
+  cursor: String;
+}
+
+export interface BusinessEdgePromise
+  extends Promise<BusinessEdge>,
+    Fragmentable {
+  node: <T = BusinessPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface BusinessEdgeSubscription
+  extends Promise<AsyncIterator<BusinessEdge>>,
+    Fragmentable {
+  node: <T = BusinessSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateBusiness {
+  count: Int;
+}
+
+export interface AggregateBusinessPromise
+  extends Promise<AggregateBusiness>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateBusinessSubscription
+  extends Promise<AsyncIterator<AggregateBusiness>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BusinessTypeConnection {
+  pageInfo: PageInfo;
+  edges: BusinessTypeEdge[];
+}
+
+export interface BusinessTypeConnectionPromise
+  extends Promise<BusinessTypeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<BusinessTypeEdge>>() => T;
+  aggregate: <T = AggregateBusinessTypePromise>() => T;
+}
+
+export interface BusinessTypeConnectionSubscription
+  extends Promise<AsyncIterator<BusinessTypeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<BusinessTypeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateBusinessTypeSubscription>() => T;
+}
+
+export interface BusinessTypeEdge {
+  node: BusinessType;
+  cursor: String;
+}
+
+export interface BusinessTypeEdgePromise
+  extends Promise<BusinessTypeEdge>,
+    Fragmentable {
+  node: <T = BusinessTypePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface BusinessTypeEdgeSubscription
+  extends Promise<AsyncIterator<BusinessTypeEdge>>,
+    Fragmentable {
+  node: <T = BusinessTypeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateBusinessType {
+  count: Int;
+}
+
+export interface AggregateBusinessTypePromise
+  extends Promise<AggregateBusinessType>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateBusinessTypeSubscription
+  extends Promise<AsyncIterator<AggregateBusinessType>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PurchaseConnection {
+  pageInfo: PageInfo;
+  edges: PurchaseEdge[];
+}
+
+export interface PurchaseConnectionPromise
+  extends Promise<PurchaseConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PurchaseEdge>>() => T;
+  aggregate: <T = AggregatePurchasePromise>() => T;
+}
+
+export interface PurchaseConnectionSubscription
+  extends Promise<AsyncIterator<PurchaseConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PurchaseEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePurchaseSubscription>() => T;
+}
+
+export interface PurchaseEdge {
+  node: Purchase;
+  cursor: String;
+}
+
+export interface PurchaseEdgePromise
+  extends Promise<PurchaseEdge>,
+    Fragmentable {
+  node: <T = PurchasePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PurchaseEdgeSubscription
+  extends Promise<AsyncIterator<PurchaseEdge>>,
+    Fragmentable {
+  node: <T = PurchaseSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatePurchase {
+  count: Int;
+}
+
+export interface AggregatePurchasePromise
+  extends Promise<AggregatePurchase>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePurchaseSubscription
+  extends Promise<AsyncIterator<AggregatePurchase>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface StampCardConnection {
+  pageInfo: PageInfo;
+  edges: StampCardEdge[];
+}
+
+export interface StampCardConnectionPromise
+  extends Promise<StampCardConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<StampCardEdge>>() => T;
+  aggregate: <T = AggregateStampCardPromise>() => T;
+}
+
+export interface StampCardConnectionSubscription
+  extends Promise<AsyncIterator<StampCardConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<StampCardEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateStampCardSubscription>() => T;
+}
+
+export interface StampCardEdge {
+  node: StampCard;
+  cursor: String;
+}
+
+export interface StampCardEdgePromise
+  extends Promise<StampCardEdge>,
+    Fragmentable {
+  node: <T = StampCardPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface StampCardEdgeSubscription
+  extends Promise<AsyncIterator<StampCardEdge>>,
+    Fragmentable {
+  node: <T = StampCardSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateStampCard {
+  count: Int;
+}
+
+export interface AggregateStampCardPromise
+  extends Promise<AggregateStampCard>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateStampCardSubscription
+  extends Promise<AsyncIterator<AggregateStampCard>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface UserEdge {
@@ -288,6 +2153,203 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
+export interface BusinessSubscriptionPayload {
+  mutation: MutationType;
+  node: Business;
+  updatedFields: String[];
+  previousValues: BusinessPreviousValues;
+}
+
+export interface BusinessSubscriptionPayloadPromise
+  extends Promise<BusinessSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = BusinessPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BusinessPreviousValuesPromise>() => T;
+}
+
+export interface BusinessSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<BusinessSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BusinessSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BusinessPreviousValuesSubscription>() => T;
+}
+
+export interface BusinessPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface BusinessPreviousValuesPromise
+  extends Promise<BusinessPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface BusinessPreviousValuesSubscription
+  extends Promise<AsyncIterator<BusinessPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BusinessTypeSubscriptionPayload {
+  mutation: MutationType;
+  node: BusinessType;
+  updatedFields: String[];
+  previousValues: BusinessTypePreviousValues;
+}
+
+export interface BusinessTypeSubscriptionPayloadPromise
+  extends Promise<BusinessTypeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = BusinessTypePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = BusinessTypePreviousValuesPromise>() => T;
+}
+
+export interface BusinessTypeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<BusinessTypeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = BusinessTypeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = BusinessTypePreviousValuesSubscription>() => T;
+}
+
+export interface BusinessTypePreviousValues {
+  id: ID_Output;
+  name: String;
+  description?: String;
+}
+
+export interface BusinessTypePreviousValuesPromise
+  extends Promise<BusinessTypePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+}
+
+export interface BusinessTypePreviousValuesSubscription
+  extends Promise<AsyncIterator<BusinessTypePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PurchaseSubscriptionPayload {
+  mutation: MutationType;
+  node: Purchase;
+  updatedFields: String[];
+  previousValues: PurchasePreviousValues;
+}
+
+export interface PurchaseSubscriptionPayloadPromise
+  extends Promise<PurchaseSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PurchasePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PurchasePreviousValuesPromise>() => T;
+}
+
+export interface PurchaseSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PurchaseSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PurchaseSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PurchasePreviousValuesSubscription>() => T;
+}
+
+export interface PurchasePreviousValues {
+  id: ID_Output;
+  amount: Float;
+  stamps: Int;
+  concept?: String;
+  confirmedAt?: DateTimeOutput;
+  cancelledAt?: DateTimeOutput;
+}
+
+export interface PurchasePreviousValuesPromise
+  extends Promise<PurchasePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  amount: () => Promise<Float>;
+  stamps: () => Promise<Int>;
+  concept: () => Promise<String>;
+  confirmedAt: () => Promise<DateTimeOutput>;
+  cancelledAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PurchasePreviousValuesSubscription
+  extends Promise<AsyncIterator<PurchasePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  amount: () => Promise<AsyncIterator<Float>>;
+  stamps: () => Promise<AsyncIterator<Int>>;
+  concept: () => Promise<AsyncIterator<String>>;
+  confirmedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  cancelledAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface StampCardSubscriptionPayload {
+  mutation: MutationType;
+  node: StampCard;
+  updatedFields: String[];
+  previousValues: StampCardPreviousValues;
+}
+
+export interface StampCardSubscriptionPayloadPromise
+  extends Promise<StampCardSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = StampCardPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = StampCardPreviousValuesPromise>() => T;
+}
+
+export interface StampCardSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<StampCardSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = StampCardSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = StampCardPreviousValuesSubscription>() => T;
+}
+
+export interface StampCardPreviousValues {
+  id: ID_Output;
+  stamp_price: Float;
+  total: Int;
+  discount: String;
+}
+
+export interface StampCardPreviousValuesPromise
+  extends Promise<StampCardPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  stamp_price: () => Promise<Float>;
+  total: () => Promise<Int>;
+  discount: () => Promise<String>;
+}
+
+export interface StampCardPreviousValuesSubscription
+  extends Promise<AsyncIterator<StampCardPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  stamp_price: () => Promise<AsyncIterator<Float>>;
+  total: () => Promise<AsyncIterator<Int>>;
+  discount: () => Promise<AsyncIterator<String>>;
+}
+
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -315,21 +2377,39 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
-  name: String;
+  username: String;
+  email: String;
+  password: String;
+  firstName?: String;
+  lastName?: String;
+  fbToken?: String;
+  igToken?: String;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
+  username: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  fbToken: () => Promise<String>;
+  igToken: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  firstName: () => Promise<AsyncIterator<String>>;
+  lastName: () => Promise<AsyncIterator<String>>;
+  fbToken: () => Promise<AsyncIterator<String>>;
+  igToken: () => Promise<AsyncIterator<String>>;
 }
 
 /*
@@ -344,9 +2424,24 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
+
+/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
@@ -362,6 +2457,22 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "BusinessType",
+    embedded: false
+  },
+  {
+    name: "Business",
+    embedded: false
+  },
+  {
+    name: "StampCard",
+    embedded: false
+  },
+  {
+    name: "Purchase",
     embedded: false
   }
 ];
