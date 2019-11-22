@@ -1,0 +1,11 @@
+  query getUser($id: ID!) {
+      user(id: $id) {
+        email
+      	firstName
+      	lastName
+      }
+  }
+
+{
+  "id": "ck3a2apw6004p0701w8v2jfxd"
+}

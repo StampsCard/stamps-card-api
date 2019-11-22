@@ -1,0 +1,11 @@
+{
+  users {
+    id
+    username
+    purchases {
+      id
+      amount
+      stamps
+    }
+  }
+}

@@ -1,0 +1,13 @@
+query getCustomersByBusiness($businessId: ID!) {
+    customersByBusiness(businessId: $businessId) {
+      	user {
+          username
+        }
+      	lastPayment
+      	spent
+    }
+}
+
+{
+  "businessId": "ck3a2apwo004q07010xwqjs89"
+}

@@ -21,7 +21,7 @@ type BusinessType {
 type Business {
   id: ID! @id
   name: String! @unique
-  category: BusinessType!
+  category: BusinessType! @relation(link: INLINE)
   owner: User!
   stampCards: [StampCard!]!
 }

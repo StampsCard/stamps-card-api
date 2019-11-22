@@ -11,11 +11,11 @@ function UserQueries(businessQueries, purchaseQueries, userErrors) {
 }
 
 UserQueries.prototype.findAll = (parent, args, ctx, info) => {
-    return ctx.db.query.users({}, info)
+    return ctx.db.users({}, info)
 };
 
 UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
-    const user = await ctx.db.query.user({ where: { id } }, info);
+    const user = await ctx.db.user({ id }, info);
 
     if (!Object.keys(user).length) {
         throw new UserQueries.prototype.errors.userNotFoundError();
@@ -26,36 +26,41 @@ UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
 
 
 UserQueries.prototype.customersByBusiness = async (parent, { businessId }, ctx, info) => {
-    const business = await UserQueries.prototype.businessQueries.exists(parent, businessId, ctx);
+    const business = await UserQueries.prototype.businessQueries.findOne(parent, {id: businessId }, ctx);
     if (!business) {
         throw new UserQueries.prototype.errors.BusinessNotExistsError();
     }
-    const users = await ctx.db.query.users({
-        where: {
-            purchases_some: {
-                stampCard: {
-                    business: {
-                        id: businessId
-                    }
-                }
-            }
-        },
-    },
-    `{
-          id
-          username
-          email
-          password
-          firstName
-          lastName
-          purchases {
+
+    const fragment = `
+    fragment UserWithPurcases on User {
+        id
+        username
+        email
+        password
+        firstName
+        lastName
+        purchases {
             id
             amount
             confirmedAt
             cancelledAt
-          }
-      }
-    `);
+        }
+    }
+    `
+
+    const users = await ctx.db
+        .users({
+            where: {
+                purchases_some: {
+                    stampCard: {
+                        business: {
+                            id: businessId
+                        }
+                    }
+                }
+            },
+        })
+        .$fragment(fragment)
 
     return _.map(users, (user) => {
         const purchases = user.purchases;

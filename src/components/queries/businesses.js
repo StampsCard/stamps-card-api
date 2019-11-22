@@ -9,7 +9,25 @@ function BusinessQueries(purchaseQueries) {
 }
 
 BusinessQueries.prototype.findByCustomer = async (userId, ctx) => {
-    return await ctx.db.query.businesses({
+    const fragment = `{
+        id
+        name
+        category {
+          id
+          name
+          description
+        }
+        owner {
+          id
+          username
+          email
+          firstName
+          lastName
+        }
+    }`
+
+    return await ctx.db
+        .businesses({
             where: {
                 stampCards_some: {
                     purchases_some: {
@@ -20,35 +38,16 @@ BusinessQueries.prototype.findByCustomer = async (userId, ctx) => {
                 }
             },
             orderBy: "createdAt_DESC"
-        },`{
-            id
-            name
-            category {
-              id
-              name
-              description
-            }
-            owner {
-              id
-              username
-              email
-              firstName
-              lastName
-            }
-        }`
-    )
+        })
+        .$fragment(fragment)
 };
 
-BusinessQueries.prototype.findAll = (parent, args, ctx, info) => {
-    return ctx.db.query.businesses({}, info)
+BusinessQueries.prototype.findAll = async(parent, args, ctx, info) => {
+    return await ctx.db.businesses({}, info)
 };
 
-BusinessQueries.prototype.findOne = (parent, { id }, ctx, info) => {
-    return ctx.db.query.business({ where: { id } }, info)
-};
-
-BusinessQueries.prototype.exists = async (parent, { id }, ctx) => {
-    return await ctx.db.exists.Business({  id: id });
+BusinessQueries.prototype.findOne = async(parent, { id }, ctx, info) => {
+    return await ctx.db.business({ id: id }, info)
 };
 
 BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx, info) => {
@@ -67,7 +66,7 @@ BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx, inf
 
 
 BusinessQueries.prototype.findByOwner = async (parent, { userId }, ctx, info) => {
-    return ctx.db.query.businesses({
+    return ctx.db.businesses({
             where: {
                 owner: {
                     id: userId
