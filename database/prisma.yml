@@ -19,8 +19,8 @@ hooks:
 # to the `Authorization` header of HTTP requests made against the Prisma API.
 # Info: https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication
 secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJzdGFtcHMtY2FyZC1hcGlAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTU3NDM4MDM5MSwiZXhwIjoxNTc0OTg1MTkxfQ.LFeYG03nVmI3zd514PVdlPwOS5u2Na_uXAjPpoJDGsk
-# access token for the Playground -> 
+# access token for the Playground and admin -> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJzdGFtcHMtY2FyZC1hcGlAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTU3NDM4MDM5MSwiZXhwIjoxNTc0OTg1MTkxfQ.LFeYG03nVmI3zd514PVdlPwOS5u2Na_uXAjPpoJDGsk
+
 # The prisma client
 generate:
   - generator: javascript-client

@@ -16,6 +16,12 @@ prisma token
 # Run the seeder
 prisma seed
 
+# Generate prisma client and schema
+prisma generate
+
+# Generates a file that represents the data model of the selected database in graphql
+prisma introspect
+
 # Call prisma endpoint
 curl '__YOUR_PRISMA_ENDPOINT__' \
 -H 'Content-Type: application/json' \
