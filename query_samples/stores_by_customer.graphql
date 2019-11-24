@@ -1,0 +1,14 @@
+  # Query
+  query storesByCustomer($userId: ID!) {
+      storesByCustomer(userId: $userId) {
+      	business {
+          id
+        }
+      	totalOfStamps
+    }
+  }
+
+  # Variables
+  {
+  "userId":"ck3aaao5r008x0701bi00utxc"
+}

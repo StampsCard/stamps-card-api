@@ -1,0 +1,11 @@
+{
+  stampsCards {
+    id
+    stamp_price
+    total
+    purchases {
+      id
+      amount
+    }
+  }
+}

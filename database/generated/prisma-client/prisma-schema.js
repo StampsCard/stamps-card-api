@@ -33,6 +33,8 @@ type Business {
   category: BusinessType!
   owner: User!
   stampCards(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StampCard!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type BusinessConnection {
@@ -83,11 +85,17 @@ enum BusinessOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type BusinessPreviousValues {
   id: ID!
   name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input BusinessScalarWhereInput {
@@ -119,6 +127,22 @@ input BusinessScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [BusinessScalarWhereInput!]
   OR: [BusinessScalarWhereInput!]
   NOT: [BusinessScalarWhereInput!]
@@ -384,6 +408,22 @@ input BusinessWhereInput {
   stampCards_every: StampCardWhereInput
   stampCards_some: StampCardWhereInput
   stampCards_none: StampCardWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [BusinessWhereInput!]
   OR: [BusinessWhereInput!]
   NOT: [BusinessWhereInput!]
@@ -457,6 +497,8 @@ type Purchase {
   concept: String
   confirmedAt: DateTime
   cancelledAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type PurchaseConnection {
@@ -524,6 +566,10 @@ enum PurchaseOrderByInput {
   confirmedAt_DESC
   cancelledAt_ASC
   cancelledAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type PurchasePreviousValues {
@@ -533,6 +579,8 @@ type PurchasePreviousValues {
   concept: String
   confirmedAt: DateTime
   cancelledAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input PurchaseScalarWhereInput {
@@ -596,6 +644,22 @@ input PurchaseScalarWhereInput {
   cancelledAt_lte: DateTime
   cancelledAt_gt: DateTime
   cancelledAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [PurchaseScalarWhereInput!]
   OR: [PurchaseScalarWhereInput!]
   NOT: [PurchaseScalarWhereInput!]
@@ -777,6 +841,22 @@ input PurchaseWhereInput {
   cancelledAt_lte: DateTime
   cancelledAt_gt: DateTime
   cancelledAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [PurchaseWhereInput!]
   OR: [PurchaseWhereInput!]
   NOT: [PurchaseWhereInput!]
@@ -812,6 +892,8 @@ type StampCard {
   business: Business!
   purchases(where: PurchaseWhereInput, orderBy: PurchaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Purchase!]
   discount: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type StampCardConnection {
@@ -874,6 +956,10 @@ enum StampCardOrderByInput {
   total_DESC
   discount_ASC
   discount_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type StampCardPreviousValues {
@@ -881,6 +967,8 @@ type StampCardPreviousValues {
   stamp_price: Float!
   total: Int!
   discount: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input StampCardScalarWhereInput {
@@ -928,6 +1016,22 @@ input StampCardScalarWhereInput {
   discount_not_starts_with: String
   discount_ends_with: String
   discount_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [StampCardScalarWhereInput!]
   OR: [StampCardScalarWhereInput!]
   NOT: [StampCardScalarWhereInput!]
@@ -1105,6 +1209,22 @@ input StampCardWhereInput {
   discount_not_starts_with: String
   discount_ends_with: String
   discount_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [StampCardWhereInput!]
   OR: [StampCardWhereInput!]
   NOT: [StampCardWhereInput!]
@@ -1134,6 +1254,8 @@ type User {
   purchases(where: PurchaseWhereInput, orderBy: PurchaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Purchase!]
   businesses(where: BusinessWhereInput, orderBy: BusinessOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Business!]
   stampCards(where: StampCardWhereInput, orderBy: StampCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [StampCard!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -1214,6 +1336,10 @@ enum UserOrderByInput {
   fbToken_DESC
   igToken_ASC
   igToken_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -1225,6 +1351,8 @@ type UserPreviousValues {
   lastName: String
   fbToken: String
   igToken: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -1440,6 +1568,22 @@ input UserWhereInput {
   stampCards_every: StampCardWhereInput
   stampCards_some: StampCardWhereInput
   stampCards_none: StampCardWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

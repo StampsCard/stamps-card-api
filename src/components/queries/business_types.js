@@ -7,11 +7,11 @@ function BusinessTypeQueries() {
 }
 
 BusinessTypeQueries.prototype.findByName = (parent, { name }, ctx) => {
-    return ctx.db.query.businessType({ where: { name: name } })
+    return ctx.db.businessType({ name })
 };
 
 BusinessTypeQueries.prototype.findOne = (parent, { id }, ctx, info) => {
-    return ctx.db.query.businessType({ where: { id } }, info)
+    return ctx.db.businessType({ id })
 };
 
 exports['@singleton'] = true;

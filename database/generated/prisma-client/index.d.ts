@@ -275,13 +275,21 @@ export type PurchaseOrderByInput =
   | "confirmedAt_ASC"
   | "confirmedAt_DESC"
   | "cancelledAt_ASC"
-  | "cancelledAt_DESC";
+  | "cancelledAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type BusinessOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
-  | "name_DESC";
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type StampCardOrderByInput =
   | "id_ASC"
@@ -291,7 +299,11 @@ export type StampCardOrderByInput =
   | "total_ASC"
   | "total_DESC"
   | "discount_ASC"
-  | "discount_DESC";
+  | "discount_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type BusinessTypeOrderByInput =
   | "id_ASC"
@@ -317,7 +329,11 @@ export type UserOrderByInput =
   | "fbToken_ASC"
   | "fbToken_DESC"
   | "igToken_ASC"
-  | "igToken_DESC";
+  | "igToken_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -389,6 +405,22 @@ export interface PurchaseWhereInput {
   cancelledAt_lte?: Maybe<DateTimeInput>;
   cancelledAt_gt?: Maybe<DateTimeInput>;
   cancelledAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<PurchaseWhereInput[] | PurchaseWhereInput>;
   OR?: Maybe<PurchaseWhereInput[] | PurchaseWhereInput>;
   NOT?: Maybe<PurchaseWhereInput[] | PurchaseWhereInput>;
@@ -516,6 +548,22 @@ export interface UserWhereInput {
   stampCards_every?: Maybe<StampCardWhereInput>;
   stampCards_some?: Maybe<StampCardWhereInput>;
   stampCards_none?: Maybe<StampCardWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -555,6 +603,22 @@ export interface BusinessWhereInput {
   stampCards_every?: Maybe<StampCardWhereInput>;
   stampCards_some?: Maybe<StampCardWhereInput>;
   stampCards_none?: Maybe<StampCardWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
   OR?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
   NOT?: Maybe<BusinessWhereInput[] | BusinessWhereInput>;
@@ -657,6 +721,22 @@ export interface StampCardWhereInput {
   discount_not_starts_with?: Maybe<String>;
   discount_ends_with?: Maybe<String>;
   discount_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<StampCardWhereInput[] | StampCardWhereInput>;
   OR?: Maybe<StampCardWhereInput[] | StampCardWhereInput>;
   NOT?: Maybe<StampCardWhereInput[] | StampCardWhereInput>;
@@ -1022,6 +1102,22 @@ export interface PurchaseScalarWhereInput {
   cancelledAt_lte?: Maybe<DateTimeInput>;
   cancelledAt_gt?: Maybe<DateTimeInput>;
   cancelledAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
   OR?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
   NOT?: Maybe<PurchaseScalarWhereInput[] | PurchaseScalarWhereInput>;
@@ -1252,6 +1348,22 @@ export interface StampCardScalarWhereInput {
   discount_not_starts_with?: Maybe<String>;
   discount_ends_with?: Maybe<String>;
   discount_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
   OR?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
   NOT?: Maybe<StampCardScalarWhereInput[] | StampCardScalarWhereInput>;
@@ -1303,6 +1415,22 @@ export interface BusinessScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
   OR?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
   NOT?: Maybe<BusinessScalarWhereInput[] | BusinessScalarWhereInput>;
@@ -1515,6 +1643,8 @@ export interface NodeNode {
 export interface Business {
   id: ID_Output;
   name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface BusinessPromise extends Promise<Business>, Fragmentable {
@@ -1531,6 +1661,8 @@ export interface BusinessPromise extends Promise<Business>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface BusinessSubscription
@@ -1549,6 +1681,8 @@ export interface BusinessSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface BusinessNullablePromise
@@ -1567,6 +1701,8 @@ export interface BusinessNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface BusinessType {
@@ -1608,6 +1744,8 @@ export interface User {
   lastName?: String;
   fbToken?: String;
   igToken?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1646,6 +1784,8 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface UserSubscription
@@ -1686,6 +1826,8 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface UserNullablePromise
@@ -1726,6 +1868,8 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface Purchase {
@@ -1735,6 +1879,8 @@ export interface Purchase {
   concept?: String;
   confirmedAt?: DateTimeOutput;
   cancelledAt?: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface PurchasePromise extends Promise<Purchase>, Fragmentable {
@@ -1746,6 +1892,8 @@ export interface PurchasePromise extends Promise<Purchase>, Fragmentable {
   concept: () => Promise<String>;
   confirmedAt: () => Promise<DateTimeOutput>;
   cancelledAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface PurchaseSubscription
@@ -1759,6 +1907,8 @@ export interface PurchaseSubscription
   concept: () => Promise<AsyncIterator<String>>;
   confirmedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   cancelledAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface PurchaseNullablePromise
@@ -1772,6 +1922,8 @@ export interface PurchaseNullablePromise
   concept: () => Promise<String>;
   confirmedAt: () => Promise<DateTimeOutput>;
   cancelledAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface StampCard {
@@ -1779,6 +1931,8 @@ export interface StampCard {
   stamp_price: Float;
   total: Int;
   discount: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface StampCardPromise extends Promise<StampCard>, Fragmentable {
@@ -1796,6 +1950,8 @@ export interface StampCardPromise extends Promise<StampCard>, Fragmentable {
     last?: Int;
   }) => T;
   discount: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface StampCardSubscription
@@ -1815,6 +1971,8 @@ export interface StampCardSubscription
     last?: Int;
   }) => T;
   discount: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface StampCardNullablePromise
@@ -1834,6 +1992,8 @@ export interface StampCardNullablePromise
     last?: Int;
   }) => T;
   discount: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface BusinessConnection {
@@ -2181,6 +2341,8 @@ export interface BusinessSubscriptionPayloadSubscription
 export interface BusinessPreviousValues {
   id: ID_Output;
   name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface BusinessPreviousValuesPromise
@@ -2188,6 +2350,8 @@ export interface BusinessPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface BusinessPreviousValuesSubscription
@@ -2195,6 +2359,8 @@ export interface BusinessPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface BusinessTypeSubscriptionPayload {
@@ -2276,6 +2442,8 @@ export interface PurchasePreviousValues {
   concept?: String;
   confirmedAt?: DateTimeOutput;
   cancelledAt?: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface PurchasePreviousValuesPromise
@@ -2287,6 +2455,8 @@ export interface PurchasePreviousValuesPromise
   concept: () => Promise<String>;
   confirmedAt: () => Promise<DateTimeOutput>;
   cancelledAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface PurchasePreviousValuesSubscription
@@ -2298,6 +2468,8 @@ export interface PurchasePreviousValuesSubscription
   concept: () => Promise<AsyncIterator<String>>;
   confirmedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   cancelledAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface StampCardSubscriptionPayload {
@@ -2330,6 +2502,8 @@ export interface StampCardPreviousValues {
   stamp_price: Float;
   total: Int;
   discount: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface StampCardPreviousValuesPromise
@@ -2339,6 +2513,8 @@ export interface StampCardPreviousValuesPromise
   stamp_price: () => Promise<Float>;
   total: () => Promise<Int>;
   discount: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface StampCardPreviousValuesSubscription
@@ -2348,6 +2524,8 @@ export interface StampCardPreviousValuesSubscription
   stamp_price: () => Promise<AsyncIterator<Float>>;
   total: () => Promise<AsyncIterator<Int>>;
   discount: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -2384,6 +2562,8 @@ export interface UserPreviousValues {
   lastName?: String;
   fbToken?: String;
   igToken?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface UserPreviousValuesPromise
@@ -2397,6 +2577,8 @@ export interface UserPreviousValuesPromise
   lastName: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -2410,6 +2592,8 @@ export interface UserPreviousValuesSubscription
   lastName: () => Promise<AsyncIterator<String>>;
   fbToken: () => Promise<AsyncIterator<String>>;
   igToken: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 /*

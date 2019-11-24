@@ -10,11 +10,11 @@ function StampsCardQueries(purchaseQueries, stampsCardErrors) {
 }
 
 StampsCardQueries.prototype.findAll = (parent, args, ctx, info) => {
-    return ctx.db.query.stampCards({}, info)
+    return ctx.db.stampCards({})
 };
 
 StampsCardQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
-    const stampsCard = await ctx.db.query.stampCard({ where: { id } }, info);
+    const stampsCard = await ctx.db.stampCard({ id }, info);
 
     if (!stampsCard) {
         throw new StampsCardQueries.prototype.errors.stampsCardNotFound();
@@ -24,18 +24,7 @@ StampsCardQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
 };
 
 StampsCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
-    const stampsCards = await ctx.db.query.stampCards(
-        {
-            where: {
-                purchases_some: {
-                    user: {
-                        id: userId
-                    }
-                }
-            },
-            orderBy: "createdAt_DESC"
-        },
-        `{
+    const fragment = `{
         id
         stamp_price
         total
@@ -61,7 +50,18 @@ StampsCardQueries.prototype.findByUser = async (parent, { userId }, ctx) => {
         }
         discount
     }`
-    );
+    const stampsCards = await ctx.db
+        .stampCards({
+            where: {
+                purchases_some: {
+                    user: {
+                        id: userId
+                    }
+                }
+            },
+            orderBy: "createdAt_DESC"
+        })
+        .$fragment(fragment);
 
 
     return _.map(stampsCards, function(stampsCard) {
