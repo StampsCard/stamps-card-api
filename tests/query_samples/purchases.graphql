@@ -1,0 +1,9 @@
+{
+  purchases {
+    id
+    amount
+    concept
+    confirmedAt
+    cancelledAt
+  }
+}

@@ -1,0 +1,16 @@
+# Query
+query getSampsCardByUser($userId: ID!) {
+	stampsCardsByUser(userId: $userId) {
+    stampsCard {
+      id
+      stamp_price
+    }
+    spent
+    amount
+  }
+}
+
+# Variables
+{
+  "userId": "ck3cuf8wt00200757exwt71yt"
+}

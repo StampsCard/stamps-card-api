@@ -1,0 +1,7 @@
+mutation deletePurchase($id: ID!) {
+	deletePurchase(id: $id)
+}
+
+{
+  "id": "ck3ddlwra001407572btaz21x"
+}

@@ -1,0 +1,10 @@
+mutation confirmPurchase($id: ID!, $userId: ID!) {
+	confirmPurchase(id: $id, userId: $userId) {
+    id
+  }
+}
+
+{
+  "id": "ck3dd6xcv000n07570jsdsuvk",
+  "userId": "ck3cuf8wt00200757exwt71yt"
+}

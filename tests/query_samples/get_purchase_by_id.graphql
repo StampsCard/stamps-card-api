@@ -1,0 +1,19 @@
+query getPurchase($id: ID!) {
+	purchase(id: $id) {
+    id
+    amount
+    stamps
+    stampCard {
+      business {
+        name
+      }
+    }
+    concept
+    confirmedAt
+    cancelledAt
+  }
+}
+
+{
+    "id": "ck3ddlwra001407572btaz21x"
+}

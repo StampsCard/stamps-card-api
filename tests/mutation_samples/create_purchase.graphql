@@ -1,0 +1,22 @@
+mutation registerPurchase(
+    $amount:Float!,
+    $stampId: ID!,
+    $concept:String
+  ) {
+    createPurchase(
+      amount: $amount,
+      concept: $concept,
+      stampId: $stampId
+    ) {
+      id
+      amount
+      concept
+    }
+  }
+
+# Variables
+{
+  "amount": 10,
+  "stampId": "ck3cuf8wy00230757hvdkljny",
+  "concept": "Pizza carbonara"
+}

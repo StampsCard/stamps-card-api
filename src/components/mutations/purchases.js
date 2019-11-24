@@ -17,20 +17,16 @@ PurchaseMutations.prototype.create = async (parent, { amount, concept, stampId }
 
     const stamps = Math.round(amount/stampsCard.stamp_price);
 
-    return ctx.db.mutation.createPurchase(
-        {
-            data: {
-                amount,
-                stamps,
-                concept,
-                stampCard: {
-                    connect: {
-                        id: stampId
-                    }
-                }
-            },
+    return ctx.db.createPurchase({
+        amount,
+        stamps,
+        concept,
+        stampCard: {
+            connect: {
+                id: stampId
+            }
         }
-    )
+    })
 };
 
 PurchaseMutations.prototype.confirm = async (parent, { id, userId }, ctx, info) => {
@@ -47,7 +43,7 @@ PurchaseMutations.prototype.confirm = async (parent, { id, userId }, ctx, info) 
         throw new PurchaseMutations.prototype.errors.purchaseAlreadyConfirmedError();
     }
 
-    return ctx.db.mutation.updatePurchase(
+    return ctx.db.updatePurchase(
         {
             where: { id },
             data: {
@@ -60,7 +56,7 @@ PurchaseMutations.prototype.confirm = async (parent, { id, userId }, ctx, info) 
             },
         },
         info,
-    )
+    );
 };
 
 PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) => {
@@ -92,7 +88,7 @@ PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) =
         throw new PurchaseMutations.prototype.errors.purchaseAlreadyCancelledError();
     }
 
-    return ctx.db.mutation.updatePurchase(
+    return ctx.db.updatePurchase(
         {
             where: { id },
             data
@@ -102,9 +98,7 @@ PurchaseMutations.prototype.cancel = async (parent, { id, userId }, ctx, info) =
 };
 
 PurchaseMutations.prototype.delete = async (parent, { id }, ctx, info) => {
-    ctx.db.mutation.deletePurchase({
-        where: { id }
-    });
+    await ctx.db.deletePurchase({ id });
 
     return true;
 };

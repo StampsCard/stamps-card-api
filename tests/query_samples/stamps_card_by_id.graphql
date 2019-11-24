@@ -1,0 +1,17 @@
+# Query
+query getStampscardById($id: ID!) {
+	stampsCard(id: $id) {
+    id
+    stamp_price
+    total
+    purchases {
+      id
+      amount
+    }
+  }
+}
+
+# Variables
+{
+  "id": "ck3cuf8wy00230757hvdkljny"
+}

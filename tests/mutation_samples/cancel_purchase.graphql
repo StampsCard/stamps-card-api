@@ -1,0 +1,10 @@
+mutation cancelPurchase($id: ID!, $userId: ID) {
+	cancelPurchase(id: $id, userId: $userId) {
+    id
+  }
+}
+
+{
+  "id": "ck3ddlwra001407572btaz21x",
+  "userId": "ck3cuf8wt00200757exwt71yt"
+}

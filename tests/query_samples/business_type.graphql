@@ -1,0 +1,7 @@
+{
+    businessType(id: "235556") {
+        id
+        name
+        description
+    }
+}

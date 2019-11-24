@@ -1,0 +1,17 @@
+# Query
+
+query getSampsCardByPurchase($purchaseId: ID!) {
+	stampsCardByPurchase(purchaseId: $purchaseId) {
+    stampsCard {
+      id
+      stamp_price
+    }
+    spent
+    amount
+  }
+}
+
+# Variable
+{
+  "purchaseId": ""
+}

@@ -10,11 +10,11 @@ function PurchaseQueries(purchaseErrors) {
 }
 
 PurchaseQueries.prototype.findAll = (parent, args, ctx, info) => {
-    return ctx.db.query.purchases({ orderBy: "confirmedAt_DESC"}, info)
+    return ctx.db.purchases({ orderBy: "confirmedAt_DESC"}, info)
 };
 
 PurchaseQueries.prototype.findByUser = async (parent, { userId }, ctx, info) => {
-    const purchases = await ctx.db.query.purchases(
+    const purchases = await ctx.db.purchases(
         {
             where: {
                 user: {
@@ -32,7 +32,7 @@ PurchaseQueries.prototype.findByUser = async (parent, { userId }, ctx, info) => 
 };
 
 PurchaseQueries.prototype.findByBusiness = async (parent, { businessId }, ctx, info) => {
-    const purchases = await ctx.db.query.purchases(
+    const purchases = await ctx.db.purchases(
         {
             where: {
                 stampCard: {
@@ -52,7 +52,7 @@ PurchaseQueries.prototype.findByBusiness = async (parent, { businessId }, ctx, i
 };
 
 PurchaseQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
-    const purchase = await ctx.db.query.purchase({ where: { id } }, info);
+    const purchase = await ctx.db.purchase({ id }, info);
 
     if (!purchase) {
         throw new PurchaseQueries.prototype.errors.purchaseNotFoundError();
@@ -62,8 +62,7 @@ PurchaseQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
 };
 
 PurchaseQueries.prototype.findOneWithStamps = async (parent, { id }, ctx) => {
-    return await ctx.db.query.purchase({ where: { id } },
-    `{
+    const fragment = `{
         id
         amount
         stamps
@@ -84,12 +83,13 @@ PurchaseQueries.prototype.findOneWithStamps = async (parent, { id }, ctx) => {
         confirmedAt
         cancelledAt
       }
-    `
-    );
+    `;
+
+    return await ctx.db.query.purchase({ id }).$fragment(fragment);
 };
 
 PurchaseQueries.prototype.getTotalStampsByUserAndBusiness = async (userId, businessId, ctx) => {
-    const purchases = await ctx.db.query.purchases({
+    const purchases = await ctx.db.purchases({
             where: {
                 user: {
                     id: userId
