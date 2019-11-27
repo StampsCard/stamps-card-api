@@ -1,0 +1,15 @@
+query getLastPaymentsByUser($userId: ID!){
+    purchasesByUser(userId: $userId) {
+      id
+      amount
+      stamps
+      stampCard {
+        business {
+          name
+        }
+      }
+      concept
+      confirmedAt
+      cancelledAt
+    }
+  }

@@ -1,0 +1,16 @@
+
+query getLastPurchases($businessId: ID!){
+  purchasesByBusiness(businessId: $businessId) {
+    id
+    amount
+    stamps
+    user {
+      id
+      firstName
+      lastName
+    }
+    concept
+    confirmedAt
+    cancelledAt
+  }
+}

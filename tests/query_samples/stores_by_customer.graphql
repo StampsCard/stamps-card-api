@@ -1,10 +1,23 @@
   # Query
-  query storesByCustomer($userId: ID!) {
-      storesByCustomer(userId: $userId) {
-      	business {
+  query getStoresByUserQuery($userId: ID!){
+    storesByCustomer(userId: $userId) {
+      business {
+        id
+        name
+        category {
           id
+          name
+          description
         }
-      	totalOfStamps
+        owner {
+          id
+          username
+          email
+          firstName
+          lastName
+        }
+      }
+      totalOfStamps
     }
   }
 

@@ -47,7 +47,40 @@ BusinessQueries.prototype.findAll = async(parent, args, ctx, info) => {
 };
 
 BusinessQueries.prototype.findOne = async(parent, { id }, ctx, info) => {
-    return await ctx.db.business({ id: id }, info)
+    const fragment = `{
+        id
+        name
+        category {
+          id
+          name
+          description
+        }
+        owner {
+          id
+          username
+          email
+          firstName
+          lastName
+        }
+        stampCards {
+            id
+            stamp_price
+            total
+            purchases {
+              id
+              user {
+                id
+                email
+              }
+              confirmedAt
+              cancelledAt
+              createdAt
+              updatedAt
+            }
+            discount
+          }
+    }`
+    return await ctx.db.business({ id: id }).$fragment(fragment)
 };
 
 BusinessQueries.prototype.storesByCustomer = async (parent, { userId }, ctx, info) => {

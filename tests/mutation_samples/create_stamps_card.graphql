@@ -1,0 +1,19 @@
+mutation createStampsCard(
+    $stampPrice: Float!,
+    $businessId: ID!,
+    $total: Int!,
+    $discount: String!
+  ) {
+    createStampsCard(
+      stampPrice: $stampPrice,
+      businessId: $businessId,
+      total: $total,
+      discount: $discount
+    ) {
+      id
+    }
+  }
+
+  {
+      
+  }

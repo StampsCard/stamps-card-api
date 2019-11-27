@@ -14,17 +14,46 @@ PurchaseQueries.prototype.findAll = (parent, args, ctx, info) => {
 };
 
 PurchaseQueries.prototype.findByUser = async (parent, { userId }, ctx, info) => {
-    const purchases = await ctx.db.purchases(
-        {
-            where: {
-                user: {
-                    id: userId
-                }
-            },
-            orderBy: "confirmedAt_DESC"
-        },
-        info
-    );
+    const fragment = `{
+        id
+        amount
+        stamps
+        concept
+        stampCard {
+          id
+          stamp_price
+          business {
+              id
+              name
+          }
+          total
+          purchases {
+            id
+            amount
+            stamps
+            confirmedAt
+            cancelledAt
+          }
+          discount
+        }
+        confirmedAt
+        cancelledAt
+        createdAt
+        updatedAt
+      }
+    `
+    const purchases = await ctx.db
+        .purchases(
+            {
+                where: {
+                    user: {
+                        id: userId
+                    }
+                },
+                orderBy: "confirmedAt_DESC"
+            }
+        )
+        .$fragment(fragment);
 
     return _.filter(purchases, function(purchase) {
         return purchaseIsConfirmed(purchase);
@@ -70,6 +99,10 @@ PurchaseQueries.prototype.findOneWithStamps = async (parent, { id }, ctx) => {
         stampCard {
           id
           stamp_price
+          business {
+              id
+              name
+          }
           total
           purchases {
             id
@@ -82,10 +115,12 @@ PurchaseQueries.prototype.findOneWithStamps = async (parent, { id }, ctx) => {
         }
         confirmedAt
         cancelledAt
+        createdAt
+        updatedAt
       }
     `;
 
-    return await ctx.db.query.purchase({ id }).$fragment(fragment);
+    return await ctx.db.purchase({ id }).$fragment(fragment);
 };
 
 PurchaseQueries.prototype.getTotalStampsByUserAndBusiness = async (userId, businessId, ctx) => {

@@ -1,14 +1,19 @@
 # Query
-query getSampsCardByUser($userId: ID!) {
-	stampsCardsByUser(userId: $userId) {
-    stampsCard {
-      id
-      stamp_price
+query getStampsCardByUser($userId: ID!){
+    stampsCardsByUser(userId: $userId) {
+      stampsCard {
+        id
+        business {
+          name
+        }
+        stamp_price
+        total
+        discount
+      }
+      spent
+      amount
     }
-    spent
-    amount
   }
-}
 
 # Variables
 {

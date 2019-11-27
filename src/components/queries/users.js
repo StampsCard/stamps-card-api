@@ -15,7 +15,34 @@ UserQueries.prototype.findAll = (parent, args, ctx, info) => {
 };
 
 UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
-    const user = await ctx.db.user({ id }, info);
+    const fragment = `
+    fragment UserWithPurcases on User {
+        id
+        username
+        email
+        password
+        firstName
+        lastName
+        businesses {
+            id
+            name
+            stampCards {
+                id
+                discount
+                total
+                stamp_price
+            }
+        }
+        purchases {
+            id
+            amount
+            confirmedAt
+            cancelledAt
+        }
+    }
+    `
+    
+    const user = await ctx.db.user({ id }).$fragment(fragment);
 
     if (!Object.keys(user).length) {
         throw new UserQueries.prototype.errors.userNotFoundError();

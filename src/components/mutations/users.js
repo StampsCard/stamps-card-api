@@ -10,7 +10,7 @@ function UserMutations() {
 
 UserMutations.prototype.create = async (parent, {username, email, password, firstName, lastName}, ctx, info) => {
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
-    return ctx.db.mutation.createUser(
+    return ctx.db.createUser(
         {
             data: {
                 username,
@@ -25,7 +25,7 @@ UserMutations.prototype.create = async (parent, {username, email, password, firs
 
 UserMutations.prototype.update = async (parent, {id, username, email, password, firstName, lastName}, ctx) => {
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
-    return ctx.db.mutation.updateUser(
+    return ctx.db.updateUser(
         {
             where: { id },
             data: {
@@ -40,7 +40,7 @@ UserMutations.prototype.update = async (parent, {id, username, email, password, 
 };
 
 UserMutations.prototype.delete = (parent, { id }, ctx, info) => {
-    return ctx.db.mutation.deleteUser({ where: { id } }, info)
+    return ctx.db.deleteUser({ where: { id } }, info)
 };
 
 exports['@singleton'] = true;

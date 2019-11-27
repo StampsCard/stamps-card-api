@@ -1,0 +1,12 @@
+query getStampsCardFromBusinessOwner($userId: ID!) {
+  user(id:$userId) {
+    businesses {
+      id
+      name
+      stampCards {
+        id
+        discount
+      }
+    }
+  }
+}

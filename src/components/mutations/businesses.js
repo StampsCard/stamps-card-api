@@ -8,9 +8,9 @@ function BusinessesMutations(businessTypeQueries, businessErrors) {
 }
 
 BusinessesMutations.prototype.create = async (parent, {name, categoryName, categoryDescription, ownerId}, ctx, info) => {
-    const category = await ctx.db.query.businessType({ where: { name: categoryName } }, info);
+    const category = await ctx.db.businessType({ where: { name: categoryName } }, info);
     if (category) {
-        return await ctx.db.mutation.createBusiness(
+        return await ctx.db.createBusiness(
             {
                 data: {
                     name: name,
@@ -28,30 +28,28 @@ BusinessesMutations.prototype.create = async (parent, {name, categoryName, categ
             }
         );
     }
-    return await ctx.db.mutation.createBusiness(
+    return await ctx.db.createBusiness(
         {
-            data: {
-                name: name,
-                category: {
-                    create: {
-                        name: categoryName,
-                        description: categoryDescription
-                    }
-                },
-                owner: {
-                    connect: {
-                        id: ownerId
-                    }
+            name: name,
+            category: {
+                create: {
+                    name: categoryName,
+                    description: categoryDescription
                 }
             },
-        }
+            owner: {
+                connect: {
+                    id: ownerId
+                }
+            }
+        },
     );
 };
 
 BusinessesMutations.prototype.update = async (parent, {id, name, categoryName, categoryDescription, ownerId}, ctx, info) => {
-    const category = await ctx.db.query.businessType({ where: { name: categoryName } }, info);
+    const category = await ctx.db.businessType({ where: { name: categoryName } }, info);
     if (category) {
-        return ctx.db.mutation.updateBusiness(
+        return ctx.db.updateBusiness(
             {
                 where: { id },
                 data: {
@@ -93,7 +91,7 @@ BusinessesMutations.prototype.update = async (parent, {id, name, categoryName, c
 };
 
 BusinessesMutations.prototype.delete = (parent, { id }, ctx, info) => {
-    return ctx.db.mutation.deleteBusiness({ where: { id } }, info)
+    return ctx.db.mutation.deleteBusiness({ id }, info)
 };
 
 exports['@singleton'] = true;

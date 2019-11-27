@@ -39,7 +39,7 @@ function Queries(userQueries, businessQueries, businessTypeQueries, stampCardQue
         stampsCardByPurchase: stampCardQueries.findByPurchase,
         //Purchases
         purchases: purchaseQueries.findAll,
-        purchase: purchaseQueries.findOne,
+        purchase: purchaseQueries.findOneWithStamps,
         purchasesByUser: purchaseQueries.findByUser,
         purchasesByBusiness: purchaseQueries.findByBusiness
     };
