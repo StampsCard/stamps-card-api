@@ -9,10 +9,8 @@ function BusinessTypeMutations() {
 BusinessTypeMutations.prototype.create = (parent, { name, description }, ctx, info) => {
     return ctx.db.createBusinessType(
         {
-            data: {
-                name,
-                description
-            },
+            name,
+            description
         },
         info,
     )

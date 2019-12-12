@@ -30,4 +30,7 @@ curl '__YOUR_PRISMA_ENDPOINT__' \
 
 # To access to Prisma endpoint
 http://localhost:4466/stamps-card-api/dev/_admin
-# And go to settings > secret token is the JWT token generated with 'prisma deploy'
+# You need to generate a token and set it to settings.
+# 1. Access to the URL mentioned above and go to settings (top right).
+# 2. We need to set the secret token.
+# 3. Is the JWT token generated runnin 'prisma token'

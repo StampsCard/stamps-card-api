@@ -10,17 +10,14 @@ function UserMutations() {
 
 UserMutations.prototype.create = async (parent, {username, email, password, firstName, lastName}, ctx, info) => {
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
-    return ctx.db.createUser(
-        {
-            data: {
-                username,
-                email,
-                password: hash,
-                firstName,
-                lastName
-            },
-        }
-    );
+    console.log(username);
+    return ctx.db.createUser({
+        username,
+        email,
+        password: hash,
+        firstName,
+        lastName
+    });
 };
 
 UserMutations.prototype.update = async (parent, {id, username, email, password, firstName, lastName}, ctx) => {

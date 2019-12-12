@@ -14,6 +14,9 @@ mutation createStampsCard(
     }
   }
 
-  {
-      
-  }
+{
+  "stampPrice": 10.5,
+  "businessId": "ck3cuf8wv00210757hwkwvk8s",
+  "total": 60,
+  "discount": "This discount proves that this shit works, bitch!"
+}

@@ -1,0 +1,25 @@
+mutation createUser(
+    $username: String!,
+    $email: String!,
+    $password: String!,
+    $firstName: String!,
+  	$lastName: String!
+  ) {
+    createUser(
+      username: $username,
+      email: $email,
+      password: $password,
+      firstName: $firstName,
+      lastName: $lastName
+    ) {
+      id
+    }
+  }
+  
+  {
+  "username": "test_user_1",
+  "email": "test_user@test.com",
+  "password": "12345",
+  "firstName": "David",
+  "lastName": "Sola"
+}
