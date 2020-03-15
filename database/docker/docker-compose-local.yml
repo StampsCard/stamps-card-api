@@ -6,15 +6,28 @@ services:
     ports:
       - '4466:4466'
     environment:
+      SLOW_QUERIES_LOGGING: 'true'
+      SLOW_QUERIES_LOGGING_THRESHOLD: '0'
       PRISMA_CONFIG: |
         managementApiSecret: ${PRISMA_API_MANAGEMENT_SECRET}
-        port: 4466
+        port: '4466'
         databases:
           default:
             connector: mysql
-            host: ${DB_HOST}
+            host: mysql
             port: 3306
-            user: ${DB_USER}
+            user: root
             password: ${DB_PASSWORD}
             connectionLimit: 2
             migrations: true
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - '33060:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
+volumes:
+  mysql: ~
