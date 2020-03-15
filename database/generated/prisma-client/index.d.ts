@@ -326,6 +326,10 @@ export type UserOrderByInput =
   | "firstName_DESC"
   | "lastName_ASC"
   | "lastName_DESC"
+  | "dateOfBirth_ASC"
+  | "dateOfBirth_DESC"
+  | "location_ASC"
+  | "location_DESC"
   | "fbToken_ASC"
   | "fbToken_DESC"
   | "igToken_ASC"
@@ -513,6 +517,28 @@ export interface UserWhereInput {
   lastName_not_starts_with?: Maybe<String>;
   lastName_ends_with?: Maybe<String>;
   lastName_not_ends_with?: Maybe<String>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  dateOfBirth_not?: Maybe<DateTimeInput>;
+  dateOfBirth_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dateOfBirth_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dateOfBirth_lt?: Maybe<DateTimeInput>;
+  dateOfBirth_lte?: Maybe<DateTimeInput>;
+  dateOfBirth_gt?: Maybe<DateTimeInput>;
+  dateOfBirth_gte?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
+  location_not?: Maybe<String>;
+  location_in?: Maybe<String[] | String>;
+  location_not_in?: Maybe<String[] | String>;
+  location_lt?: Maybe<String>;
+  location_lte?: Maybe<String>;
+  location_gt?: Maybe<String>;
+  location_gte?: Maybe<String>;
+  location_contains?: Maybe<String>;
+  location_not_contains?: Maybe<String>;
+  location_starts_with?: Maybe<String>;
+  location_not_starts_with?: Maybe<String>;
+  location_ends_with?: Maybe<String>;
+  location_not_ends_with?: Maybe<String>;
   fbToken?: Maybe<String>;
   fbToken_not?: Maybe<String>;
   fbToken_in?: Maybe<String[] | String>;
@@ -806,8 +832,10 @@ export interface UserCreateWithoutBusinessesInput {
   username: String;
   email: String;
   password: String;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
+  firstName: String;
+  lastName: String;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -898,8 +926,10 @@ export interface UserCreateWithoutPurchasesInput {
   username: String;
   email: String;
   password: String;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
+  firstName: String;
+  lastName: String;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -973,6 +1003,8 @@ export interface UserUpdateWithoutBusinessesDataInput {
   password?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -1241,6 +1273,8 @@ export interface UserUpdateWithoutPurchasesDataInput {
   password?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -1549,8 +1583,10 @@ export interface UserCreateInput {
   username: String;
   email: String;
   password: String;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
+  firstName: String;
+  lastName: String;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -1565,6 +1601,8 @@ export interface UserUpdateInput {
   password?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -1579,6 +1617,8 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
   glToken?: Maybe<String>;
@@ -1763,8 +1803,10 @@ export interface User {
   username: String;
   email: String;
   password: String;
-  firstName?: String;
-  lastName?: String;
+  firstName: String;
+  lastName: String;
+  dateOfBirth?: DateTimeOutput;
+  location?: String;
   fbToken?: String;
   igToken?: String;
   glToken?: String;
@@ -1779,6 +1821,8 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   password: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
+  location: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
   glToken: () => Promise<String>;
@@ -1822,6 +1866,8 @@ export interface UserSubscription
   password: () => Promise<AsyncIterator<String>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
+  dateOfBirth: () => Promise<AsyncIterator<DateTimeOutput>>;
+  location: () => Promise<AsyncIterator<String>>;
   fbToken: () => Promise<AsyncIterator<String>>;
   igToken: () => Promise<AsyncIterator<String>>;
   glToken: () => Promise<AsyncIterator<String>>;
@@ -1865,6 +1911,8 @@ export interface UserNullablePromise
   password: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
+  location: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
   glToken: () => Promise<String>;
@@ -2585,8 +2633,10 @@ export interface UserPreviousValues {
   username: String;
   email: String;
   password: String;
-  firstName?: String;
-  lastName?: String;
+  firstName: String;
+  lastName: String;
+  dateOfBirth?: DateTimeOutput;
+  location?: String;
   fbToken?: String;
   igToken?: String;
   glToken?: String;
@@ -2603,6 +2653,8 @@ export interface UserPreviousValuesPromise
   password: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
+  location: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
   glToken: () => Promise<String>;
@@ -2619,6 +2671,8 @@ export interface UserPreviousValuesSubscription
   password: () => Promise<AsyncIterator<String>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
+  dateOfBirth: () => Promise<AsyncIterator<DateTimeOutput>>;
+  location: () => Promise<AsyncIterator<String>>;
   fbToken: () => Promise<AsyncIterator<String>>;
   igToken: () => Promise<AsyncIterator<String>>;
   glToken: () => Promise<AsyncIterator<String>>;
@@ -2638,16 +2692,6 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
-*/
-export type Float = number;
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
-*/
-export type Int = number;
-
-/*
 DateTime scalar input type, allowing Date
 */
 export type DateTimeInput = Date | string;
@@ -2656,6 +2700,16 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+*/
+export type Float = number;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+*/
+export type Int = number;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.

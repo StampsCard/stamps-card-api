@@ -1,13 +1,14 @@
 const _ = require('lodash');
 
-exports = module.exports = (businessQueries, purchaseQueries, userErrors) => {
-    return new UserQueries(businessQueries, purchaseQueries, userErrors);
+exports = module.exports = (businessQueries, purchaseQueries, stampsCardQueries, userErrors) => {
+    return new UserQueries(businessQueries, purchaseQueries, stampsCardQueries, userErrors);
 };
 
-function UserQueries(businessQueries, purchaseQueries, userErrors) {
+function UserQueries(businessQueries, purchaseQueries, stampsCardQueries, userErrors) {
     UserQueries.prototype.businessQueries = businessQueries;
     UserQueries.prototype.errors = userErrors;
     UserQueries.prototype.purchaseQueries = purchaseQueries;
+    UserQueries.prototype.stampsCardQueries = stampsCardQueries;
 }
 
 UserQueries.prototype.findAll = (parent, args, ctx, info) => {
@@ -15,41 +16,13 @@ UserQueries.prototype.findAll = (parent, args, ctx, info) => {
 };
 
 UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
-    const fragment = `
-    fragment UserWithPurcases on User {
-        id
-        username
-        email
-        password
-        firstName
-        lastName
-        fbToken
-        igToken
-        glToken
-        businesses {
-            id
-            name
-            stampCards {
-                id
-                discount
-                total
-                stamp_price
-            }
-        }
-        purchases {
-            id
-            amount
-            confirmedAt
-            cancelledAt
-        }
-    }
-    `
-    
-    const user = await ctx.db.user({ id }).$fragment(fragment);
-
+    const user = await ctx.db.user({ id }, info);
     if (!user) {
         throw new UserQueries.prototype.errors.userNotFoundError();
     }
+    user.purchases = await UserQueries.prototype.purchaseQueries.findByUser(parent, { id }, ctx, info);
+    user.businesses = await UserQueries.prototype.businessQueries.findByOwner(parent, { id }, ctx, info);
+    user.stampCards = await UserQueries.prototype.stampsCardQueries.findByUser(parent, { id }, ctx, info);
 
     return user;
 };
@@ -124,4 +97,4 @@ UserQueries.prototype.getUser = async(email, ctx) => {
 
 
 exports['@singleton'] = true;
-exports['@require'] = ['queries/businesses', 'queries/purchases', 'errors/user_errors'];
+exports['@require'] = ['queries/businesses', 'queries/purchases', 'queries/stamps_cards', 'errors/user_errors'];

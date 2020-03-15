@@ -3,8 +3,10 @@ type User {
   username: String! @unique
   email: String! @unique
   password: String!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String

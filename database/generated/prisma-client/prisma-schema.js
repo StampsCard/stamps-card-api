@@ -1247,8 +1247,10 @@ type User {
   username: String!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1270,8 +1272,10 @@ input UserCreateInput {
   username: String!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1295,8 +1299,10 @@ input UserCreateWithoutBusinessesInput {
   username: String!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1309,8 +1315,10 @@ input UserCreateWithoutPurchasesInput {
   username: String!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1336,6 +1344,10 @@ enum UserOrderByInput {
   firstName_DESC
   lastName_ASC
   lastName_DESC
+  dateOfBirth_ASC
+  dateOfBirth_DESC
+  location_ASC
+  location_DESC
   fbToken_ASC
   fbToken_DESC
   igToken_ASC
@@ -1353,8 +1365,10 @@ type UserPreviousValues {
   username: String!
   email: String!
   password: String!
-  firstName: String
-  lastName: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1386,6 +1400,8 @@ input UserUpdateInput {
   password: String
   firstName: String
   lastName: String
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1400,6 +1416,8 @@ input UserUpdateManyMutationInput {
   password: String
   firstName: String
   lastName: String
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1427,6 +1445,8 @@ input UserUpdateWithoutBusinessesDataInput {
   password: String
   firstName: String
   lastName: String
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1440,6 +1460,8 @@ input UserUpdateWithoutPurchasesDataInput {
   password: String
   firstName: String
   lastName: String
+  dateOfBirth: DateTime
+  location: String
   fbToken: String
   igToken: String
   glToken: String
@@ -1542,6 +1564,28 @@ input UserWhereInput {
   lastName_not_starts_with: String
   lastName_ends_with: String
   lastName_not_ends_with: String
+  dateOfBirth: DateTime
+  dateOfBirth_not: DateTime
+  dateOfBirth_in: [DateTime!]
+  dateOfBirth_not_in: [DateTime!]
+  dateOfBirth_lt: DateTime
+  dateOfBirth_lte: DateTime
+  dateOfBirth_gt: DateTime
+  dateOfBirth_gte: DateTime
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
   fbToken: String
   fbToken_not: String
   fbToken_in: [String!]

@@ -17,7 +17,9 @@ UserMutations.prototype.create = async (parent, { input }, ctx, info) => {
         lastName,
         fbToken,
         igToken,
-        glToken
+        glToken,
+        dateOfBirth,
+        location
     } = input;
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
     return ctx.db.createUser({
@@ -28,7 +30,9 @@ UserMutations.prototype.create = async (parent, { input }, ctx, info) => {
         lastName,
         fbToken,
         igToken,
-        glToken
+        glToken,
+        dateOfBirth,
+        location
     });
 };
 
@@ -40,7 +44,9 @@ UserMutations.prototype.update = async (parent, { input }, ctx) => {
         lastName,
         fbToken,
         igToken,
-        glToken
+        glToken,
+        dateOfBirth,
+        location
     } = input;
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
     return ctx.db.updateUser(
@@ -52,7 +58,9 @@ UserMutations.prototype.update = async (parent, { input }, ctx) => {
                 lastName,
                 fbToken,
                 igToken,
-                glToken
+                glToken,
+                dateOfBirth,
+                location
             },
         },
     );

@@ -45,6 +45,8 @@ input CreateUserInput {
   fbToken: String
   igToken: String
   glToken: String
+  dateOfBirth: Date
+  location: String 
 }
 
 input UpdateUserInput {
@@ -55,6 +57,8 @@ input UpdateUserInput {
   fbToken: String
   igToken: String
   glToken: String
+  dateOfBirth: Date
+  location: String 
 }
 
 type Query {
