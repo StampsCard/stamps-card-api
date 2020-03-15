@@ -23,6 +23,9 @@ UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
         password
         firstName
         lastName
+        fbToken
+        igToken
+        glToken
         businesses {
             id
             name
@@ -44,7 +47,7 @@ UserQueries.prototype.findOne = async (parent, { id }, ctx, info) => {
     
     const user = await ctx.db.user({ id }).$fragment(fragment);
 
-    if (!Object.keys(user).length) {
+    if (!user) {
         throw new UserQueries.prototype.errors.userNotFoundError();
     }
 

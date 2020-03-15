@@ -1,14 +1,12 @@
 __global = __dirname + '/';
-
 const dotenv = require('dotenv');
+dotenv.load(require('dotenv').config());
 const { GraphQLServer } = require('graphql-yoga');
 const { formatError } = require('apollo-errors');
 const { permissions } = require('./components/middlewares/permissions');
 const prismaClient = require('../database/generated/prisma-client/index');
 const ioc = require('./initializers/00_ioc')();
 const resolvers = ioc.create('resolvers/index');
-
-dotenv.load(require('dotenv').config());
 
 resolvers
     .then((resolvers) => {

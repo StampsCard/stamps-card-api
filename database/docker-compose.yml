@@ -9,7 +9,7 @@ services:
       SLOW_QUERIES_LOGGING: 'true'
       SLOW_QUERIES_LOGGING_THRESHOLD: '0'
       PRISMA_CONFIG: |
-        # managementApiSecret: qcukf2LfYfPLaQfGFV3KTyhyGagVRpzz
+        managementApiSecret: ${PRISMA_MANAGEMENT_SECRET}
         port: '4466'
         databases:
           default:

@@ -330,6 +330,8 @@ export type UserOrderByInput =
   | "fbToken_DESC"
   | "igToken_ASC"
   | "igToken_DESC"
+  | "glToken_ASC"
+  | "glToken_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -539,6 +541,20 @@ export interface UserWhereInput {
   igToken_not_starts_with?: Maybe<String>;
   igToken_ends_with?: Maybe<String>;
   igToken_not_ends_with?: Maybe<String>;
+  glToken?: Maybe<String>;
+  glToken_not?: Maybe<String>;
+  glToken_in?: Maybe<String[] | String>;
+  glToken_not_in?: Maybe<String[] | String>;
+  glToken_lt?: Maybe<String>;
+  glToken_lte?: Maybe<String>;
+  glToken_gt?: Maybe<String>;
+  glToken_gte?: Maybe<String>;
+  glToken_contains?: Maybe<String>;
+  glToken_not_contains?: Maybe<String>;
+  glToken_starts_with?: Maybe<String>;
+  glToken_not_starts_with?: Maybe<String>;
+  glToken_ends_with?: Maybe<String>;
+  glToken_not_ends_with?: Maybe<String>;
   purchases_every?: Maybe<PurchaseWhereInput>;
   purchases_some?: Maybe<PurchaseWhereInput>;
   purchases_none?: Maybe<PurchaseWhereInput>;
@@ -794,6 +810,7 @@ export interface UserCreateWithoutBusinessesInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
   purchases?: Maybe<PurchaseCreateManyWithoutUserInput>;
   stampCards?: Maybe<StampCardCreateManyInput>;
 }
@@ -885,6 +902,7 @@ export interface UserCreateWithoutPurchasesInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
   businesses?: Maybe<BusinessCreateManyWithoutOwnerInput>;
   stampCards?: Maybe<StampCardCreateManyInput>;
 }
@@ -957,6 +975,7 @@ export interface UserUpdateWithoutBusinessesDataInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
   purchases?: Maybe<PurchaseUpdateManyWithoutUserInput>;
   stampCards?: Maybe<StampCardUpdateManyInput>;
 }
@@ -1224,6 +1243,7 @@ export interface UserUpdateWithoutPurchasesDataInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
   businesses?: Maybe<BusinessUpdateManyWithoutOwnerInput>;
   stampCards?: Maybe<StampCardUpdateManyInput>;
 }
@@ -1533,6 +1553,7 @@ export interface UserCreateInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
   purchases?: Maybe<PurchaseCreateManyWithoutUserInput>;
   businesses?: Maybe<BusinessCreateManyWithoutOwnerInput>;
   stampCards?: Maybe<StampCardCreateManyInput>;
@@ -1546,6 +1567,7 @@ export interface UserUpdateInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
   purchases?: Maybe<PurchaseUpdateManyWithoutUserInput>;
   businesses?: Maybe<BusinessUpdateManyWithoutOwnerInput>;
   stampCards?: Maybe<StampCardUpdateManyInput>;
@@ -1559,6 +1581,7 @@ export interface UserUpdateManyMutationInput {
   lastName?: Maybe<String>;
   fbToken?: Maybe<String>;
   igToken?: Maybe<String>;
+  glToken?: Maybe<String>;
 }
 
 export interface BusinessSubscriptionWhereInput {
@@ -1744,6 +1767,7 @@ export interface User {
   lastName?: String;
   fbToken?: String;
   igToken?: String;
+  glToken?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -1757,6 +1781,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   lastName: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
+  glToken: () => Promise<String>;
   purchases: <T = FragmentableArray<Purchase>>(args?: {
     where?: PurchaseWhereInput;
     orderBy?: PurchaseOrderByInput;
@@ -1799,6 +1824,7 @@ export interface UserSubscription
   lastName: () => Promise<AsyncIterator<String>>;
   fbToken: () => Promise<AsyncIterator<String>>;
   igToken: () => Promise<AsyncIterator<String>>;
+  glToken: () => Promise<AsyncIterator<String>>;
   purchases: <T = Promise<AsyncIterator<PurchaseSubscription>>>(args?: {
     where?: PurchaseWhereInput;
     orderBy?: PurchaseOrderByInput;
@@ -1841,6 +1867,7 @@ export interface UserNullablePromise
   lastName: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
+  glToken: () => Promise<String>;
   purchases: <T = FragmentableArray<Purchase>>(args?: {
     where?: PurchaseWhereInput;
     orderBy?: PurchaseOrderByInput;
@@ -2562,6 +2589,7 @@ export interface UserPreviousValues {
   lastName?: String;
   fbToken?: String;
   igToken?: String;
+  glToken?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -2577,6 +2605,7 @@ export interface UserPreviousValuesPromise
   lastName: () => Promise<String>;
   fbToken: () => Promise<String>;
   igToken: () => Promise<String>;
+  glToken: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -2592,6 +2621,7 @@ export interface UserPreviousValuesSubscription
   lastName: () => Promise<AsyncIterator<String>>;
   fbToken: () => Promise<AsyncIterator<String>>;
   igToken: () => Promise<AsyncIterator<String>>;
+  glToken: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2608,12 +2638,12 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 */
 export type Float = number;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
 

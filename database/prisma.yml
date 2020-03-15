@@ -1,6 +1,5 @@
 # The endpoint of your Prisma API (deployed to a Prisma Sandbox).
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: http://localhost:4466/stamps-card-api/dev
+endpoint: ${env:PRISMA_ENDPOINT}
 
 # The file containing the definition of your data model.
 datamodel: datamodel.prisma
@@ -18,10 +17,12 @@ hooks:
 # If specified, the `secret` must be used to generate a JWT which is attached
 # to the `Authorization` header of HTTP requests made against the Prisma API.
 # Info: https://www.prisma.io/docs/reference/prisma-api/concepts-utee3eiquo#authentication
-secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+secret: ${env:APP_SECRET}
 # access token for the Playground and admin -> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InNlcnZpY2UiOiJzdGFtcHMtY2FyZC1hcGlAZGV2Iiwicm9sZXMiOlsiYWRtaW4iXX0sImlhdCI6MTU3NDM4MDM5MSwiZXhwIjoxNTc0OTg1MTkxfQ.LFeYG03nVmI3zd514PVdlPwOS5u2Na_uXAjPpoJDGsk
 
-# The prisma client
+# The prisma client and schema
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
+  - generator: graphql-schema
+    output: ./generated/prisma/prisma.graphql

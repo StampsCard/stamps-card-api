@@ -7,11 +7,11 @@ enum UserRole {
   BUSINESS_OWNER
 }
 
-# import User from "./generated/prisma.graphql"
-# import Business from "./generated/prisma.graphql"
-# import BusinessType from "./generated/prisma.graphql"
-# import StampCard from "./generated/prisma.graphql"
-# import Purchase from "./generated/prisma.graphql"
+# import User from "./../database/generated/prisma/prisma.graphql"
+# import Business from "./../database/generated/prisma/prisma.graphql"
+# import BusinessType from "./../database/generated/prisma/prisma.graphql"
+# import StampCard from "./../database/generated/prisma/prisma.graphql"
+# import Purchase from "./../database/generated/prisma/prisma.graphql"
 
 type AuthUser {
   user: User!
@@ -34,6 +34,27 @@ type StampsCardWithStats {
   stampsCard: StampCard!
   spent: Float!
   amount: Int!
+}
+
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+  firstName: String
+  lastName: String
+  fbToken: String
+  igToken: String
+  glToken: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  password: String
+  firstName: String
+  lastName: String
+  fbToken: String
+  igToken: String
+  glToken: String
 }
 
 type Query {
@@ -62,8 +83,8 @@ type Query {
 }
 
 type Mutation {
-  createUser(username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
-  updateUser(id: ID!, username: String!, email: String!, password: String!, firstName: String, lastName: String): User!
+  createUser(input: CreateUserInput!): User!
+  updateUser(input: UpdateUserInput!): User!
   deleteUser(id: ID!): User!
 
   createBusiness(name: String!, categoryName: String!, categoryDescription: String, ownerId: ID!): Business!

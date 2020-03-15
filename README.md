@@ -1,20 +1,9 @@
-
-  
-
 # Stamps Card API
-
-  
-
-  
 
 ## Description
 
 - GraphQL server that provides the data for the Stamps Card app. You can see the domain model [here](https://drive.google.com/file/d/1Mhn0wnRAX-tzvCrkG7mX62GoqeSbCniK/view?usp=sharing).
-
 - Please, be careful when you upgrade package versions from GraphQL Yoga and Prisma.
-
-  
-
 - Those are the different components of this API:
 
 1.  **GraphQL Yoga Server:** responsible of connecting with the client (in our case will be an Android phone or iOS phone) and server the queries/mutations based on the GraphQL schema.
@@ -30,8 +19,6 @@
   
 
 ## Technology Stack
-
-  
 
 Based on a [Prisma boilerplate](https://github.com/graphql-boilerplates/node-graphql-server/tree/master/basic) provided by the organization itself to build a GraphQL server using GraphQL Yoga and ES6.
 
@@ -77,6 +64,7 @@ DEBUG=true
 
 ```
 
+**Important**: you need to copy the `.env` file in the root of the project and inside the database folder.
   
 
 ### Database with Prisma

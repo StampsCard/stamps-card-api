@@ -28,7 +28,7 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `http://localhost:4466/stamps-card-api/dev`,
-  secret: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9`
+  endpoint: `${process.env["PRISMA_ENDPOINT"]}`,
+  secret: `${process.env["APP_SECRET"]}`
 });
 exports.prisma = new exports.Prisma();

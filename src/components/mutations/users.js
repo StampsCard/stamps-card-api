@@ -8,29 +8,51 @@ function UserMutations() {
     UserMutations.prototype.saltRounds = 10;
 }
 
-UserMutations.prototype.create = async (parent, {username, email, password, firstName, lastName}, ctx, info) => {
+UserMutations.prototype.create = async (parent, { input }, ctx, info) => {
+    const {
+        username,
+        email,
+        password,
+        firstName,
+        lastName,
+        fbToken,
+        igToken,
+        glToken
+    } = input;
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
-    console.log(username);
     return ctx.db.createUser({
         username,
         email,
         password: hash,
         firstName,
-        lastName
+        lastName,
+        fbToken,
+        igToken,
+        glToken
     });
 };
 
-UserMutations.prototype.update = async (parent, {id, username, email, password, firstName, lastName}, ctx) => {
+UserMutations.prototype.update = async (parent, { input }, ctx) => {
+    const {
+        id,
+        password,
+        firstName,
+        lastName,
+        fbToken,
+        igToken,
+        glToken
+    } = input;
     const hash = await bcrypt.hash(password, UserMutations.prototype.saltRounds);
     return ctx.db.updateUser(
         {
             where: { id },
             data: {
-                username,
-                email,
                 password: hash,
                 firstName,
-                lastName
+                lastName,
+                fbToken,
+                igToken,
+                glToken
             },
         },
     );
