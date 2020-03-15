@@ -81,6 +81,10 @@ StampsCardQueries.prototype.findByPurchase = async (parent, { purchaseId }, ctx)
         { id: purchaseId },
         ctx
     );
+
+    if (!purchase) {
+        throw new StampsCardQueries.prototype.errors.purchaseNotFound();
+    }
     const stampsCard = await purchase.stampCard;
 
     return {

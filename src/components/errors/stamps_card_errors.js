@@ -12,5 +12,9 @@ StampsCardErrors.prototype.stampsCardNotFound = createError('stampsCardNotFound'
     'message': 'The stamps card was not found.'
 });
 
+StampsCardErrors.prototype.purchaseNotFound = createError('purchaseNotFound', {
+    'message': 'The purchase was not found.'
+});
+
 
 exports['@singleton'] = true;
