@@ -20,6 +20,6 @@ docker exec -ti database_prisma_1 /bin/bash
 
 # Connect to a container and check which network is using running
 ifconfig
-# Install net-tools if the pacage is not installed in the image
+# Install net-tools if the package is not installed in the image
 apt-get update
 apt-get install net-tools
