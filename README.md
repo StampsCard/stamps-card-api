@@ -2,7 +2,7 @@
 
 ## Description
 
-- GraphQL server that provides the data for the Stamps Card app. You can see the domain model [here](https://drive.google.com/file/d/1Mhn0wnRAX-tzvCrkG7mX62GoqeSbCniK/view?usp=sharing).
+- GraphQL server that provides the data for the Stamps Card app.
 - Please, be careful when you upgrade package versions from GraphQL Yoga and Prisma.
 - Those are the different components of this API:
 
@@ -16,7 +16,9 @@
 
 ![enter image description here](https://miro.medium.com/max/1006/1*pkNbdH2AeUWOZbvxitMwzA.png)
 
-  
+## Domain model
+![enter image description here](./documentation/class_diagram.png)
+
 
 ## Technology Stack
 
@@ -53,15 +55,12 @@ There are multiple environment files now in the repository to represent the diff
 ```
 
 API_ENDPOINT="http://localhost:4000"
-
 APP_SECRET="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-
 PRISMA_ENDPOINT="http://localhost:4466/stamps-card-api/dev"
-
 PRISMA_MANAGEMENT_SECRET="qcukf2LfYfPLaQfGFV3KTyhyGagVRpzz"
-
 DEBUG=true
-
+DB_USER=root
+DB_PASSWORD=prisma
 ```
 
 **Important**: you need to copy the `.env` file in the root of the project and inside the database folder.
@@ -160,4 +159,13 @@ In Prisma `1.34` they changed the way to deploy the database, so needs to be inv
 
   
 
-In the future I would like to connect the deployments with **GitHub**.
+## Next steps
+
+### Infrastructure
+- Migrate to Prisma 2.0
+- Migrate to ZEIT 2.0 to perform deployments.
+
+### Product features
+- Implement discounts in the system. Those are generated when the users has completely filled a stamps card.
+- Support adding/deleting users.
+- Support login with social media.
