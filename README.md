@@ -169,3 +169,6 @@ In Prisma `1.34` they changed the way to deploy the database, so needs to be inv
 - Implement discounts in the system. Those are generated when the users has completely filled a stamps card.
 - Support adding/deleting users.
 - Support login with social media.
+
+## License
+This project is covered by the [Apache License](https://opensource.org/licenses/Apache-2.0).
